@@ -1,0 +1,111 @@
+
+Table KhachHang as U {
+  user varchar [pk, increment] // auto-increment
+  pass varchar
+  repass varchar
+  full_name varchar
+  phone varchar
+  mail varchar
+  address varchar
+  sex varchar
+  dateborn date
+  status int
+}
+
+Table NhanVien {
+  user varchar [pk]
+  repass varchar
+  pass varchar
+  full_name varchar
+  phone varchar
+  mail varchar
+  address varchar
+  sex varchar
+  dateborn date
+  status int
+  permission_id int
+  bill_id int
+  importcoupon_id int
+ }
+ 
+Table Quyen {
+  permission_id int [pk]
+  name varchar
+  details varchar
+ }
+ 
+Table LoaiSanPham {
+  product_type_id int [pk]
+  name varchar
+  description varchar
+}
+ 
+Table SanPham {
+  product_id int [pk]
+  product_type_id int
+  name varchar
+  amount int
+  price decimal
+  description varchar
+  img varchar
+  status int
+ }
+ 
+Table KhuyenMai {
+  promotion_id int [pk]
+  name varchar
+  condition decimal
+  percent int
+  date_begin date
+  date_end date
+ }
+ 
+Table HoaDon {
+  bill_id int [pk]
+  user_kh varchar
+  promotion_id int
+  phone varchar
+  address varchar
+  date_receive date
+  date_order date
+  total decimal
+  status varchar
+ }
+ 
+Table ChiTietHoaDon {
+  bill_id int [pk]
+  product_id int [pk]
+  amount int
+  total decimal
+ }
+ 
+Table PhieuNhap {
+   importcoupon_id int [pk]
+   user_nv varchar
+   NCC_id int
+   date_receive date
+   total decimal
+ }
+Table ChiTietPhieuNhap {
+  importcoupon_id int [pk]
+  product_id int [pk]
+  amount int
+  total decimal
+}
+ 
+Table NCC{
+  NCC_id int [pk]
+  name varchar
+}
+ 
+Ref: NhanVien.permission_id > Quyen.permission_id
+Ref: SanPham.product_type_id > LoaiSanPham.product_type_id
+Ref: HoaDon.user_kh > KhachHang.user
+Ref: HoaDon.promotion_id > KhuyenMai.promotion_id
+Ref: ChiTietHoaDon.bill_id > HoaDon.bill_id
+Ref: ChiTietHoaDon.product_id > SanPham.product_id
+Ref: NhanVien.bill_id < HoaDon.bill_id
+Ref: NhanVien.importcoupon_id < PhieuNhap.importcoupon_id
+Ref: PhieuNhap.importcoupon_id < ChiTietPhieuNhap.importcoupon_id
+Ref: SanPham.product_id < ChiTietPhieuNhap.product_id
+Ref: NCC.NCC_id < PhieuNhap.NCC_id
