@@ -1,9 +1,4 @@
 Các thành viên:
 - Nguyễn Ngọc Thiện	3118410408
-<<<<<<< HEAD
 - Cung Xương Hồng Thiên 3118410405
 - Nguyễn Phước Thịnh	3118410414	
-=======
-- Cung Xương Hồng Thiên	3118410405
--Nguyễn Phước Thịnh	3118410414	
->>>>>>> bfc744d82acee5daae75246c4c2604cd81d6b1b1
