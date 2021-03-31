@@ -17,9 +17,9 @@ namespace PhoneAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<KhachHangDto> GetUsers()
+        public String Index()
         {
-            return KHservice.KhachHang_GetAll();
+            return "";
         }
         
         [HttpGet("{user}")]
@@ -39,7 +39,14 @@ namespace PhoneAPI.Controllers
             if(kh.pass != p.password) {
                 return null;
             }
-            
+            // Ẩn thông tin khách hàng
+            kh.pass = "";
+            kh.phone = "";
+            kh.address = "";
+            kh.mail = "";
+            kh.address = "";
+            kh.dateborn = new DateTime();
+            kh.status = -1;
             return CreatedAtAction(nameof(GetKhachHangDto), new { user = kh.user }, kh);
         }
     }

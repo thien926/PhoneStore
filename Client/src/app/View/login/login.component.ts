@@ -31,10 +31,19 @@ export class LoginComponent implements OnInit {
     }
 
     this.serverHttp.Login_postUser(newProfileUser).subscribe(data => {
-      console.log(data);
+      console.log("data: ",data);
+      if(data) {
+        sessionStorage.setItem("CurrentUser", JSON.stringify(data));
+        alert("Đăng nhập thành công!");
+        location.reload();
+      }
+      else {
+        
+        sessionStorage.removeItem("CurrentUser");
+        alert("Tài khoản hoặc mật khẩu không chính xác!!!");
+      }
     },
     error => {
-      console.log("log: ",error);
       alert("Lỗi nhập");
     });
   }

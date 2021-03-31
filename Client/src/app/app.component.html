@@ -19,6 +19,13 @@
                 </div>
             </div>
             <div class="ht-right">
+                <span *ngIf="CurrentUser; then CurrentUser_condition1; else CurrentUser_condition2"></span>
+                <ng-template #CurrentUser_condition1>
+                    <a href="/login" class="login-panel"><i class="fa fa-user"></i>{{ CurrentUser.full_name }}</a>
+                </ng-template>
+                <ng-template #CurrentUser_condition2>
+                    <a href="/login" class="login-panel"><i class="fa fa-user"></i>Đăng nhập</a>
+                </ng-template>
                 <!-- @{
                     if (ViewBag.CurrentUser != null)
                     {
