@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PhoneAPI.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +15,23 @@ namespace PhoneAPI
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder();
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<PhoneStoreDBContext>();
+                SeedData.Initialize(context);
+            }
+            host.Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        public static IHost CreateHostBuilder()
+        {
+            return Host.CreateDefaultBuilder().ConfigureWebHostDefaults(builder =>
+            {
+                builder.UseStartup<Startup>();
+            })
+            .Build();
+        }
     }
 }

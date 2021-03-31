@@ -1,0 +1,1 @@
+Muốn chạy được formGroup thì phải import FormsModule, ReactiveFormsModule trong app.module.ts

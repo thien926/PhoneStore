@@ -1,0 +1,4 @@
+I. Angular
+    1.  npm install --save @angular/core
+    2.  npm install --save @angular/common
+II. API

@@ -1,0 +1,38 @@
+I. Cấu hình ở API
+    1. file Startup.cs
+        1.1 ConfigureServices
+            services.AddCors(options => {
+                options.AddPolicy("CorsPolicy", policy => {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+                });
+            });
+        1.2 Configure
+            app.UseCors("CorsPolicy");
+    2. 
+II. Cấu hình ở Angular
+    1.  file app.module.ts
+        1.1 import { HttpClientModule } from '@angular/common/http';
+        1.2 imports: [
+                BrowserModule,
+                AppRoutingModule,
+                FormsModule,
+                ReactiveFormsModule,
+                HttpClientModule                    // thêm HttpClientModule
+            ],
+    2.  Tạo Service: ng g s Services/ServerHttp 
+    3.  file server-http.service.ts
+        private httpOptions = {
+            headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            // Authorization: 'my-auth-token'
+            })
+        };
+
+        private REST_API_SERVER = 'https://localhost:5001/api';
+
+        constructor(private httpClient: HttpClient) { }
+
+        public getProfile() : Observable<any> {
+            const url = `${this.REST_API_SERVER}/profile`;
+            return this.httpClient.get<any>(url, this.httpOptions);
+        }

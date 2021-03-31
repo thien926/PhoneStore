@@ -1,4 +1,46 @@
 Thao tác trong API
+1. file Programe
+    public static void Main(string[] args)
+        {
+            var host = CreateHostBuilder();
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<PhoneStoreDBContext>();
+                SeedData.Initialize(context);
+            }
+            host.Run();
+        }
 
-1.  Thêm mới 1 class DTOs
-2.  Thêm mới 1 class Models
+        public static IHost CreateHostBuilder()
+        {
+            return Host.CreateDefaultBuilder().ConfigureWebHostDefaults(builder =>
+            {
+                builder.UseStartup<Startup>();
+            })
+            .Build();
+        }
+2.  Thêm mới 1 class DTOs
+3.  Thêm mới 1 class Models
+4.  Tạo file SeedData tại Persistence
+5.  Thêm PhoneStoreDBContext:
+    public DbSet<KhachHang> KhachHangs { get; set; }
+6.  file Startup
+    6.1 ConfigureServices
+        services.AddDbContext<PhoneStoreDBContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("Default")));
+7.  appsettings.json
+    {
+    "Logging": {
+        "LogLevel": {
+        "Default": "Information",
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Information"
+        }
+    },
+    "ConnectionStrings": {
+        "Default": "Data Source=PhoneStore.DB",
+        "MovieDB": "Server=(localdb)\\mssqllocaldb;Database=PhoneStoreDB;Trusted_Connection=True;"
+    },
+    "AllowedHosts": "*"
+    }
