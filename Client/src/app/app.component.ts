@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoaiSanPhamService } from './Services/loai-san-pham.service';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   public CurrentUser;
+  public Danhmuc;
+  constructor (private LSPService : LoaiSanPhamService) {}
+
   ngOnInit(): void {
+    // Load CurrentUser
     this.CurrentUser = sessionStorage.getItem("CurrentUser");
     this.CurrentUser = JSON.parse(this.CurrentUser);
     console.log("AppComponent: ", this.CurrentUser);
+
+    // Load Danh muc
+    this.LSPService.getLSPs().subscribe(data => {
+      this.Danhmuc = data;
+    });
   }
 }

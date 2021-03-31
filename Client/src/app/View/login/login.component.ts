@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ServerHttpService } from 'src/app/Services/server-http.service';
+import { LoginService } from 'src/app/Services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +13,10 @@ export class LoginComponent implements OnInit {
     password : new FormControl(''),
   });
 
-  constructor(private serverHttp : ServerHttpService) { }
+  constructor(private loginHttp : LoginService) { }
 
   ngOnInit(): void {
-    this.serverHttp.Login_getUser().subscribe(data => {
+    this.loginHttp.getUser().subscribe(data => {
       console.log(data);
     });
   }
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       }
     }
 
-    this.serverHttp.Login_postUser(newProfileUser).subscribe(data => {
+    this.loginHttp.postUser(newProfileUser).subscribe(data => {
       console.log("data: ",data);
       if(data) {
         sessionStorage.setItem("CurrentUser", JSON.stringify(data));

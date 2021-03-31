@@ -26,16 +26,6 @@
                 <ng-template #CurrentUser_condition2>
                     <a href="/login" class="login-panel"><i class="fa fa-user"></i>Đăng nhập</a>
                 </ng-template>
-                <!-- @{
-                    if (ViewBag.CurrentUser != null)
-                    {
-                        <a href="/User/Index" class="login-panel"><i class="fa fa-user"></i>@ViewBag.CurrentUser.KhachHangDto.full_name</a>
-                    }
-                    else
-                    {
-                        <a href="/Login/Index" class="login-panel"><i class="fa fa-user"></i>Đăng nhập</a>
-                    }
-                } -->
                 <div class="top-social">
                     <a href="#"><i class="ti-facebook"></i></a>
                     <a href="#"><i class="ti-twitter-alt"></i></a>
@@ -155,7 +145,8 @@
                 <div class="depart-btn">
                     <i class="ti-menu"></i>
                     <span>Danh mục</span>
-                    <ul class="depart-hover">
+                    <ul class="depart-hover" >
+                        <li *ngFor="let item of Danhmuc"><a href="/Shop/Index/?Type=@q.product_type_id">{{ item.name }}</a></li>
                         <!-- @{
                             if (ViewBag.Danhmuc != null)
                             {
@@ -165,14 +156,14 @@
                                 }
                             }
                         } -->
-                        <li class="active"><a href="#">Women’s Clothing</a></li>
+                        <!-- <li class="active"><a href="#">Women’s Clothing</a></li>
                         <li><a href="#">Men’s Clothing</a></li>
                         <li><a href="#">Underwear</a></li>
                         <li><a href="#">Kid's Clothing</a></li>
                         <li><a href="#">Brand Fashion</a></li>
                         <li><a href="#">Accessories/Shoes</a></li>
                         <li><a href="#">Luxury Brands</a></li>
-                        <li><a href="#">Brand Outdoor Apparel</a></li> 
+                        <li><a href="#">Brand Outdoor Apparel</a></li>  -->
                     </ul>
                 </div>
             </div>

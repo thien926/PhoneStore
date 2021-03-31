@@ -27,7 +27,7 @@ namespace PhoneAPI.Services
             LSPcontext.LoaiSanPham_Add(lsp);
         }
 
-        public void SanPham_Update(LoaiSanPhamDto LSPdto){
+        public void LoaiSanPham_Update(LoaiSanPhamDto LSPdto){
             var lsp = LSPcontext.LoaiSanPham_GetById(LSPdto.product_type_id);
             if(lsp == null) return;
             LSPdto.MappingLoaiSanPham(lsp);

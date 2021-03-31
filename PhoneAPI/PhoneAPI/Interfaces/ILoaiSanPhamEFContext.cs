@@ -5,7 +5,7 @@ namespace PhoneAPI.Interfaces
 {
     public interface ILoaiSanPhamEFContext
     {
-        List<LoaiSanPham> LoaiSanPham_GetAll();
+        IEnumerable<LoaiSanPham> LoaiSanPham_GetAll();
         LoaiSanPham LoaiSanPham_GetById(int id);
         void LoaiSanPham_Add(LoaiSanPham LSP);
         void LoaiSanPham_Update(LoaiSanPham LSP);

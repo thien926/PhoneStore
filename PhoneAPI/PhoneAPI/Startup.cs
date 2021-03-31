@@ -48,7 +48,8 @@ namespace PhoneAPI
 
             services.AddScoped<IKhachHangEFContext, KhachHangEFContext>();
             services.AddScoped<KhachHangService>();
-            
+            services.AddScoped<ILoaiSanPhamEFContext, LoaiSanPhamEFContext>();
+            services.AddScoped<LoaiSanPhamService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

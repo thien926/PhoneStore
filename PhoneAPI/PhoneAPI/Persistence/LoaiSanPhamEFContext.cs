@@ -17,7 +17,7 @@ namespace PhoneAPI.Persistence
             context.SaveChanges();
         }
 
-        public List<LoaiSanPham> LoaiSanPham_GetAll()
+        public IEnumerable<LoaiSanPham> LoaiSanPham_GetAll()
         {
             return context.LoaiSanPhams.ToList();
         }

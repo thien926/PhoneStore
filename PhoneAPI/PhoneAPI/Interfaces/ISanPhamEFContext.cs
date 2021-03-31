@@ -5,8 +5,8 @@ namespace PhoneAPI.Interfaces
 {
     public interface ISanPhamEFContext
     {
-        List<SanPham> SanPham_GetAll();
-        List<SanPham> SanPham_Shop_GetAll();
+        IEnumerable<SanPham> SanPham_GetAll();
+        IEnumerable<SanPham> SanPham_Shop_GetAll();
         SanPham SanPham_GetById(int id);
         void SanPham_Add(SanPham SP);
         void SanPham_Update(SanPham SP);

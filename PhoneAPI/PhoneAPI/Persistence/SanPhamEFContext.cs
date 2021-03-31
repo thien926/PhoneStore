@@ -17,7 +17,7 @@ namespace PhoneAPI.Persistence
             context.SaveChanges();
         }
 
-        public List<SanPham> SanPham_GetAll()
+        public IEnumerable<SanPham> SanPham_GetAll()
         {
             return context.SanPhams.ToList();
         }
@@ -41,7 +41,7 @@ namespace PhoneAPI.Persistence
             context.SaveChanges();
         }
 
-        public List<SanPham> SanPham_Shop_GetAll()
+        public IEnumerable<SanPham> SanPham_Shop_GetAll()
         {
             var query = context.SanPhams.AsQueryable();
             query = query.Where(m => m.status == 1);

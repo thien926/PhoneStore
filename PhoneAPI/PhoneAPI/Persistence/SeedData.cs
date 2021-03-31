@@ -55,6 +55,41 @@ namespace PhoneAPI.Persistence
                         product_type_id =  1,
                         name =  "SAMSUNG",
                         description =  "Foudation set point eye, face, environment"
+                    },
+                    new LoaiSanPham{
+                        product_type_id =  2,
+                        name =  "IIPHONE",
+                        description =  "Bộ rửa mặt, mặt nạ, dưỡng ẩm, dưỡng môi, chống nắng"
+                    },
+                    new LoaiSanPham{
+                        product_type_id = 3,
+                        name =  "OPPO",
+                        description =  "Tiêm dưỡng, sữa tắm"
+                    },
+                    new LoaiSanPham{
+                        product_type_id = 4,
+                        name =  "VIVO" ,
+                        description =  "Dầu gội đầu, dầu xả, tạo kiểu, tóc kiểu"
+                    },
+                    new LoaiSanPham {
+                        product_type_id = 5,
+                        name =  "XIAOMI",
+                        description =  "Bảo mật và biển"
+                    },
+                    new LoaiSanPham {
+                        product_type_id = 6,
+                        name =  "REALMe",
+                        description =  "Các loại nước hoa cao cấp tới trung bình"
+                    },
+                    new LoaiSanPham {
+                        product_type_id = 7,
+                        name =  "VSMART" ,
+                        description =  "Các loại nước hoa cao cấp tới trung bình"
+                    },
+                    new LoaiSanPham {
+                        product_type_id = 8,
+                        name =  "ITEL" ,
+                        description =  "Các loại nước hoa cao cấp tới trung bình"
                     }
                 });  
             }
