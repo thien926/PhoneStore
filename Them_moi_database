@@ -1,5 +1,5 @@
 Thao tác trong API
-1. file Programe
+1. file Programe                            // Đã làm r
     public static void Main(string[] args)
         {
             var host = CreateHostBuilder();
@@ -22,14 +22,14 @@ Thao tác trong API
         }
 2.  Thêm mới 1 class DTOs
 3.  Thêm mới 1 class Models
-4.  Tạo file SeedData tại Persistence
-5.  Thêm PhoneStoreDBContext:
+4.  Thêm PhoneStoreDBContext:
     public DbSet<KhachHang> KhachHangs { get; set; }
-6.  file Startup
+5.  Tạo file SeedData tại Persistence và thêm dữ liệu                  // File đã có, chỉ còn thêm dữ liệu thôi
+6.  file Startup                                        // Bước này làm r
     6.1 ConfigureServices
         services.AddDbContext<PhoneStoreDBContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("Default")));
-7.  appsettings.json
+7.  appsettings.json                                     // Bước này làm rồi
     {
     "Logging": {
         "LogLevel": {
@@ -44,3 +44,15 @@ Thao tác trong API
     },
     "AllowedHosts": "*"
     }
+
+8.  folder Mappings tạo file Mapping từ Dto sang Model
+9.  Tại folder Interfaces
+    9.1     Tạo Interface cho EFContext để lấy dữ liệu
+10. Tại Persistence
+    10.1    Tạo EFContext kế thừa từ Interface đã tạo tại bước 9
+11. tạo Service tương ứng với bước 9, 10 tại folder Services
+12. AddScoped interface, EFContext và Service đã tạo ở bước 9, 10, 11
+    VD:
+        services.AddScoped<IKhachHangEFContext, KhachHangEFContext>();
+        services.AddScoped<KhachHangService>();
+12. Tạo Controller

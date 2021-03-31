@@ -8,5 +8,7 @@ namespace PhoneAPI.Persistence
         public PhoneStoreDBContext(DbContextOptions<PhoneStoreDBContext> options) : base(options) {}
 
         public DbSet<KhachHang> KhachHangs { get; set; }
+        public DbSet<SanPham> SanPhams { get; set; }
+        public DbSet<LoaiSanPham> LoaiSanPhams { get; set; }
     }
 }

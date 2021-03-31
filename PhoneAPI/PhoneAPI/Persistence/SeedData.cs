@@ -48,6 +48,32 @@ namespace PhoneAPI.Persistence
                 });   
             }
 
+            if(!context.LoaiSanPhams.Any()) {
+                temp = true;
+                context.LoaiSanPhams.AddRange(new List<LoaiSanPham>{
+                    new LoaiSanPham{
+                        product_type_id =  1,
+                        name =  "SAMSUNG",
+                        description =  "Foudation set point eye, face, environment"
+                    }
+                });  
+            }
+
+            if(!context.SanPhams.Any()) {
+                temp = true;
+                context.SanPhams.AddRange(new List<SanPham>{
+                    new SanPham{
+                        product_id = 1,
+                        product_type_id = 1,
+                        name = "Điện thoại Samsung Galaxy S21 Ultra 5G 128GB",
+                        amount = 50,
+                        price = 15000000,
+                        description = "Chip MediaTek Helio G35 8 nhân. RAM 2 GB, ROM 32 GB.Camera sau: Chính 13 MP & Phụ 2 MP. Camera trước: 5 MP.Pin 5000 mAh",
+                        img = "sp1.jpg",
+                        status = 1
+                    }
+                });  
+            }
 
             if (temp) {
                 context.SaveChanges();
