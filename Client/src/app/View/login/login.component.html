@@ -24,12 +24,12 @@
                         <div class="group-input">
                             <label for="@Model.user">Tài khoản *</label>
                             <input formControlName="user" name="user">
-                            <span validation-for="@Model.user"></span>
+                            <span class="field-validation-error"> {{ getErrorUser() }}</span>
                         </div>
                         <div class="group-input">
                             <label for="@Model.pass">Mật khẩu *</label>
                             <input formControlName="password" name="password" type="password">
-                            <span validation-for="@Model.pass"></span>
+                            <span class="field-validation-error"> {{ getErrorPass() }}</span>
                         </div>
                         <div class="group-input gi-check">
                             <div class="gi-more">
@@ -41,10 +41,10 @@
                                 <a href="#" class="forget-pass">Quên mật khẩu</a>
                             </div>
                         </div>
-                        <button type="submit" class="site-btn login-btn">Đăng nhập</button>
+                        <button type="submit" [disabled]="!profileUserForm.valid" class="site-btn login-btn">Đăng nhập</button>
                     </form>
                     <div class="switch-login">
-                        <a controller="Register" action="Index" class="or-login">Tạo tài khoản</a>
+                        <a [routerLink]="['/register']" [routerLinkActive] = "'active-link'"  class="or-login">Tạo tài khoản</a>
                     </div>
                 </div>
             </div>

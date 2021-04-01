@@ -24,7 +24,7 @@
                     <a href="/login" class="login-panel"><i class="fa fa-user"></i>{{ CurrentUser.full_name }}</a>
                 </ng-template>
                 <ng-template #CurrentUser_condition2>
-                    <a href="/login" class="login-panel"><i class="fa fa-user"></i>Đăng nhập</a>
+                    <a [routerLink]="['/login']" [routerLinkActive]="'active-link'" class="login-panel"><i class="fa fa-user"></i>Đăng nhập</a>
                 </ng-template>
                 <div class="top-social">
                     <a href="#"><i class="ti-facebook"></i></a>
@@ -171,8 +171,8 @@
                 <ul>
                     <li class="active"><a href="/Home/Index">Trang chủ</a></li>
                     <li id="page_shop"><a href="/Shop/Index">Sản phẩm</a></li>
-                    <li id="page_login"><a href="/Login/Index">Đăng nhập</a></li>
-                    <li id="page_register"><a href="/Register/Index">Đăng kí</a></li>
+                    <li id="page_login"><a [routerLink]="['/login']" [routerLinkActive]="'active-link'">Đăng nhập</a></li>
+                    <li id="page_register"><a [routerLink]="['/register']" [routerLinkActive]="'active-link'">Đăng kí</a></li>
                     <li id="page_cart"><a href = "/Cart/Index">Giỏ hàng</a></li>
                 </ul>
             </nav>
