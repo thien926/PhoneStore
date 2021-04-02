@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { from } from 'rxjs';
 import { LoginService } from 'src/app/Services/login.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -14,23 +16,21 @@ export class LoginComponent implements OnInit {
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(20),
-      Validators.pattern("[a-zA-Z][\w]{1,}"),
+      // Validators.pattern("^[a-zA-Z]|[\w]*$"),
+      Validators.pattern("^[\\w]+$")
       
     ])),
     password : new FormControl('', Validators.compose([
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(20),
-
+      // Validators.pattern("[^!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]")
     ])),
   });
 
   constructor(private loginHttp : LoginService) { }
 
   ngOnInit(): void {
-    this.loginHttp.getUser().subscribe(data => {
-      console.log(data);
-    });
   }
 
   public postLogin() {
@@ -46,17 +46,29 @@ export class LoginComponent implements OnInit {
       console.log("data: ",data);
       if(data) {
         sessionStorage.setItem("CurrentUser", JSON.stringify(data));
-        alert("Đăng nhập thành công!");
-        location.reload();
+        Swal.fire({
+          type: "success",
+          title : "Đăng nhập thành công",
+          text : "Chào " + data.full_name
+        }).then((result) => {
+          location.reload();
+        });
+        
       }
       else {
-        
         sessionStorage.removeItem("CurrentUser");
-        alert("Tài khoản hoặc mật khẩu không chính xác!!!");
+        Swal.fire({
+          type: "error",
+          title : "Tài khoản hoặc mật khẩu không chính xác"
+        });
       }
     },
     error => {
-      alert("Lỗi nhập");
+      Swal.fire({
+        type: "error",
+        title: "Lỗi đăng nhập",
+        html: error.responseText
+      });
     });
   }
 
@@ -83,7 +95,7 @@ export class LoginComponent implements OnInit {
     // Có lỗi pattern
     // console.log("Pattern: " + JSON.stringify(user.errors.pattern));
     if(user.errors.pattern) {
-      return "Tài khoản bắt đầu là kí tự chữ, kế tiếp là kí tự chữ và số";
+      return "Tài khoản là các kí tự chữ và số";
     }
   }
 
@@ -105,5 +117,9 @@ export class LoginComponent implements OnInit {
       
       return "Tài khoản từ 3 đến 20 kí tự";
     }
+
+    // if(pass.errors.pattern) {
+    //   return "Mật khẩu không chứa các kí tự đặc biệt";
+    // }
   }
 }

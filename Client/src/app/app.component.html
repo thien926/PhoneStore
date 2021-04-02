@@ -170,7 +170,7 @@
             <nav class="nav-menu mobile-menu">
                 <ul>
                     <li class="active"><a href="/Home/Index">Trang chủ</a></li>
-                    <li id="page_shop"><a href="/Shop/Index">Sản phẩm</a></li>
+                    <li id="page_shop"><a [routerLink]="['/shop']" [routerLinkActive]="'active-link'">Sản phẩm</a></li>
                     <li id="page_login"><a [routerLink]="['/login']" [routerLinkActive]="'active-link'">Đăng nhập</a></li>
                     <li id="page_register"><a [routerLink]="['/register']" [routerLinkActive]="'active-link'">Đăng kí</a></li>
                     <li id="page_cart"><a href = "/Cart/Index">Giỏ hàng</a></li>

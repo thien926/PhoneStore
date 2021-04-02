@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using PhoneAPI.DTOs;
@@ -43,6 +44,46 @@ namespace PhoneAPI.Controllers
         public void DeleteKHDto(string user)
         {
             KHservice.KhachHang_Remove(user);
+        }
+
+        // Các phần cho các trang đặc biệt
+        [HttpPost("register")]
+        public ActionResult<KhachHangDto> AddKHDto_Register(KhachHangDto p)
+        {
+            KHservice.KhachHang_Add(p);
+
+            // Ẩn thông tin khách hàng
+            p.pass = "";
+            p.phone = "";
+            p.address = "";
+            p.mail = "";
+            p.address = "";
+            p.dateborn = new DateTime();
+            p.status = -1;
+
+            return CreatedAtAction(nameof(GetKHDto), new { user = p.user }, p);
+        }
+
+        [HttpPost("login")]
+        public ActionResult<TaiKhoanDto> Login(TaiKhoanDto p)
+        {
+            KhachHangDto kh = KHservice.KhachHang_GetByUser(p.user);
+            if(kh == null) {
+                return null;
+            }
+
+            if(kh.pass != p.password) {
+                return null;
+            }
+            // Ẩn thông tin khách hàng
+            kh.pass = "";
+            kh.phone = "";
+            kh.address = "";
+            kh.mail = "";
+            kh.address = "";
+            kh.dateborn = new DateTime();
+            kh.status = -1;
+            return CreatedAtAction(nameof(GetKHDto), new { user = kh.user }, kh);
         }
     }
 }

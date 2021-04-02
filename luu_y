@@ -1,1 +1,3 @@
 Muốn chạy được formGroup thì phải import FormsModule, ReactiveFormsModule trong app.module.ts
+
+pattern in angular giống với java : https://openplanning.net/10175/java-regular-expression

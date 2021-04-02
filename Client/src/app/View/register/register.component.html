@@ -20,76 +20,69 @@
                     <div class="col-lg-6 offset-lg-3">
                         <div class="login-form">
                             <h2>Đăng kí</h2>
-                            <form action="/Register/Index" method="post">
-                                <div asp-validation-summary="ModelOnly">
-                                    <!-- @* <span>Danh sách lỗi</span> *@ -->
-                                </div>
+                            <form [formGroup]= "profileUserForm" (ngSubmit)="addUser()">
                                 <div class="group-input">
                                     <label >Tài khoản *</label>
-                                    <input type="text">
-                                    <span ></span>
+                                    <input type="text" formControlName="user" name ="user">
+                                    <span class="validation-error"> {{ getErrorUser() }}</span>
                                 </div>
         
                                 <div class="group-input">
                                     <label >Mật khẩu *</label>
-                                    <input  type="password">
-                                    <span ></span>
+                                    <input formControlName="pass" name="pass" type="password">
+                                    <span class="validation-error"> {{ getErrorPass() }} </span>
                                 </div>
         
                                 <div class="group-input">
                                     <label >Nhập lại mật khẩu *</label>
-                                    <input  type="password">
-                                    <span ></span>
+                                    <input formControlName="repass" name="repass" type="password">
+                                    <span class="validation-error"> {{ getErrorRepass() }}</span>
                                 </div>
         
                                 <div class="group-input">
                                     <label >Họ tên *</label>
-                                    <input type="text">
-                                    <span ></span>
+                                    <input formControlName="full_name" name="full_name" type="text">
+                                    <span class="validation-error"> {{ getErrorFull_name() }}</span>
                                 </div>
         
                                 <div class="group-input">
                                     <label >Số điện thoại *</label>
-                                    <input type="text">
-                                    <span ></span>
+                                    <input formControlName="phone" name="phone" type="text">
+                                    <span class="validation-error"> {{ getErrorPhone() }}</span>
                                 </div>
         
                                 <div class="group-input">
                                     <label >Thư điện tử *</label>
-                                    <input type="text">
-                                    <span ></span>
+                                    <input formControlName="mail" name="mail" type="text">
+                                    <span class="validation-error"> {{ getErrorMail() }}</span>
                                 </div>
         
                                 <div class="group-input">
                                     <label >Địa chỉ *</label>
-                                    <input type="text">
-                                    <span ></span>
+                                    <input formControlName="address" name="address" type="text">
+                                    <span class="validation-error"> {{ getErrorAddress() }}</span>
                                 </div>
         
                                 <div class="group-input">
-                                    <label asp-for="sex">Giới tính * &nbsp;&nbsp;&nbsp;&nbsp;
-                                        <!-- <div class="form-check-inline">
-                                            <label class="form-check-label">
-                                                @Html.RadioButtonFor(model => model.sex, "Nam", new {style = "width:63%;"}) Nam
-                                            </label>
-                                        </div>
-                                        
-                                        <div class="form-check-inline">
-                                            <label class="form-check-label">
-                                                @Html.RadioButtonFor(model => model.sex, "Nữ") Nữ
-                                            </label>
-                                        </div> -->
-        
-                                    </label>
-                                    <span ></span>
+                                    <label asp-for="sex">Giới tính * </label>
                                 </div>
-        
+                                <div class="form-check form-check-inline">
+                                    <input  class="form-check-input" type="radio" name="sex" value="Nam" (click)="changeSex('Nam')" checked>
+                                    <label class="form-check-label" >Nam</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input  class="form-check-input" type="radio" name="sex" value="Nữ" (click)="changeSex('Nữ')">
+                                    <label class="form-check-label" >Nữ</label>
+                                </div>
+                                <span class="validation-error">{{ getErrorSex() }}</span>
+                                <br><br>
+
                                 <div class="group-input">
                                     <label >Ngày sinh *</label>
-                                    <input type="text">
-                                    <span ></span>
+                                    <input formControlName="dateborn" name="dateborn" type="date">
+                                    <span class="validation-error">{{ getErrorDateBorn() }}</span>
                                 </div>
-                                <button type="submit" class="site-btn login-btn">Đăng kí</button>
+                                <button [disabled]="!profileUserForm.valid" type="submit" class="site-btn login-btn">Đăng kí</button>
                             </form>
                             <div class="switch-login">
                                 <a [routerLink]="['/login']" [routerLinkActive]="'active-link'" class="or-login">Đăng nhập</a>

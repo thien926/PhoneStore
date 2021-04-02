@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class LoginService {
-  url = `${environment.apiUrl}login`;
+  url = `${environment.apiUrl}khachhang`;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -16,10 +16,6 @@ export class LoginService {
   constructor(private httpClient : HttpClient) { }
 
   public postUser(data){
-    return this.httpClient.post<any>(this.url, data, this.httpOptions);
-  }
-
-  public getUser(){
-    return this.httpClient.get<any>(this.url, this.httpOptions);
+    return this.httpClient.post<any>(this.url + "/login", data, this.httpOptions);
   }
 }

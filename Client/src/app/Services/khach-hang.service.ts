@@ -27,6 +27,10 @@ export class KhachHangService {
     return this.httpClient.post<any>(this.url, data, this.httpOptions);
   }
 
+  public AddKH_Register(data) {
+    return this.httpClient.post<any>(this.url + "/register", data, this.httpOptions);
+  }
+
   public UpdateKH(data) {
     return this.httpClient.put<any>(this.url, data, this.httpOptions);
   }
