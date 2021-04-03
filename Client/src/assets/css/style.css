@@ -2054,6 +2054,16 @@ ol {
 	margin: 0px 5px;
 }
 
+.loading-more a.active {
+	font-size: 18px;
+	font-weight: 700;
+	color: #f07c29;
+	position: relative;
+	display: inline-block;
+	/* Thiện thêm */
+	margin: 0px 5px;
+}
+
 .loading-more a:before {
 	position: absolute;
 	left: 0;

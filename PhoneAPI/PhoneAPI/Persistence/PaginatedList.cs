@@ -9,7 +9,7 @@ namespace Infrastructure
         {
             this.AddRange(items);
             PageIndex = pageIndex;
-            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            this.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
             if(PageIndex > TotalPages){
                 PageIndex = TotalPages;
             }
@@ -18,8 +18,8 @@ namespace Infrastructure
             }
         }
 
-        public int PageIndex { get; }
-        public int TotalPages { get; }
+        public int PageIndex { get; set; }
+        public int TotalPages { get; set; }
 
         public bool HasPreviousPage { get => PageIndex > 1; }
         public bool HasNextPage { get => PageIndex < TotalPages; }

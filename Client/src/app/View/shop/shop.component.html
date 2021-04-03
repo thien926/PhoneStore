@@ -20,19 +20,7 @@
                 <div class="filter-widget">
                     <h4 class="fw-title">Danh mục</h4>
                     <ul class="filter-catagories">
-                        <!-- @{
-                            foreach (var q in Model.ListLSP)
-                            {
-                                <li><a href="/Shop/Index/?Type=@q.product_type_id">@q.name</a></li>
-                            }
-                            @*if (ViewBag.Danhmuc != null)
-                            {
-                                foreach (var q in ViewBag.Danhmuc)
-                                {
-                                    <li><a href="/Shop/Index/?Type=@q.product_type_id">@q.name</a></li>
-                                }
-                            }*@
-                        } -->
+                        <li *ngFor="let item of Danhmuc"><a href="/shop?type={{item.product_type_id}}">{{item.name}}</a></li>
                     </ul>
                 </div>
                 
@@ -41,24 +29,12 @@
                     <div class="filter-range-wrap">
                         <div class="range-slider">
                             <div class="price-input">
-                                <input type="text" id="minamount" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10">
-                                <input type="text" id="maxamount" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10">
+                                <input type="text" [(ngModel)]="priceFrom" id="minamount" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10" (change)="loadPrice()" >
+                                <input type="text" [(ngModel)]="priceTo" id="maxamount" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10" (change)="loadPrice()">
                             </div>
                         </div>
-                        <!-- @*<div class="price-range"
-                            data-min="0" data-max="@Model.pricemax">
-                            <div class="ui-slider-range ui-corner-all ui-widget-header" id="widthrange"></div>
-                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" id="range1"></span>
-                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" id="range2"></span>
-                        </div>*@
-                        @* <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                            data-min="33" data-max="98">
-                            <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                        </div> *@ -->
                     </div>
-                    <a class="filter-btn" onclick="loadprice()" style="cursor: pointer;">Lọc</a>
+                    <a class="filter-btn" (click)="LocSanPham()" style="cursor: pointer;">Lọc</a>
                 </div>
                 
             </div>
@@ -66,24 +42,23 @@
                 <div class="product-show-option">
                     <div class="row">
                         <div class="col-lg-8 col-md-8">
-                            <!-- @* <p>Show 01- 09 Of 36 Product</p> *@
-                            @{
-                                if(!string.IsNullOrEmpty(Model.NameType)){
-                                    <p style="font-weight: bold;">Loại sản phẩm: @Model.NameType</p>
-                                }
-                                else{
-                                    if(!string.IsNullOrEmpty(Model.SearchString)){
-                                        <p style="font-weight: bold;">Kết quả tìm kiếm: @Model.SearchString</p>
-                                    }
-                                    else{
-                                        <p style="font-weight: bold;">Kết quả tìm kiếm: Tất cả</p>
-                                    }
-                                }
-                            } -->
+                            <span *ngIf="Type; then condition_type; else condition_qSearch"></span>
+                            <ng-template #condition_type>
+                                <p style="font-weight: bold;">Loại sản phẩm: {{IndexVSM?.nameType}}</p>
+                            </ng-template>
+                            <ng-template #condition_qSearch>
+                                <span *ngIf="qSearch; then condition_qSearch_1; else condition_qSearch_2"></span>
+                                <ng-template #condition_qSearch_1>
+                                    <p style="font-weight: bold;">Kết quả tìm kiếm: {{qSearch}}</p>
+                                </ng-template>
+                                <ng-template #condition_qSearch_2>
+                                    <p style="font-weight: bold;">Kết quả tìm kiếm: Tất cả</p>
+                                </ng-template>
+                            </ng-template>
                         </div>
                         <div class="col-lg-4 col-md-4 text-right">
                             <div class="select-option">
-                                <select class="thien-sort" id="sort" onchange="changesort()">
+                                <select class="thien-sort" [(ngModel)]="sort" (change)="LocSanPham()">
                                     <option value="">Sắp xếp: Mặc định</option>
                                     <option value="name-asc">Sắp xếp theo tên từ A-Z</option>
                                     <option value="name-desc">Sắp xếp theo tên từ Z-A</option>
@@ -97,45 +72,42 @@
                 </div>
                 <div class="product-list">
                     <div class="row">
-                        <!-- @{
-                            foreach(var sp in Model.ListSP){
-                                <div class="col-lg-4 col-sm-6">
-                                    <div class="product-item">
-                                        <div class="pi-pic">
-                                            <img src="@Url.Content(@sp.img)" alt="">
-                                            <ul>
-                                                <li class="w-icon active"><a onclick="ShopThemSPAjax(@sp.product_id)"><i class="icon_bag_alt"></i></a></li>
-                                                <li class="quick-view"><a href="/Product/Index/@sp.product_id">Xem chi tiết</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="pi-text">
-                                            @{
-                                                foreach(var k in Model.ListTH){
-                                                    if(sp.brand_id == k.brand_id){
-                                                        <div class="catagory-name">@k.name</div>
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                            
-                                            <a href="/Product/Index/@sp.product_id">
-                                                <h5>@sp.name</h5>
-                                            </a>
-                                            <div class="product-price">
-                                                @(String.Format("{0:n0}", sp.price)) đ
-                                                @*@(String.Format("{0:n0}", (int)sp.price)) đ*@
-                                                @* @((int)sp.price) đ *@
-                                                @* @(sp.price.ToString("C3", CultureInfo.CreateSpecificCulture("da-DK"))) đ *@
-                                                @* <span>$35.00</span> *@
-                                            </div>
-                                        </div>
+                        <div class="col-lg-4 col-sm-6" *ngFor="let item of IndexVSM['listSP']">
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img src="{{item.img}}" alt="">
+                                    <ul>
+                                        <li class="w-icon active"><a onclick=""><i class="icon_bag_alt"></i></a></li>
+                                        <li class="quick-view"><a href="/Product/Index/@sp.product_id">Xem chi tiết</a></li>
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+                                    <a href="/Product/Index/@sp.product_id">
+                                        <h5>{{item.name}}</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        {{item.price}} đ
                                     </div>
                                 </div>
-                            }
-                        } -->
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="loading-more">
+                <div class="loading-more" *ngIf="(IndexVSM['count'] > IndexVSM['pageSize'])">
+                    <span *ngIf="pageIndex > 1; then cdt_page1"></span>
+                    <ng-template #cdt_page1>
+                        <a href="{{getUrlPhanTrang(1)}}">&lt;&lt;</a>
+                        <a href="{{getUrlPhanTrang(pageIndex-1)}}">&lt;</a>
+                    </ng-template>
+
+                    <!-- {{phantrang}} -->
+                    <span [innerHTML]="phantrang"></span>
+
+                    <span *ngIf="(pageIndex < IndexVSM['totalPages']); then cdt_page_cuoi"></span>
+                    <ng-template #cdt_page_cuoi>
+                        <a href="{{getUrlPhanTrang((pageIndex-1+2))}}">&gt;</a>
+                        <a href="{{getUrlPhanTrang(IndexVSM['totalPages'])}}">&gt;&gt;</a>
+                    </ng-template>
                     <!-- @{
                         if(@Model.count > @Model.pageSize){
                             if(@Model.ListSP.PageIndex > 1){
@@ -215,6 +187,7 @@
                             }
                         }
                     } -->
+                    
                 </div>
             </div>
         </div>

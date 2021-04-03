@@ -146,7 +146,7 @@
                     <i class="ti-menu"></i>
                     <span>Danh mục</span>
                     <ul class="depart-hover" >
-                        <li *ngFor="let item of Danhmuc"><a href="/Shop/Index/?Type=@q.product_type_id">{{ item.name }}</a></li>
+                        <li *ngFor="let item of Danhmuc"><a href="/shop?type={{item.product_type_id}}">{{ item.name }}</a></li>
                         <!-- @{
                             if (ViewBag.Danhmuc != null)
                             {

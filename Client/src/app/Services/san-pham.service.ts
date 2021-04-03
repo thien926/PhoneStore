@@ -1,0 +1,41 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SanPhamService {
+  url = `${environment.apiUrl}sanpham`;
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      // Authorization: 'my-auth-token'
+    })
+  };
+  constructor(private httpClient : HttpClient) { }
+
+  public getSPs() {
+    return this.httpClient.get<any>(this.url, this.httpOptions);
+  }
+
+  public getSP(id: number) {
+    return this.httpClient.get<any>(this.url + "/" + id, this.httpOptions);
+  }
+
+  public AddSP(data) {
+    return this.httpClient.post<any>(this.url, data, this.httpOptions);
+  }
+
+  public UpdateSP(data) {
+    return this.httpClient.put<any>(this.url, data, this.httpOptions);
+  }
+
+  public DeleteSP(id : number) {
+    return this.httpClient.delete<any>(this.url + "/" + id, this.httpOptions);
+  } 
+
+  public SanPham_Filter(data) {
+    return this.httpClient.post<any>(this.url + "/shop", data, this.httpOptions);
+  }
+}

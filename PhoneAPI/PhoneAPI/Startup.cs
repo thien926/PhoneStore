@@ -68,7 +68,8 @@ namespace PhoneAPI
 
             // Thiện
             app.UseCors("CorsPolicy");
-
+            app.UseStaticFiles();
+            
             //  Sử dụng service Session
             // app.UseSession();
 

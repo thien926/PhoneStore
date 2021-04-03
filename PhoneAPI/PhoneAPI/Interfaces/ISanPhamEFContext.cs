@@ -12,5 +12,6 @@ namespace PhoneAPI.Interfaces
         void SanPham_Update(SanPham SP);
         void SanPham_Remove(SanPham SP);
         void SanPham_RemoveBy_Product_Type_Id(int product_type_id);
+        IEnumerable<SanPham> SanPham_Filter(string Type, string qSearch, string price, string sort, int pageIndex, int pageSize, out int count, out decimal pricemax);
     }
 }
