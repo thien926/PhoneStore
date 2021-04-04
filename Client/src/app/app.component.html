@@ -49,8 +49,8 @@
                     <div class="advanced-search">
                         <!-- @* <button type="button" class="category-btn">All Categories</button> *@
                         @* <div > *@ -->
-                        <form action="/Shop/Index" method="GET" class="input-group">
-                            <input type="text" name="SearchString" placeholder="Nhập sản phẩm tìm kiếm">
+                        <form (submit)="qSearch_Submit()" class="input-group">
+                            <input type="text" [(ngModel)]="qSearch" name="qSearch" placeholder="Nhập sản phẩm tìm kiếm">
                             <button type="submit"><i class="ti-search"></i></button>
                         </form>
 
@@ -147,29 +147,12 @@
                     <span>Danh mục</span>
                     <ul class="depart-hover" >
                         <li *ngFor="let item of Danhmuc"><a href="/shop?type={{item.product_type_id}}">{{ item.name }}</a></li>
-                        <!-- @{
-                            if (ViewBag.Danhmuc != null)
-                            {
-                                foreach (var q in ViewBag.Danhmuc)
-                                {
-                                    <li><a href="/Shop/Index/?Type=@q.product_type_id">@q.name</a></li>
-                                }
-                            }
-                        } -->
-                        <!-- <li class="active"><a href="#">Women’s Clothing</a></li>
-                        <li><a href="#">Men’s Clothing</a></li>
-                        <li><a href="#">Underwear</a></li>
-                        <li><a href="#">Kid's Clothing</a></li>
-                        <li><a href="#">Brand Fashion</a></li>
-                        <li><a href="#">Accessories/Shoes</a></li>
-                        <li><a href="#">Luxury Brands</a></li>
-                        <li><a href="#">Brand Outdoor Apparel</a></li>  -->
                     </ul>
                 </div>
             </div>
             <nav class="nav-menu mobile-menu">
                 <ul>
-                    <li class="active"><a href="/Home/Index">Trang chủ</a></li>
+                    <li class="active"><a [routerLink]="['/home']" [routerLinkActive]="'active-link'">Trang chủ</a></li>
                     <li id="page_shop"><a [routerLink]="['/shop']" [routerLinkActive]="'active-link'">Sản phẩm</a></li>
                     <li id="page_login"><a [routerLink]="['/login']" [routerLinkActive]="'active-link'">Đăng nhập</a></li>
                     <li id="page_register"><a [routerLink]="['/register']" [routerLinkActive]="'active-link'">Đăng kí</a></li>

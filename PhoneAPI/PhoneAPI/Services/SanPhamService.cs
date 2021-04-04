@@ -54,5 +54,14 @@ namespace PhoneAPI.Services
             var sps = SPcontext.SanPham_Filter(Type, qSearch, price, sort, pageIndex, pageSize, out count, out pricemax);
             return sps.MappingSanPhamDtos();
         }
+        public IEnumerable<SanPhamDto> TenSPChay(){
+            var sps = SPcontext.TenSPChay();
+            return sps.MappingSanPhamDtos();
+        }
+
+        public IEnumerable<SanPhamDto> TenSPNoi(){
+            var sps = SPcontext.TenSPNoi();
+            return sps.MappingSanPhamDtos();
+        }
     }
 }

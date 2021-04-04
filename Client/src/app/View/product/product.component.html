@@ -1,0 +1,201 @@
+<!-- Breadcrumb Section Begin -->
+<div class="breacrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text product-more">
+                    <a asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> Trang chủ</a>
+                    <a asp-controller="Shop" asp-action="Index">Shop</a>
+                    <span>Detail</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section Begin -->
+
+<span *ngIf="sanpham; then product_id_exist; else product_id_not_exist"></span>
+<ng-template #product_id_exist>
+    <!-- Product Shop Section Begin -->
+    <section class="product-shop spad page-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="product-pic">
+                                <img class="product-big-img" src="{{sanpham.img}}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="product-details">
+                                <div class="pd-title">
+                                    <h3>{{sanpham.name}}</h3>
+                                </div>
+                                <div class="pd-desc">
+                                    <h4>{{sanpham.price}} đ</h4>
+                                </div>
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <span class="dec qtybtn" (click)="dec_soluong()">-</span>
+                                        <input type="text" [(ngModel)]="soluong" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10" id="slsp">
+                                        <span class="inc qtybtn" (click)="inc_soluong()">+</span>
+                                    </div>
+                                    <a class="primary-btn pd-cart" onclick="ThemSPAjax()">Thêm vào giỏ</a>
+                                </div>
+                                <ul class="pd-tags">
+                                    <li><span>LOẠI</span>: {{loaiSanPham?.name}}</li>
+                                </ul>
+                                <div class="pd-share">
+                                    <div class="p-code">Mã sản phẩm : {{sanpham.product_id}}</div>
+                                    <br><div class="p-code">Tồn kho : {{sanpham.amount}}</div>
+                                    <div class="pd-social">
+                                        <a href="#"><i class="ti-facebook"></i></a>
+                                        <a href="#"><i class="ti-twitter-alt"></i></a>
+                                        <a href="#"><i class="ti-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-tab">
+                        <div class="tab-item-content">
+                            <div class="tab-content">
+                                <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                                    <div class="product-content">
+                                        <h5>Mô tả</h5>
+                                        <p>{{sanpham.description}}</p>
+                                        <!-- <h5>Cách sử dụng</h5>
+                                        <p>@Model.use</p> -->
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Shop Section End -->
+</ng-template>
+
+<ng-template #product_id_not_exist>
+    <br>
+    <h2 style="text-align: center;">Không có sản phẩm nào hiển thị</h2>
+    <br>
+</ng-template>
+
+<!-- Related Products Section End -->
+<!-- @* <div class="related-products spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Sản phẩm khác</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-sm-6">
+                <div class="product-item">
+                    <div class="pi-pic">
+                        <img src="~/img/products/women-1.jpg" alt="">
+                        <div class="sale">Sale</div>
+                        <div class="icon">
+                            <i class="icon_heart_alt"></i>
+                        </div>
+                        <ul>
+                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                            <li class="quick-view"><a href="#">+ Quick View</a></li>
+                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="pi-text">
+                        <div class="catagory-name">Coat</div>
+                        <a href="#">
+                            <h5>Pure Pineapple</h5>
+                        </a>
+                        <div class="product-price">
+                            $14.00
+                            <span>$35.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="product-item">
+                    <div class="pi-pic">
+                        <img src="~/img/products/women-2.jpg" alt="">
+                        <div class="icon">
+                            <i class="icon_heart_alt"></i>
+                        </div>
+                        <ul>
+                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                            <li class="quick-view"><a href="#">+ Quick View</a></li>
+                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="pi-text">
+                        <div class="catagory-name">Shoes</div>
+                        <a href="#">
+                            <h5>Guangzhou sweater</h5>
+                        </a>
+                        <div class="product-price">
+                            $13.00
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="product-item">
+                    <div class="pi-pic">
+                        <img src="~/img/products/women-3.jpg" alt="">
+                        <div class="icon">
+                            <i class="icon_heart_alt"></i>
+                        </div>
+                        <ul>
+                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                            <li class="quick-view"><a href="#">+ Quick View</a></li>
+                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="pi-text">
+                        <div class="catagory-name">Towel</div>
+                        <a href="#">
+                            <h5>Pure Pineapple</h5>
+                        </a>
+                        <div class="product-price">
+                            $34.00
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="product-item">
+                    <div class="pi-pic">
+                        <img src="~/img/products/women-4.jpg" alt="">
+                        <div class="icon">
+                            <i class="icon_heart_alt"></i>
+                        </div>
+                        <ul>
+                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                            <li class="quick-view"><a href="#">+ Quick View</a></li>
+                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="pi-text">
+                        <div class="catagory-name">Towel</div>
+                        <a href="#">
+                            <h5>Converse Shoes</h5>
+                        </a>
+                        <div class="product-price">
+                            $34.00
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> *@ -->
+<!-- Related Products Section End -->

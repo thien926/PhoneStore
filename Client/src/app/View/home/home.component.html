@@ -1,0 +1,137 @@
+<!-- Hero Section Begin -->
+<section class="hero-section">
+    <img src="assets/img/hero-2.jpg" />
+
+</section>
+<!-- Hero Section End -->
+
+
+
+<!-- Women Banner Section Begin -->
+<section class="women-banner spad">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="product-large set-bg" data-setbg="assets/img/products/women-large.jpg">
+                    <img src="assets/img/products/women-large.jpg" />
+                </div>
+            </div>
+            <div class="col-lg-8 offset-lg-1">
+                <div class="filter-control" style="font-size: 130%; font-weight: bold;">
+                    Sản phẩm bán chạy
+                </div>
+                <div class="product-slider owl-carousel">
+                    
+                    <div class="product-item" *ngFor="let item of spBanChay">
+                        <div class="pi-pic">
+                            <img src="{{item.img}}" alt="">
+                            <ul>
+                                <li class="w-icon active"><a onclick="ShopThemSPAjax()"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="/Product/Index/@sp.product_id">Xem chi tiết</a></li>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <!-- @{
+                                foreach(var k in Model.ListTH){
+                                    if(sp.brand_id == k.brand_id){
+                                        <div class="catagory-name">@k.name</div>
+                                        break;
+                                    }
+                                }
+                            } -->
+                            
+                            <a href="/Product/Index/@sp.product_id">
+                                <h5>{{item.name}}</h5>
+                            </a>
+                            <div class="product-price">
+                                {{item.price}} đ
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- @{
+                        foreach(var sp in Model.ListSPChay){
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img src="@Url.Content(@sp.img)" alt="">
+                                    <ul>
+                                        <li class="w-icon active"><a onclick="ShopThemSPAjax(@sp.product_id)"><i class="icon_bag_alt"></i></a></li>
+                                        <li class="quick-view"><a href="/Product/Index/@sp.product_id">Xem chi tiết</a></li>
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+                                    @{
+                                        foreach(var k in Model.ListTH){
+                                            if(sp.brand_id == k.brand_id){
+                                                <div class="catagory-name">@k.name</div>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    
+                                    <a href="/Product/Index/@sp.product_id">
+                                        <h5>@sp.name</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        @(String.Format("{0:n0}", sp.price)) đ
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    } -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Women Banner Section End -->
+<!-- Man Banner Section Begin -->
+<section class="man-banner spad">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="filter-control" style="font-size: 130%; font-weight: bold;">
+                    Sản phẩm hot
+                </div>
+                <div class="product-slider owl-carousel">
+                    <!-- @{
+                        foreach(var sp in Model.ListSPNoi){
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img src="@Url.Content(@sp.img)" alt="">
+                                    <ul>
+                                        <li class="w-icon active"><a onclick="ShopThemSPAjax(@sp.product_id)"><i class="icon_bag_alt"></i></a></li>
+                                        <li class="quick-view"><a href="/Product/Index/@sp.product_id">Xem chi tiết</a></li>
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+                                    @{
+                                        foreach(var k in Model.ListTH){
+                                            if(sp.brand_id == k.brand_id){
+                                                <div class="catagory-name">@k.name</div>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    
+                                    <a href="/Product/Index/@sp.product_id">
+                                        <h5>@sp.name</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        @(String.Format("{0:n0}", sp.price)) đ
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    } -->
+                </div>
+            </div>
+            <div class="col-lg-3 offset-lg-1">
+                <div class="product-large set-bg m-large" data-setbg="assets/img/products/man-large.jpg">
+                    <img src="assets/img/products/man-large.jpg" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Man Banner Section End -->

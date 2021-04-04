@@ -10,6 +10,8 @@ import { RegisterComponent } from './View/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShopComponent } from './View/shop/shop.component';
+import { HomeComponent } from './View/home/home.component';
+import { ProductComponent } from './View/product/product.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { ShopComponent } from './View/shop/shop.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    ShopComponent
+    ShopComponent,
+    HomeComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

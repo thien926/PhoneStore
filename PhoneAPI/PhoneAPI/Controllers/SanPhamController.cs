@@ -80,5 +80,15 @@ namespace PhoneAPI.Controllers
             };
             return indexVSM;
         }
+
+        [HttpGet("home-spbanchay")]
+        public IEnumerable<SanPhamDto> SPBanChay() {
+            return this.sanPhamService.TenSPChay();
+        }
+
+        [HttpGet("home-sphot")]
+        public IEnumerable<SanPhamDto> SPHot() {
+            return this.sanPhamService.TenSPNoi();
+        }
     }
 }

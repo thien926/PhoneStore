@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { LoaiSanPhamService } from './Services/loai-san-pham.service';
 
 @Component({
@@ -9,7 +10,9 @@ import { LoaiSanPhamService } from './Services/loai-san-pham.service';
 export class AppComponent implements OnInit{
   public CurrentUser;
   public Danhmuc;
-  constructor (private LSPService : LoaiSanPhamService) {}
+
+  public qSearch="";
+  constructor (private LSPService : LoaiSanPhamService, private route : ActivatedRoute) {}
 
   ngOnInit(): void {
     // Load CurrentUser
@@ -21,5 +24,13 @@ export class AppComponent implements OnInit{
     this.LSPService.getLSPs().subscribe(data => {
       this.Danhmuc = data;
     });
+
+    this.route.queryParams.subscribe(params => {
+      this.qSearch = params['qSearch'];
+    });
+  }
+
+  public qSearch_Submit() {
+    location.href = "/shop?qSearch=" + this.qSearch;
   }
 }
