@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using PhoneAPI.DTOs;
 using PhoneAPI.Services;
 
-
 namespace PhoneAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class QuyenController : ControllerBase
     {
         private readonly QuyenService Qservice;

@@ -23,5 +23,10 @@ namespace PhoneAPI.DTOs
         
         [Required(ErrorMessage = "Hình ảnh là bắt buộc")]
         public string img {get; set;}
+
+        public int product_type_id {get; set;}
+        public string description {get; set;}
+        public int status {get; set;}
+        
     }
 }
