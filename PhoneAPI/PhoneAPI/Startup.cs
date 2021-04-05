@@ -52,7 +52,12 @@ namespace PhoneAPI
             services.AddScoped<LoaiSanPhamService>();
             services.AddScoped<ISanPhamEFContext, SanPhamEFContext>();
             services.AddScoped<SanPhamService>();
-            
+            services.AddScoped<IQuyenEFContext, QuyenEFContext>();
+            services.AddScoped<QuyenService>();
+            services.AddScoped<IHoaDonEFContext, HoaDonEFContext>();
+            services.AddScoped<HoaDonService>();
+            services.AddScoped<IChiTietHDEFContext, ChiTietHDEFContext>();
+            services.AddScoped<ChiTietHDService>();
             
         }
 
