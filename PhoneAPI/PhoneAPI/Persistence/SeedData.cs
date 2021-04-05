@@ -9,6 +9,49 @@ namespace PhoneAPI.Persistence
         public static void Initialize(PhoneStoreDBContext context) {
             context.Database.EnsureCreated();
             bool temp = false;
+            if (!context.Quyens.Any()) {
+                temp = true;
+                context.Quyens.AddRange(new List<Quyen>{
+                    new Quyen{
+                        permission_id= 1,
+                        name = "Thien",
+                        details= "abcxyz"
+                    },
+                    
+                });   
+            }
+
+            if (!context.ChiTietHDs.Any()) {
+                temp = true;
+                context.ChiTietHDs.AddRange(new List<ChiTietHD>{
+                    new ChiTietHD{
+                        bill_id = 1,
+                        product_id = 1,
+                        amount = 1,
+                        name = "acs",
+                        price = 8000,
+                        img = "11",
+                    },
+                    
+                });   
+            }
+
+            if (!context.HoaDons.Any()) {
+                temp = true;
+                context.HoaDons.AddRange(new List<HoaDon>{
+                    new HoaDon{
+                        bill_id = 1,
+                        user_kh = "Thien",
+                        user_nv = "Thien 2",
+                        address = "108/34",
+                        phone = "0937906814",
+                        status = 1,
+                        total = 1,
+
+                    },
+                    
+                });   
+            }
             if (!context.KhachHangs.Any()) {
                 temp = true;
                 context.KhachHangs.AddRange(new List<KhachHang>{
