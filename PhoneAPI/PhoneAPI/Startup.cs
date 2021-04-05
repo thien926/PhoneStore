@@ -52,6 +52,8 @@ namespace PhoneAPI
             services.AddScoped<LoaiSanPhamService>();
             services.AddScoped<ISanPhamEFContext, SanPhamEFContext>();
             services.AddScoped<SanPhamService>();
+            
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
