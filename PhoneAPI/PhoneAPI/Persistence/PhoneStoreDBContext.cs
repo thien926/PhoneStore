@@ -13,6 +13,7 @@ namespace PhoneAPI.Persistence
         public DbSet<HoaDon> HoaDons{get;set;}
         public DbSet<ChiTietHD> ChiTietHDs{get;set;}
         public DbSet<Quyen> Quyens{get;set;}
+        // public DbSet<NhanVien> NhanViens{get;set;}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ChiTietHD>()

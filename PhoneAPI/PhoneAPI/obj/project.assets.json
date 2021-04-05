@@ -6241,11 +6241,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "g:\\Git\\PhoneStore\\PhoneAPI\\PhoneAPI\\PhoneAPI.csproj",
+      "projectUniqueName": "G:\\Git\\PhoneStore\\PhoneAPI\\PhoneAPI\\PhoneAPI.csproj",
       "projectName": "PhoneAPI",
-      "projectPath": "g:\\Git\\PhoneStore\\PhoneAPI\\PhoneAPI\\PhoneAPI.csproj",
+      "projectPath": "G:\\Git\\PhoneStore\\PhoneAPI\\PhoneAPI\\PhoneAPI.csproj",
       "packagesPath": "C:\\Users\\FPT SHOP\\.nuget\\packages\\",
-      "outputPath": "g:\\Git\\PhoneStore\\PhoneAPI\\PhoneAPI\\obj\\",
+      "outputPath": "G:\\Git\\PhoneStore\\PhoneAPI\\PhoneAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\FPT SHOP\\AppData\\Roaming\\NuGet\\NuGet.Config",

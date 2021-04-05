@@ -1,11 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PhoneAPI.Models
 {
     public class KhachHang
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string user{get; set;}
         public string pass{get; set;}
         public string full_name{get; set;}

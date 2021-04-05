@@ -5,6 +5,7 @@ namespace PhoneAPI.Models
 {
     public class NhanVien
     {
+        [Key]
         public string user{get; set;}
 
         public string pass{get; set;}
