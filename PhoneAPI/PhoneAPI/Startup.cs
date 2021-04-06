@@ -58,7 +58,8 @@ namespace PhoneAPI
             services.AddScoped<HoaDonService>();
             services.AddScoped<IChiTietHDEFContext, ChiTietHDEFContext>();
             services.AddScoped<ChiTietHDService>();
-            
+            services.AddScoped<INhanVienEFContext, NhanVienEFContext>();
+            services.AddScoped<NhanVienService>();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

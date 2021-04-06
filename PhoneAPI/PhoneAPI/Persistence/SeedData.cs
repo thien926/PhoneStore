@@ -9,6 +9,7 @@ namespace PhoneAPI.Persistence
         public static void Initialize(PhoneStoreDBContext context) {
             context.Database.EnsureCreated();
             bool temp = false;
+//Quyen            
             if (!context.Quyens.Any()) {
                 temp = true;
                 context.Quyens.AddRange(new List<Quyen>{
@@ -20,7 +21,7 @@ namespace PhoneAPI.Persistence
                     
                 });   
             }
-
+//Chi tiet hd
             if (!context.ChiTietHDs.Any()) {
                 temp = true;
                 context.ChiTietHDs.AddRange(new List<ChiTietHD>{
@@ -31,11 +32,13 @@ namespace PhoneAPI.Persistence
                         name = "acs",
                         price = 8000,
                         img = "11",
-                    },
-                    
+                        product_type_id = 1,
+                        description = "abc",
+                        status = 1,
+                    }, 
                 });   
             }
-
+//Hoa don
             if (!context.HoaDons.Any()) {
                 temp = true;
                 context.HoaDons.AddRange(new List<HoaDon>{
@@ -48,10 +51,11 @@ namespace PhoneAPI.Persistence
                         status = 1,
                         total = 1,
 
-                    },
-                    
+                    }, 
                 });   
             }
+
+//Khach hang
             if (!context.KhachHangs.Any()) {
                 temp = true;
                 context.KhachHangs.AddRange(new List<KhachHang>{
@@ -90,7 +94,25 @@ namespace PhoneAPI.Persistence
                     }
                 });   
             }
-
+//Nhân viên
+            if (!context.NhanViens.Any()) {
+                temp = true;
+                context.NhanViens.AddRange(new List<NhanVien>{
+                    new NhanVien{
+                        user = "thien",
+                        pass = "1234",
+                        full_name = "Nguyễn Ngọc Thiện",
+                        phone = "0364117408",
+                        mail = "tructruong.070202@gmail.com",
+                        address = "Bình Định",
+                        sex = "Nam",
+                        dateborn = new System.DateTime(2000, 5, 8),
+                        permission_id = 1,
+                        status = 1
+                    }
+                });   
+            }
+//loai san pham
             if(!context.LoaiSanPhams.Any()) {
                 temp = true;
                 context.LoaiSanPhams.AddRange(new List<LoaiSanPham>{
@@ -131,7 +153,7 @@ namespace PhoneAPI.Persistence
                     }
                 });  
             }
-
+//sản phẩm
             if(!context.SanPhams.Any()) {
                 temp = true;
                 context.SanPhams.AddRange(new List<SanPham>{

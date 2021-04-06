@@ -6236,19 +6236,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\FPT SHOP\\.nuget\\packages\\": {}
+    "C:\\Users\\LENOVO\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Git\\PhoneStore\\PhoneAPI\\PhoneAPI\\PhoneAPI.csproj",
+      "projectUniqueName": "D:\\Git\\PhoneStore\\PhoneAPI\\PhoneAPI\\PhoneAPI.csproj",
       "projectName": "PhoneAPI",
-      "projectPath": "G:\\Git\\PhoneStore\\PhoneAPI\\PhoneAPI\\PhoneAPI.csproj",
-      "packagesPath": "C:\\Users\\FPT SHOP\\.nuget\\packages\\",
-      "outputPath": "G:\\Git\\PhoneStore\\PhoneAPI\\PhoneAPI\\obj\\",
+      "projectPath": "D:\\Git\\PhoneStore\\PhoneAPI\\PhoneAPI\\PhoneAPI.csproj",
+      "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
+      "outputPath": "D:\\Git\\PhoneStore\\PhoneAPI\\PhoneAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\FPT SHOP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6309,7 +6309,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }

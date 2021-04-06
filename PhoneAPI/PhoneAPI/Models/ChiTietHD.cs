@@ -16,5 +16,8 @@ namespace PhoneAPI.Models
         public int amount { get; set;}
         public long price { get; set;}
         public string img {get; set;}
+        public int product_type_id {get; set;}
+        public string description {get; set;}
+        public int status {get; set;}
     }
 }
