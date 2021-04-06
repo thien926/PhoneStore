@@ -7,10 +7,10 @@ namespace PhoneAPI.Models
     public class ChiTietHD
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int bill_id{get; set;}
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int product_id{get; set;}
         public string name {get; set;}
         public int amount { get; set;}

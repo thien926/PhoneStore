@@ -284,6 +284,6 @@ export class RegisterComponent implements OnInit {
   }
 
   public changeSex(sss) {
-    this.profileUserForm.controls["sex"].setValue = sss;
+    this.profileUserForm.controls["sex"].setValue(sss);
   }
 }

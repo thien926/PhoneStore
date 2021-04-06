@@ -77,7 +77,7 @@
                                 <div class="pi-pic">
                                     <img src="{{item.img}}" alt="">
                                     <ul>
-                                        <li class="w-icon active"><a onclick=""><i class="icon_bag_alt"></i></a></li>
+                                        <li class="w-icon active"><a (click)="addSP(item.product_id)"><i class="icon_bag_alt"></i></a></li>
                                         <li class="quick-view"><a href="/product?product_id={{item.product_id}}">Xem chi tiết</a></li>
                                     </ul>
                                 </div>

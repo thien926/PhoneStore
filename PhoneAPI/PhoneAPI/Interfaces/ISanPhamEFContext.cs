@@ -15,5 +15,6 @@ namespace PhoneAPI.Interfaces
         IEnumerable<SanPham> SanPham_Filter(string Type, string qSearch, string price, string sort, int pageIndex, int pageSize, out int count, out decimal pricemax);
         IEnumerable<SanPham> TenSPChay();
         IEnumerable<SanPham> TenSPNoi();
+        IEnumerable<SanPham> SanPham_ListCart(string list);
     }
 }

@@ -25,37 +25,37 @@
                             <!-- <li><a asp-controller="User" asp-action="Detail" style="color: #e7ab3c;">Xem thông tin cá nhân</a></li> -->
                             <span *ngIf="type == 'detail'; then con_detail1; else con_detail2"></span>
                                 <ng-template #con_detail1>
-                                    <li><a style="color: #e7ab3c;" (click)="changeType('detail')">Xem thông tin cá nhân</a></li>
+                                    <li><a class="is_cursor" style="color: #e7ab3c;" (click)="changeType('detail')">Xem thông tin cá nhân</a></li>
                                 </ng-template>
                                 <ng-template #con_detail2>
-                                    <li><a (click)="changeType('detail')">Xem thông tin cá nhân</a></li>
+                                    <li><a class="is_cursor" (click)="changeType('detail')">Xem thông tin cá nhân</a></li>
                                 </ng-template>  
 
                             <span *ngIf="type == 'edit'; then con_edit1; else con_edit2"></span>
                                 <ng-template #con_edit1>
-                                    <li><a style="color: #e7ab3c;" (click)="changeType('edit')">Sửa thông tin cá nhân</a></li>
+                                    <li><a class="is_cursor" style="color: #e7ab3c;" (click)="changeType('edit')">Sửa thông tin cá nhân</a></li>
                                 </ng-template>
                                 <ng-template #con_edit2>
-                                    <li><a (click)="changeType('edit')">Sửa thông tin cá nhân</a></li>
+                                    <li><a class="is_cursor" (click)="changeType('edit')">Sửa thông tin cá nhân</a></li>
                                 </ng-template> 
 
                             <span *ngIf="type == 'editpass'; then con_editpass1; else con_editpass2"></span>
                                 <ng-template #con_editpass1>
-                                    <li><a style="color: #e7ab3c;" (click)="changeType('editpass')">Sửa mật khẩu</a></li>
+                                    <li><a class="is_cursor" style="color: #e7ab3c;" (click)="changeType('editpass')">Sửa mật khẩu</a></li>
                                 </ng-template>
                                 <ng-template #con_editpass2>
-                                    <li><a (click)="changeType('editpass')">Sửa mật khẩu</a></li>
+                                    <li><a class="is_cursor" (click)="changeType('editpass')">Sửa mật khẩu</a></li>
                                 </ng-template>  
 
                             <span *ngIf="type == 'myorder'; then con_myorder1; else con_myorder2"></span>
                                 <ng-template #con_myorder1>
-                                    <li><a style="color: #e7ab3c;" (click)="changeType('myorder')">Đơn hàng của tôi</a></li>
+                                    <li><a class="is_cursor" style="color: #e7ab3c;" (click)="changeType('myorder')">Đơn hàng của tôi</a></li>
                                 </ng-template>
                                 <ng-template #con_myorder2>
-                                    <li><a (click)="changeType('myorder')">Đơn hàng của tôi</a></li>
+                                    <li><a class="is_cursor" (click)="changeType('myorder')">Đơn hàng của tôi</a></li>
                                 </ng-template>  
 
-                            <li><a >Đăng xuất</a></li>
+                            <li><a class="is_cursor">Đăng xuất</a></li>
                         </ul>
                     </div>
                 </div>
@@ -73,8 +73,9 @@
                     </div>
 
                     <span [ngSwitch]="type">
+                        <!-- Thông tin cá nhân -->
                         <div class="container" *ngSwitchCase="'detail'">
-                            <table class="table" *ngIf="user">
+                            <table class="table" *ngIf="user != null">
                                 <tbody>
                                     <tr>
                                         <td>Họ tên</td>
@@ -103,9 +104,115 @@
                                 </tbody>
                             </table>
                         </div>
-                        <ng-template *ngSwitchCase="'edit'">Sửa thông tin cá nhân</ng-template>
-                        <ng-template *ngSwitchCase="'editpass'">Sửa mật khẩu</ng-template>
+                        
                         <ng-template *ngSwitchCase="'myorder'">Đơn hàng của tôi</ng-template>
+
+                        <!-- Sửa thông tin cá nhân -->
+                        <div class="container" *ngSwitchCase="'edit'">
+                            <form [formGroup]="profileUserForm" (submit)="onSubmit_Edit()">
+                                <!-- <div asp-validation-summary="ModelOnly">
+                                    @* <span>Danh sách lỗi</span> *@
+                                </div> -->
+                                <table class="table">
+                                    <tbody>
+                                        <!-- <tr style="display: none;">
+                                            <td>Mã khách hàng</td>
+                                            <td><input name="user" formControlName="user" class="thien-edit-input" readonly></td>
+                                            <td><span class="validation-error">{{getErrorUser()}}</span></td>
+                                        </tr> -->
+                                        <tr>
+                                            <td>Họ tên</td>
+                                            <td><input name="full_name" formControlName="full_name" class="thien-edit-input"></td>
+                                            <td><span class="validation-error">{{getErrorFull_name()}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Số điện thoại</td>
+                                            <td><input name="phone" formControlName="phone" class="thien-edit-input"></td>
+                                            <td><span class="validation-error">{{getErrorPhone()}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thư điện tử</td>
+                                            <td><input name="mail" formControlName="mail" class="thien-edit-input"></td>
+                                            <td><span class="validation-error">{{getErrorMail()}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Địa chỉ</td>
+                                            <td><input name="address" formControlName="address" class="thien-edit-input"></td>
+                                            <td><span class="validation-error">{{getErrorAddress()}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Giới tính</td>
+                                            <td>
+                                                <!-- <input name="sex" formControlName="sex"> -->
+                                                <span *ngIf="user?.sex == 'Nam'; then sex1; else sex2;"></span>
+                                                <ng-template #sex1>
+                                                    <div class="form-check form-check-inline">
+                                                        <input  class="form-check-input" type="radio" name="sex" value="Nam" (click)="changeSex('Nam')" checked>
+                                                        <label class="form-check-label" >Nam</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input  class="form-check-input" type="radio" name="sex" (click)="changeSex('Nữ')" value="Nữ" >
+                                                        <label class="form-check-label" >Nữ</label>
+                                                    </div>
+                                                </ng-template>
+                                                <ng-template #sex2>
+                                                    <div class="form-check form-check-inline">
+                                                        <input  class="form-check-input" type="radio" name="sex" value="Nam" (click)="changeSex('Nam')">
+                                                        <label class="form-check-label" >Nam</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input  class="form-check-input" type="radio" name="sex" (click)="changeSex('Nữ')" value="Nữ" checked>
+                                                        <label class="form-check-label" >Nữ</label>
+                                                    </div>
+                                                </ng-template>
+                                            </td>
+                                            <td><span class="validation-error">{{getErrorSex()}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ngày sinh</td>
+                                            <td><input type="date" name="dateborn" formControlName="dateborn" class="thien-edit-input" ></td>
+                                            <td><span class="validation-error">{{getErrorDateBorn()}}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button type="submit" class="site-btn login-btn" [disabled]="!profileUserForm.valid">Sửa thông tin</button>
+                            </form>
+                        </div>
+
+                        <!-- Sửa mật khẩu -->
+                        <div class="container" *ngSwitchCase="'editpass'">
+                            <form [formGroup]="profilePassForm" (submit)="onSubmit_EditPass()">
+                                <!-- <div asp-validation-summary="ModelOnly">
+                                    @* <span>Danh sách lỗi</span> *@
+                                </div> -->
+                                <table class="table">
+                                    <tbody>
+                                        <!-- <tr style="display: none;">
+                                            <td>Mã khách hàng</td>
+                                            <td><input asp-for="@Model.user" class="thien-edit-input" readonly></td>
+                                            <td><span asp-validation-for="@Model.user"></span></td>
+                                            @*<td>@Model.full_name</td>*@
+                                        </tr> -->
+                                        <tr>
+                                            <td>Mật khẩu cũ</td>
+                                            <td><input formControlName="edit_pass" name="edit_pass" class="thien-edit-input" type="password" placeholder="Nhập mật khẩu cũ"></td>
+                                            <td><span class="validation-error">{{getErrorPass()}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mật khẩu mới</td>
+                                            <td><input formControlName="edit_newpass" name="edit_newpass" class="thien-edit-input" type="password" placeholder="Nhập mật khẩu mới"></td>
+                                            <td><span class="validation-error">{{getErrorNewPass()}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nhập lại mật khẩu mới</td>
+                                            <td><input formControlName="edit_repass" name="edit_repass" class="thien-edit-input" type="password" placeholder="Nhập lại mật khẩu mới"></td>
+                                            <td><span class="validation-error">{{getErrorRepass()}}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button type="submit" class="site-btn login-btn" [disabled]="!profilePassForm.valid">Sửa thông tin</button>
+                            </form>
+                        </div>
                     </span>
 
                     

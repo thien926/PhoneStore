@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from 'src/app/Services/cart.service';
 import { LoaiSanPhamService } from 'src/app/Services/loai-san-pham.service';
 import { SanPhamService } from 'src/app/Services/san-pham.service';
 
@@ -24,7 +25,8 @@ export class ShopComponent implements OnInit {
   public phantrang = '';
 
   constructor(private route : ActivatedRoute, private router : Router,
-    private SPService : SanPhamService, private LSPService : LoaiSanPhamService) { }
+    private httpSP : SanPhamService, private httpLSP : LoaiSanPhamService,
+    private httpCart : CartService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -48,7 +50,7 @@ export class ShopComponent implements OnInit {
     if(this.pageIndex == null) {
       this.pageIndex = 1;
     }
-    this.LSPService.getLSPs().subscribe(data => {
+    this.httpLSP.getLSPs().subscribe(data => {
       this.Danhmuc = data;
     });
 
@@ -63,7 +65,7 @@ export class ShopComponent implements OnInit {
     newData['sort'] = this.sort;
     newData['pageIndex'] = this.pageIndex;
 
-    this.SPService.SanPham_Filter(newData).subscribe(data => {
+    this.httpSP.SanPham_Filter(newData).subscribe(data => {
       this.IndexVSM = data;
       this.load_min_max_Phan_trang();
       this.phantrang = this.load_Phan_trang();
@@ -178,6 +180,87 @@ export class ShopComponent implements OnInit {
         }
       }
     }
+  }
+
+  public addSP(product_id : number) {
+    var DonHang;
+    DonHang = localStorage.getItem('DonHang');
+
+    if(DonHang != null && DonHang != "") {
+      if(DonHang.indexOf(product_id + '-') != -1) {
+        var dauVa = DonHang.split("&");
+      
+        var dauNgang;
+        for(let i = 0; i < dauVa.length - 1; ++i) {
+          dauNgang = dauVa[i].split("-");
+          if(Number(dauNgang[0]) == product_id) {
+            dauVa[i] = product_id + "-" + (Number(dauNgang[1]) + 1);
+            // alert(dauVa[i]);
+            break;
+          }
+        }
+
+        DonHang = "";
+        for(let i = 0; i < dauVa.length - 1; ++i) {
+          DonHang += dauVa[i] + "&";
+        }
+        localStorage.setItem("DonHang", DonHang);
+        this.LoadSPForCart();
+      }
+      else {
+        DonHang += product_id + "-" + 1 + "&";
+        localStorage.setItem("DonHang", (DonHang));
+        this.LoadSPForCart();
+      }
+    }
+    else {
+      DonHang = "" + product_id + "-" + 1 + "&";
+      localStorage.setItem("DonHang", (DonHang));
+      this.LoadSPForCart();
+    }
+  }
+
+  public changeSoLuong(product_id : number, soluong : number) {
+    var DonHang;
+    DonHang = localStorage.getItem('DonHang');
+
+    if(DonHang == null || DonHang == "") {
+      return false;
+    }
+
+    if(DonHang.indexOf(product_id + '-') != -1) {
+      var dauVa = DonHang.split("&");
+      var dauNgang;
+      for(let i = 0; i < dauVa.length - 1; ++i) {
+        dauNgang = dauVa[i].split("-");
+        if(Number(dauNgang[0]) == product_id) {
+          dauVa[i] = product_id + "-" + soluong;
+          break;
+        }
+      }
+
+      DonHang = "";
+      for(let i = 0; i < dauVa.length - 1; ++i) {
+        DonHang += dauVa[i];
+      }
+      DonHang += "&";
+      localStorage.setItem("DonHang", DonHang);
+      return true;
+    }
+    return false;
+  }
+
+  public LoadSPForCart() {
+    var DonHang;
+    DonHang = localStorage.getItem('DonHang');
+
+    if(DonHang == null || DonHang == "") {
+      return;
+    }
+    this.httpCart.LoadSPForCart(DonHang.toString()).subscribe(data => {
+      localStorage.setItem("SanPhamForCart",JSON.stringify(data));
+      location.reload();
+    }); 
   }
 
   public load_Phan_trang() {

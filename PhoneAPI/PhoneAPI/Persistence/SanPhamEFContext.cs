@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using PhoneAPI.Interfaces;
 using PhoneAPI.Models;
 
@@ -140,6 +141,48 @@ namespace PhoneAPI.Persistence
                 }
             }
             return maxprice;
+        }
+
+        public IEnumerable<SanPham> SanPham_ListCart(string list) {
+            var query = context.SanPhams.AsQueryable();
+            if(!string.IsNullOrEmpty(list)) {
+                List<int> listProduct_id = new List<int>();
+                List<int> listSoluong = new List<int>();
+                list = list.Trim('&');
+                string[] arrlist = list.Split('&');
+                string[] temp;
+                int i = 0;
+                for(i = 0; i < arrlist.Length-1; ++i) {
+                    if(!string.IsNullOrEmpty(arrlist[i])) {
+                        temp = arrlist[i].Split('-');
+                        if(!string.IsNullOrEmpty(temp[0])) {
+                            listProduct_id.Add(int.Parse(temp[0]));
+                            listSoluong.Add(int.Parse(temp[1]));
+                        }
+                    }
+                }
+
+                if(!string.IsNullOrEmpty(arrlist[i])) {
+                    temp = arrlist[i].Split('-');
+                    if(!string.IsNullOrEmpty(temp[0])) {
+                        listProduct_id.Add(int.Parse(temp[0]));
+                        listSoluong.Add(int.Parse(temp[1]));
+                    }
+                }
+
+                query = query.Where(m => listProduct_id.Contains(m.product_id));
+                int index = 0;
+                foreach(var q in listProduct_id) {
+                    foreach(var qq in query) {
+                        if(q == qq.product_id) {
+                            qq.amount = listSoluong[index];
+                        }
+                    }
+                    ++index;
+                }
+            }
+
+            return query.ToList();
         }
         public IEnumerable<SanPham> TenSPChay(){
             var query = context.SanPhams.AsQueryable();
