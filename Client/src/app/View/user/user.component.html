@@ -1,0 +1,115 @@
+
+
+<div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> Trang chủ</a>
+                        <span>Xem thông tin cá nhân</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+    <!-- Product Shop Section Begin -->
+    <section class="product-shop spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+                    <div class="filter-widget">
+                        <h4 class="fw-title">THÔNG TIN CÁ NHÂN</h4>
+                        <ul class="filter-catagories">
+                            <!-- <li><a asp-controller="User" asp-action="Detail" style="color: #e7ab3c;">Xem thông tin cá nhân</a></li> -->
+                            <span *ngIf="type == 'detail'; then con_detail1; else con_detail2"></span>
+                                <ng-template #con_detail1>
+                                    <li><a style="color: #e7ab3c;" (click)="changeType('detail')">Xem thông tin cá nhân</a></li>
+                                </ng-template>
+                                <ng-template #con_detail2>
+                                    <li><a (click)="changeType('detail')">Xem thông tin cá nhân</a></li>
+                                </ng-template>  
+
+                            <span *ngIf="type == 'edit'; then con_edit1; else con_edit2"></span>
+                                <ng-template #con_edit1>
+                                    <li><a style="color: #e7ab3c;" (click)="changeType('edit')">Sửa thông tin cá nhân</a></li>
+                                </ng-template>
+                                <ng-template #con_edit2>
+                                    <li><a (click)="changeType('edit')">Sửa thông tin cá nhân</a></li>
+                                </ng-template> 
+
+                            <span *ngIf="type == 'editpass'; then con_editpass1; else con_editpass2"></span>
+                                <ng-template #con_editpass1>
+                                    <li><a style="color: #e7ab3c;" (click)="changeType('editpass')">Sửa mật khẩu</a></li>
+                                </ng-template>
+                                <ng-template #con_editpass2>
+                                    <li><a (click)="changeType('editpass')">Sửa mật khẩu</a></li>
+                                </ng-template>  
+
+                            <span *ngIf="type == 'myorder'; then con_myorder1; else con_myorder2"></span>
+                                <ng-template #con_myorder1>
+                                    <li><a style="color: #e7ab3c;" (click)="changeType('myorder')">Đơn hàng của tôi</a></li>
+                                </ng-template>
+                                <ng-template #con_myorder2>
+                                    <li><a (click)="changeType('myorder')">Đơn hàng của tôi</a></li>
+                                </ng-template>  
+
+                            <li><a >Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9 order-1 order-lg-2">
+                    <div class="product-show-option">
+                        <div class="row" style="font-weight: bold; font-size: 20px;">
+                            <!-- Xem thông tin cá nhân -->
+                            <span [ngSwitch]="type">
+                                <span *ngSwitchCase="'detail'">Xem thông tin cá nhân</span>
+                                <span *ngSwitchCase="'edit'">Sửa thông tin cá nhân</span>
+                                <span *ngSwitchCase="'editpass'">Sửa mật khẩu</span>
+                                <span *ngSwitchCase="'myorder'">Đơn hàng của tôi</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <span [ngSwitch]="type">
+                        <div class="container" *ngSwitchCase="'detail'">
+                            <table class="table" *ngIf="user">
+                                <tbody>
+                                    <tr>
+                                        <td>Họ tên</td>
+                                        <td>{{user.full_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Số điện thoại</td>
+                                        <td>{{user.phone}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Thư điện tử</td>
+                                        <td>{{user.mail}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Địa chỉ</td>
+                                        <td>{{user.address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Giới tính</td>
+                                        <td>{{user.sex}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ngày sinh</td>
+                                        <td>{{date}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ng-template *ngSwitchCase="'edit'">Sửa thông tin cá nhân</ng-template>
+                        <ng-template *ngSwitchCase="'editpass'">Sửa mật khẩu</ng-template>
+                        <ng-template *ngSwitchCase="'myorder'">Đơn hàng của tôi</ng-template>
+                    </span>
+
+                    
+                </div>
+            </div>
+        </div>
+    </section>

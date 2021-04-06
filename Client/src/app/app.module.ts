@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShopComponent } from './View/shop/shop.component';
 import { HomeComponent } from './View/home/home.component';
 import { ProductComponent } from './View/product/product.component';
+import { UserComponent } from './View/user/user.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ProductComponent } from './View/product/product.component';
     RegisterComponent,
     ShopComponent,
     HomeComponent,
-    ProductComponent
+    ProductComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
