@@ -13,6 +13,7 @@ import { ShopComponent } from './View/shop/shop.component';
 import { HomeComponent } from './View/home/home.component';
 import { ProductComponent } from './View/product/product.component';
 import { UserComponent } from './View/user/user.component';
+import { CartComponent } from './View/cart/cart.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { UserComponent } from './View/user/user.component';
     ShopComponent,
     HomeComponent,
     ProductComponent,
-    UserComponent
+    UserComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

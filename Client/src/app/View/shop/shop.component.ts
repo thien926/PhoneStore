@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 import { CartService } from 'src/app/Services/cart.service';
 import { LoaiSanPhamService } from 'src/app/Services/loai-san-pham.service';
 import { SanPhamService } from 'src/app/Services/san-pham.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-shop',
@@ -26,7 +28,7 @@ export class ShopComponent implements OnInit {
 
   constructor(private route : ActivatedRoute, private router : Router,
     private httpSP : SanPhamService, private httpLSP : LoaiSanPhamService,
-    private httpCart : CartService) { }
+    private httpCart : CartService, private appCome : AppComponent) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -186,16 +188,17 @@ export class ShopComponent implements OnInit {
     var DonHang;
     DonHang = localStorage.getItem('DonHang');
 
+    // Nếu danh sách đơn hàng đã tồn tại thì thay thêm 1 cho số lượng
     if(DonHang != null && DonHang != "") {
       if(DonHang.indexOf(product_id + '-') != -1) {
+
         var dauVa = DonHang.split("&");
-      
         var dauNgang;
+
         for(let i = 0; i < dauVa.length - 1; ++i) {
           dauNgang = dauVa[i].split("-");
           if(Number(dauNgang[0]) == product_id) {
             dauVa[i] = product_id + "-" + (Number(dauNgang[1]) + 1);
-            // alert(dauVa[i]);
             break;
           }
         }
@@ -205,18 +208,35 @@ export class ShopComponent implements OnInit {
           DonHang += dauVa[i] + "&";
         }
         localStorage.setItem("DonHang", DonHang);
-        this.LoadSPForCart();
+
+        Swal.fire({
+          type : "success",
+          title : "Thêm sản phẩm thành công"
+        }).then(result => {
+          this.appCome.LoadSPforCart();
+        });
+        
       }
       else {
         DonHang += product_id + "-" + 1 + "&";
         localStorage.setItem("DonHang", (DonHang));
-        this.LoadSPForCart();
+        Swal.fire({
+          type : "success",
+          title : "Thêm sản phẩm thành công"
+        }).then(result => {
+          this.appCome.LoadSPforCart();
+        });
       }
     }
     else {
       DonHang = "" + product_id + "-" + 1 + "&";
       localStorage.setItem("DonHang", (DonHang));
-      this.LoadSPForCart();
+      Swal.fire({
+        type : "success",
+        title : "Thêm sản phẩm thành công"
+      }).then(result => {
+        this.appCome.LoadSPforCart();
+      });
     }
   }
 
@@ -248,19 +268,6 @@ export class ShopComponent implements OnInit {
       return true;
     }
     return false;
-  }
-
-  public LoadSPForCart() {
-    var DonHang;
-    DonHang = localStorage.getItem('DonHang');
-
-    if(DonHang == null || DonHang == "") {
-      return;
-    }
-    this.httpCart.LoadSPForCart(DonHang.toString()).subscribe(data => {
-      localStorage.setItem("SanPhamForCart",JSON.stringify(data));
-      location.reload();
-    }); 
   }
 
   public load_Phan_trang() {

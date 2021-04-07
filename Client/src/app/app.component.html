@@ -60,13 +60,9 @@
                 <div class="col-lg-3 text-right col-md-3">
                     <ul class="nav-right">
                         <li class="cart-icon">
-                            <a href="/Cart/Index" id="suatotalsoluongdonhanglayout">
+                            <a [routerLink]="['/cart']" [routerLinkActive]="'active-link'" id="suatotalsoluongdonhanglayout">
                                 <i class="icon_bag_alt"></i>
-                                <!-- @* @{
-                                        if(ViewBag.DonHang != null){
-                                            <span>@ViewBag.DonHang.total</span>
-                                        }
-                                    } *@ -->
+                                <span>{{totalSP}}</span>
 
                             </a>
                             <div class="cart-hover">
@@ -85,49 +81,7 @@
                                                     <i class="ti-close" (click)="remove(item.product_id)"></i>
                                                 </td>
                                             </tr>
-                                            <!-- @* @{
-                                                    if(ViewBag.DonHang != null){
-                                                        foreach(var q in ViewBag.DonHang.ListSP){
-                                                            <tr>
-                                                                <td class="si-pic"><img src="@Url.Content(@q.img)" alt=""></td>
-                                                                <td class="si-text">
-                                                                    <div class="product-selected">
-                                                                        <p>@q.price x @q.amount</p>
-                                                                        <h6>@q.name</h6>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="si-close">
-                                                                    <i class="ti-close"></i>
-                                                                </td>
-                                                            </tr>
-                                                        }
-
-                                                    }
-                                                } *@ -->
-                                            <!-- @* <tr>
-                                                    <td class="si-pic"><img src="assets/img/select-product-1.jpg" alt=""></td>
-                                                    <td class="si-text">
-                                                        <div class="product-selected">
-                                                            <p>$60.00 x 1</p>
-                                                            <h6>Kabino Bedside Table</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="si-close">
-                                                        <i class="ti-close"></i>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="si-pic"><img src="assets/img/select-product-2.jpg" alt=""></td>
-                                                    <td class="si-text">
-                                                        <div class="product-selected">
-                                                            <p>$60.00 x 1</p>
-                                                            <h6>Kabino Bedside Table</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="si-close">
-                                                        <i class="ti-close"></i>
-                                                    </td>
-                                                </tr> *@ -->
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -141,7 +95,7 @@
                                       <h5>{{totalCart}} đ</h5>
                                 </div>
                                 <div class="select-button">
-                                    <a href="/Cart/Index" class="primary-btn view-card">Xem chi tiết</a>
+                                    <a [routerLink]="['/cart']" [routerLinkActive]="'active-link'" class="primary-btn view-card">Xem chi tiết</a>
                                 </div>
                             </div>
                         </li>
@@ -168,7 +122,7 @@
                     <li id="page_shop"><a [routerLink]="['/shop']" [routerLinkActive]="'active-link'">Sản phẩm</a></li>
                     <li id="page_login"><a [routerLink]="['/login']" [routerLinkActive]="'active-link'">Đăng nhập</a></li>
                     <li id="page_register"><a [routerLink]="['/register']" [routerLinkActive]="'active-link'">Đăng kí</a></li>
-                    <li id="page_cart"><a href = "/Cart/Index">Giỏ hàng</a></li>
+                    <li id="page_cart"><a [routerLink]="['/cart']" [routerLinkActive]="'active-link'">Giỏ hàng</a></li>
                 </ul>
             </nav>
             <div id="mobile-menu-wrap"></div>
