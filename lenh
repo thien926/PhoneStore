@@ -2,4 +2,5 @@ I. Angular
     1.  npm install --save @angular/core
     2.  npm install --save @angular/common
     3.  npm install --save @angular/material
+    4.  ng g m View/_shared/footer
 II. API

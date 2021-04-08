@@ -1,3 +1,74 @@
 Muốn chạy được formGroup thì phải import FormsModule, ReactiveFormsModule trong app.module.ts
 
+* Các thành phần chính trong 1 file *.module.ts :  
+        RouterModule,
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule
+
 pattern in angular giống với java : https://openplanning.net/10175/java-regular-expression
+
+* Muốn tạo 1 Manager Admin và 1 shop thì
+    1.  ng g c View/_shared/default             Để tạo 1 component chứa layout (giống như app)
+    2.  ng g m View/_shared/default             Để tạo 1 module, module này chứa các Component con như CartComponent, ShopComponent
+    3.  Sửa default.module.ts   
+        Ví dụ
+            import { NgModule } from '@angular/core';
+            import { CommonModule } from '@angular/common';
+            import { DefaultComponent } from './default.component';
+            import { LoginComponent } from '../../login/login.component';
+            import { RegisterComponent } from '../../register/register.component';
+            import { ShopComponent } from '../../shop/shop.component';
+            import { HomeComponent } from '../../home/home.component';
+            import { ProductComponent } from '../../product/product.component';
+            import { UserComponent } from '../../user/user.component';
+            import { CartComponent } from '../../cart/cart.component';
+            import { RouterModule } from '@angular/router';
+            import { BrowserModule } from '@angular/platform-browser';
+            import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+            import { HttpClientModule } from '@angular/common/http';
+
+            @NgModule({
+            declarations: [
+                DefaultComponent,
+                LoginComponent,
+                RegisterComponent,
+                ShopComponent,
+                HomeComponent,
+                ProductComponent,
+                UserComponent,
+                CartComponent,
+            ],
+            imports: [
+                CommonModule,
+                RouterModule,
+                BrowserModule,
+                FormsModule,
+                ReactiveFormsModule,
+                HttpClientModule
+            ]
+            })
+            export class DefaultModule { }
+    4.  Bên app.module.ts thêm DefaultModule
+        Ví dụ
+            import { NgModule } from '@angular/core';
+            import { AppRoutingModule } from './app-routing.module';
+            import { AppComponent } from './app.component';
+            // Thiện
+            import { DefaultModule } from './View/_shared/default/default.module';
+
+            @NgModule({
+            declarations: [
+                AppComponent,
+            ],
+            imports: [
+                AppRoutingModule,
+                DefaultModule
+            ],
+            providers: [],
+            bootstrap: [AppComponent]
+            })
+            export class AppModule { }
+
+

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppComponent } from 'src/app/app.component';
 import { CartService } from 'src/app/Services/cart.service';
 import { LoaiSanPhamService } from 'src/app/Services/loai-san-pham.service';
 import { SanPhamService } from 'src/app/Services/san-pham.service';
 import Swal from 'sweetalert2';
+import { DefaultComponent } from '../_shared/default/default.component';
 
 @Component({
   selector: 'app-shop',
@@ -28,7 +28,7 @@ export class ShopComponent implements OnInit {
 
   constructor(private route : ActivatedRoute, private router : Router,
     private httpSP : SanPhamService, private httpLSP : LoaiSanPhamService,
-    private httpCart : CartService, private appCome : AppComponent) { }
+    private httpCart : CartService, private defaultCome : DefaultComponent) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -213,7 +213,7 @@ export class ShopComponent implements OnInit {
           type : "success",
           title : "Thêm sản phẩm thành công"
         }).then(result => {
-          this.appCome.LoadSPforCart();
+          this.defaultCome.LoadSPforCart();
         });
         
       }
@@ -224,7 +224,7 @@ export class ShopComponent implements OnInit {
           type : "success",
           title : "Thêm sản phẩm thành công"
         }).then(result => {
-          this.appCome.LoadSPforCart();
+          this.defaultCome.LoadSPforCart();
         });
       }
     }
@@ -235,40 +235,12 @@ export class ShopComponent implements OnInit {
         type : "success",
         title : "Thêm sản phẩm thành công"
       }).then(result => {
-        this.appCome.LoadSPforCart();
+        this.defaultCome.LoadSPforCart();
       });
     }
   }
 
-  public changeSoLuong(product_id : number, soluong : number) {
-    var DonHang;
-    DonHang = localStorage.getItem('DonHang');
-
-    if(DonHang == null || DonHang == "") {
-      return false;
-    }
-
-    if(DonHang.indexOf(product_id + '-') != -1) {
-      var dauVa = DonHang.split("&");
-      var dauNgang;
-      for(let i = 0; i < dauVa.length - 1; ++i) {
-        dauNgang = dauVa[i].split("-");
-        if(Number(dauNgang[0]) == product_id) {
-          dauVa[i] = product_id + "-" + soluong;
-          break;
-        }
-      }
-
-      DonHang = "";
-      for(let i = 0; i < dauVa.length - 1; ++i) {
-        DonHang += dauVa[i];
-      }
-      DonHang += "&";
-      localStorage.setItem("DonHang", DonHang);
-      return true;
-    }
-    return false;
-  }
+  
 
   public load_Phan_trang() {
     var s = "";

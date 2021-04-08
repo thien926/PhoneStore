@@ -1,3 +1,4 @@
+
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
     <div class="container">
@@ -38,10 +39,10 @@
                                 <div class="quantity">
                                     <div class="pro-qty">
                                         <span class="dec qtybtn" (click)="dec_soluong()">-</span>
-                                        <input type="text" [(ngModel)]="soluong" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10" id="slsp">
+                                        <input type="text" [(ngModel)]="soluong" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10" (change)="change_Soluong()">
                                         <span class="inc qtybtn" (click)="inc_soluong()">+</span>
                                     </div>
-                                    <a class="primary-btn pd-cart" onclick="ThemSPAjax()">Thêm vào giỏ</a>
+                                    <a class="primary-btn pd-cart" style="cursor: pointer;" (click)="addSP()">Thêm vào giỏ</a>
                                 </div>
                                 <ul class="pd-tags">
                                     <li><span>LOẠI</span>: {{loaiSanPham?.name}}</li>

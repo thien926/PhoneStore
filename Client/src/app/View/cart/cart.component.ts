@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
 import { CartService } from 'src/app/Services/cart.service';
 import Swal from 'sweetalert2';
+import { DefaultComponent } from '../_shared/default/default.component';
 
 @Component({
   selector: 'app-cart',
@@ -14,7 +14,7 @@ export class CartComponent implements OnInit {
   public totalCart = 0;
 
   public isAddress = "dcmacdinh";
-  constructor(private httpCart : CartService, private appCome : AppComponent) { }
+  constructor(private httpCart : CartService, private defaultCome : DefaultComponent) { }
 
   ngOnInit(): void {
     this.LoadSPforCart();
@@ -75,7 +75,7 @@ export class CartComponent implements OnInit {
 
         localStorage.setItem("DonHang", DonHang);
         this.LoadSPforCart(); 
-        this.appCome.LoadSPforCart();
+        this.defaultCome.LoadSPforCart();
       }
       
     }
@@ -107,7 +107,7 @@ export class CartComponent implements OnInit {
 
         localStorage.setItem("DonHang", DonHang);
         this.LoadSPforCart();
-        this.appCome.LoadSPforCart();
+        this.defaultCome.LoadSPforCart();
       }
       
     }
@@ -133,7 +133,7 @@ export class CartComponent implements OnInit {
 
         localStorage.setItem("DonHang", DonHang);
         this.LoadSPforCart();
-        this.appCome.LoadSPforCart();
+        this.defaultCome.LoadSPforCart();
       }
     }
   }
