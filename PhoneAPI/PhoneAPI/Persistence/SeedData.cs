@@ -9,7 +9,7 @@ namespace PhoneAPI.Persistence
         public static void Initialize(PhoneStoreDBContext context) {
             context.Database.EnsureCreated();
             bool temp = false;
-//Quyen            
+            //Quyen            
             if (!context.Quyens.Any()) {
                 temp = true;
                 context.Quyens.AddRange(new List<Quyen>{
@@ -21,7 +21,7 @@ namespace PhoneAPI.Persistence
                     
                 });   
             }
-//Chi tiet hd
+            //Chi tiet hd
             if (!context.ChiTietHDs.Any()) {
                 temp = true;
                 context.ChiTietHDs.AddRange(new List<ChiTietHD>{
@@ -38,7 +38,7 @@ namespace PhoneAPI.Persistence
                     }, 
                 });   
             }
-//Hoa don
+            //Hoa don
             if (!context.HoaDons.Any()) {
                 temp = true;
                 context.HoaDons.AddRange(new List<HoaDon>{
@@ -55,7 +55,7 @@ namespace PhoneAPI.Persistence
                 });   
             }
 
-//Khach hang
+            //Khach hang
             if (!context.KhachHangs.Any()) {
                 temp = true;
                 context.KhachHangs.AddRange(new List<KhachHang>{
@@ -94,7 +94,7 @@ namespace PhoneAPI.Persistence
                     }
                 });   
             }
-//Nhân viên
+            //Nhân viên
             if (!context.NhanViens.Any()) {
                 temp = true;
                 context.NhanViens.AddRange(new List<NhanVien>{
@@ -112,7 +112,7 @@ namespace PhoneAPI.Persistence
                     }
                 });   
             }
-//loai san pham
+            //loai san pham
             if(!context.LoaiSanPhams.Any()) {
                 temp = true;
                 context.LoaiSanPhams.AddRange(new List<LoaiSanPham>{
@@ -153,7 +153,7 @@ namespace PhoneAPI.Persistence
                     }
                 });  
             }
-//sản phẩm
+            //sản phẩm
             if(!context.SanPhams.Any()) {
                 temp = true;
                 context.SanPhams.AddRange(new List<SanPham>{
