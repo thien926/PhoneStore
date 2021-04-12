@@ -1,0 +1,141 @@
+<div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
+
+    <div class="sidebar-wrapper">
+        <div class="logo">
+            <a class="simple-text">
+                {{ CurrentQuyen?.name }}
+            </a>
+        </div>
+
+        <ul class="nav">
+            
+            <li>
+                <a href="/Admin/User/Index">
+                    <i class="pe-7s-user"></i>
+                    <p>Thông tin tài khoản</p>
+                </a>
+            </li>
+
+            <!-- Sản phẩm -->
+            <span *ngIf="page == 'product'; then product1; else product2"></span>
+            <ng-template #product1>
+                <li class="active" *ngIf="per_sp">
+                    <a [routerLink]="['/manager/product']" [routerLinkActive]="'active-link'">
+                        <i class="pe-7s-note2"></i>
+                        <p>Sản phẩm</p>
+                    </a>
+                </li>
+            </ng-template>
+            <ng-template #product2>
+                <li *ngIf="per_sp">
+                    <a [routerLink]="['/manager/product']" [routerLinkActive]="'active-link'">
+                        <i class="pe-7s-note2"></i>
+                        <p>Sản phẩm</p>
+                    </a>
+                </li>
+            </ng-template>
+
+            <!-- Loại sản phẩm -->
+            <span *ngIf="page == 'type'; then type1; else type2"></span>
+            <ng-template #type1>
+                <li class="active" *ngIf="per_lsp">
+                    <a [routerLink]="['/manager/type']" [routerLinkActive]="'active-link'">
+                        <i class="pe-7s-note2"></i>
+                        <p>Loại sản phẩm</p>
+                    </a>
+                </li>
+            </ng-template>
+            <ng-template #type2>
+                <li *ngIf="per_lsp">
+                    <a [routerLink]="['/manager/type']" [routerLinkActive]="'active-link'">
+                        <i class="pe-7s-note2"></i>
+                        <p>Loại sản phẩm</p>
+                    </a>
+                </li>
+            </ng-template>
+
+            <!-- Quyền -->
+            <span *ngIf="page == 'permission'; then permission1; else permission2"></span>
+            <ng-template #permission1>
+                <li class="active"  *ngIf="per_per">
+                    <a [routerLink]="['/manager/permission']" [routerLinkActive]="'active-link'">
+                        <i class="pe-7s-id"></i>
+                        <p>Quyền</p>
+                    </a>
+                </li>
+            </ng-template>
+            <ng-template #permission2>
+                <li  *ngIf="per_per">
+                    <a [routerLink]="['/manager/permission']" [routerLinkActive]="'active-link'">
+                        <i class="pe-7s-id"></i>
+                        <p>Quyền</p>
+                    </a>
+                </li>
+            </ng-template>
+
+            <!-- Nhân viên -->
+            <span *ngIf="page == 'staff'; then staff1; else staff2"></span>
+            <ng-template #staff1>
+                <li class="active"  *ngIf="per_nv">
+                    <a [routerLink]="['/manager/staff']" [routerLinkActive]="'active-link'">
+                        <i class="pe-7s-medal"></i>
+                        <p>Nhân viên</p>
+                    </a>
+                </li>
+            </ng-template>
+            <ng-template #staff2>
+                <li  *ngIf="per_nv">
+                    <a [routerLink]="['/manager/staff']" [routerLinkActive]="'active-link'">
+                        <i class="pe-7s-medal"></i>
+                        <p>Nhân viên</p>
+                    </a>
+                </li>
+            </ng-template>
+
+            <!-- Khách hàng -->
+            <span *ngIf="page == 'customer'; then customer1; else customer2"></span>
+            <ng-template #customer1>
+                <li class="active"  *ngIf="per_kh">
+                    <a [routerLink]="['/manager/customer']" [routerLinkActive]="'active-link'">
+                        <i class="pe-7s-user"></i>
+                        <p>Khách hàng</p>
+                    </a>
+                </li>
+            </ng-template>
+            <ng-template #customer2>
+                <li  *ngIf="per_kh">
+                    <a [routerLink]="['/manager/customer']" [routerLinkActive]="'active-link'">
+                        <i class="pe-7s-user"></i>
+                        <p>Khách hàng</p>
+                    </a>
+                </li>
+            </ng-template>
+            
+            <li>
+                <a href="/Admin/NCC/Index">
+                    <i class="pe-7s-users"></i>
+                    <p>Nhà cung cấp</p>
+                </a>
+            </li>
+            
+            <span *ngIf="page == 'bill'; then bill1; else bill2"></span>
+            <ng-template #bill1>
+                <li class="active" *ngIf="per_hd == true">
+                    <a [routerLink]="['/manager/bill']" [routerLinkActive] = "'active-link'" >
+                        <i class="pe-7s-diskette"></i>
+                        <p>Hóa đơn</p>
+                    </a>
+                </li>
+            </ng-template>
+            <ng-template #bill2>
+                <li *ngIf="per_hd == true">
+                    <a [routerLink]="['/manager/bill']" [routerLinkActive] = "'active-link'" >
+                        <i class="pe-7s-diskette"></i>
+                        <p>Hóa đơn</p>
+                    </a>
+                </li>
+            </ng-template>
+            
+        </ul>
+    </div>
+</div>

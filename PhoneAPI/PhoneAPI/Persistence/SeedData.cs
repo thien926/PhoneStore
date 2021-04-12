@@ -14,11 +14,25 @@ namespace PhoneAPI.Persistence
                 temp = true;
                 context.Quyens.AddRange(new List<Quyen>{
                     new Quyen{
-                        permission_id= 1,
-                        name = "Thien",
-                        details= "abcxyz"
+                        permission_id = 1,
+                        name = "Admin",
+                        details = "qlNhapHang-qlNhanVien-qlSanPham-qlHoaDon-qlKhachHang-qlPhieuNhap-qlNCC-qlTaiKhoan-qlQuyen-qlThongKe-qlLoaiSanPham"
                     },
-                    
+                    new Quyen{
+                        permission_id = 2,
+                        name = "Quản lý",
+                        details = "qlNhanVien-xemSanPham-xemHoaDon-qlKhachHang-xemPhieuNhap-xemNCC-qlTaiKhoan-qlThongKe-qlLoaiSanPham"
+                    },
+                    new Quyen{
+                        permission_id = 3,
+                        name = "Nhân viên bán hàng",
+                        details = "xemSanPham-qlHoaDon-xemKhachHang-qlThongKe"
+                    },
+                    new Quyen{
+                        permission_id = 4,
+                        name = "Nhân viên nhập hàng",
+                        details = "qlNhapHang-qlSanPham-qlPhieuNhap-qlNCC-qlThongKe-qlLoaiSanPham"
+                    }
                 });   
             }
             //Chi tiet hd
@@ -28,14 +42,35 @@ namespace PhoneAPI.Persistence
                     new ChiTietHD{
                         bill_id = 1,
                         product_id = 1,
+                        name = "Điện thoại Samsung Galaxy S21 Ultra 5G 128GB",
                         amount = 1,
-                        name = "acs",
-                        price = 8000,
-                        img = "11",
-                        product_type_id = 1,
-                        description = "abc",
-                        status = 1,
-                    }, 
+                        price = 15000000,
+                        img = "sp1.jpg"
+                    },
+                    new ChiTietHD{
+                        bill_id = 2,
+                        product_id = 1,
+                        name = "Điện thoại Samsung Galaxy S21 Ultra 5G 128GB",
+                        amount = 1,
+                        price = 15000000,
+                        img = "sp1.jpg"
+                    },
+                    new ChiTietHD{
+                        bill_id = 2,
+                        product_id = 2,
+                        name = "Samsung Galaxy A52 (8GB/256GB)",
+                        amount = 1,
+                        price = 10290000,
+                        img = "sp2.jpg"
+                    },
+                    new ChiTietHD{
+                        bill_id = 3,
+                        product_id = 2,
+                        name = "Samsung Galaxy A52 (8GB/256GB)",
+                        amount = 1,
+                        price = 10290000,
+                        img = "sp2.jpg"
+                    },
                 });   
             }
             //Hoa don
@@ -44,14 +79,37 @@ namespace PhoneAPI.Persistence
                 context.HoaDons.AddRange(new List<HoaDon>{
                     new HoaDon{
                         bill_id = 1,
-                        user_kh = "Thien",
-                        user_nv = "Thien 2",
-                        address = "108/34",
-                        phone = "0937906814",
-                        status = 1,
-                        total = 1,
-
-                    }, 
+                        user_kh = "thien",
+                        user_nv = "bh01",
+                        phone = "0364117408",
+                        address = "Bình Định",
+                        date_receice = new System.DateTime(2020, 5, 8, 5, 4, 6),
+                        date_order = new System.DateTime(2020, 5, 18, 5, 4, 6),
+                        total = 15000000,
+                        status = 3
+                    },
+                    new HoaDon{
+                        bill_id = 2,
+                        user_kh = "thinh",
+                        user_nv = "",
+                        phone = "0364117408",
+                        address = "Miền Tây",
+                        date_receice = null,
+                        date_order = new System.DateTime(2020, 5, 18, 5, 4, 6),
+                        total = 25290000,
+                        status = 2
+                    },
+                    new HoaDon{
+                        bill_id = 3,
+                        user_kh = "cungthien",
+                        user_nv = "",
+                        phone = "0364117408",
+                        address = "Bình Dương",
+                        date_receice = null,
+                        date_order = new System.DateTime(2020, 5, 18, 5, 4, 6),
+                        total = 10290000,
+                        status = 1
+                    }
                 });   
             }
 
@@ -99,8 +157,8 @@ namespace PhoneAPI.Persistence
                 temp = true;
                 context.NhanViens.AddRange(new List<NhanVien>{
                     new NhanVien{
-                        user = "thien",
-                        pass = "1234",
+                        user = "admin",
+                        pass = "admin",
                         full_name = "Nguyễn Ngọc Thiện",
                         phone = "0364117408",
                         mail = "tructruong.070202@gmail.com",
@@ -108,6 +166,54 @@ namespace PhoneAPI.Persistence
                         sex = "Nam",
                         dateborn = new System.DateTime(2000, 5, 8),
                         permission_id = 1,
+                        status = 1
+                    },
+                    new NhanVien{
+                        user = "ql01",
+                        pass = "ql01",
+                        full_name = "Nguyễn Tấn Thông",
+                        phone = "0364117408",
+                        mail = "tructruong.070202@gmail.com",
+                        address = "Hồ Chí Minh",
+                        sex = "Nam",
+                        dateborn = new System.DateTime(2000, 5, 8),
+                        permission_id = 2,
+                        status = 1
+                    },
+                    new NhanVien{
+                        user = "bh02",
+                        pass = "bh02",
+                        full_name = "Cung Xương Hồng Thiên",
+                        phone = "0364117408",
+                        mail = "tructruong.070202@gmail.com",
+                        address = "Hồ Chí Minh",
+                        sex = "Nam",
+                        dateborn = new System.DateTime(2000, 5, 8),
+                        permission_id = 3,
+                        status = 1
+                    },
+                    new NhanVien{
+                        user = "bh01",
+                        pass = "bh01",
+                        full_name = "Nguyễn Ngọc Thiện",
+                        phone = "0364117408",
+                        mail = "tructruong.070202@gmail.com",
+                        address = "Hồ Chí Minh",
+                        sex = "Nam",
+                        dateborn = new System.DateTime(2000, 5, 8),
+                        permission_id = 3,
+                        status = 1
+                    },
+                    new NhanVien{
+                        user = "nh01",
+                        pass = "nh01",
+                        full_name = "Nguyễn Tuyến Đạt",
+                        phone = "0364117408",
+                        mail = "tructruong.070202@gmail.com",
+                        address = "Hồ Chí Minh",
+                        sex = "Nam",
+                        dateborn = new System.DateTime(2000, 5, 8),
+                        permission_id = 4,
                         status = 1
                     }
                 });   

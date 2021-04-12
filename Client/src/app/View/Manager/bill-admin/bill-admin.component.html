@@ -1,0 +1,257 @@
+<div class="wrapper">
+    <app-menu-admin></app-menu-admin>
+    
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">{{ title }}</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a>
+                                <p>{{ CurrentNhanVien?.full_name }} | <span (click)="eventLogout()">Đăng xuất</span></p>
+                            </a>
+                        </li>
+                        <li class="separator hidden-lg hidden-md"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- @*Phần sửa*@ -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <form class="title" onsubmit="return false;">
+                                    <p>
+                                        <select style="height: 30px;" id="select">
+                                            <option value="all">Tất cả</option>
+                                            <option value="bill_id">Tìm theo mã hóa đơn</option>
+                                            <option value="user_kh">Tìm theo mã khách hàng</option>
+                                            <option value="user_nv">Tìm theo mã nhân viên</option>
+                                        </select>
+                                        <input type="text" style="height: 30px;" id="input_search"/>
+                                        <input type="button" value="Tìm kiếm" style="height: 30px;" onclick="TimKiem()"/>
+                                        <select style="height: 30px; float: right" id="select_trangthai" onchange="TimKiem()">
+                                            <option value="0">Tất cả</option>
+                                            <option value="1">Đang xử lý</option>
+                                            <option value="2">Đang giao hàng</option>
+                                            <option value="3">Đã giao hàng</option>
+                                            <option value="4">Đã hủy đơn hàng</option>
+                                        </select>
+                                        <span style="float: right; margin-right: 2%;">Trạng thái: </span>
+                                    </p>
+                                </form>
+                            </div>
+                            <div class="content table-responsive table-full-width" id="id1">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                    <th>Mã hóa đơn</th>
+                                    <th>Mã khách hàng</th>
+                                    <th>Mã nhân viên</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Ngày nhận</th>
+                                    <th>Ngày đặt</th>
+                                    <th>Thành tiền</th>
+                                    <th>Trạng thái</th>
+                                    <th *ngIf="tool">Hành động</th>
+                                    </thead>
+                                    <tbody id="suahd1"> 
+                                        <tr *ngFor="let item of ListHD" (click)="eventSeeMore(item.bill_id)">
+                                            <td>{{ item.bill_id }}</td>
+                                            <td>{{item.user_kh}}</td>
+                                            <td>{{item.user_nv}}</td>
+                                            <td>{{item.phone}}</td>
+                                            <td>{{item.address}}</td>
+                                            <td>{{item.date_receice}}</td>
+                                            
+                                            <td>{{item.date_order}}</td>
+                                            <td>{{item.total}}</td>
+                                            <td>{{ getStatus(item.status) }}</td>
+                                            
+                                            <td *ngIf="tool">
+                                                <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditHD()"><i class="pe-7s-config"></i></button>
+                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title" id="id_cthd">Chi tiết hóa đơn {{cthd_code}}</h4>
+                                <p class="title" id="id_thanhtien">Thành tiền: {{cthd_thanhtien}}</p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th>Mã sản phẩm</th>
+                                        <th>Ảnh</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Giá</th>
+                                        <th>Số lượng</th>
+                                        <th>Tổng tiền</th>
+                                    </thead>
+                                    <tbody *ngFor="let item of ListCTHD">
+                                        <tr>
+                                            <td> {{item.product_id}}</td>
+                                            <td style="width: 80px; height: 80px;"><img src="{{item.img}}" style="width: 100%; height: 100%;"></td>
+                                            <td> {{item.name}}</td>
+                                            <td> {{item.price}}</td>
+                                            <td> {{item.amount}}</td>
+                                            <td> {{item.amount*item.price}} đ</td>
+                                        </tr>
+                                        <!-- @* <tr>
+                                            <td>1</td>
+                                            <td>Dakota Rice</td>
+                                            <td>$36,738</td>
+                                            <td>Niger</td>
+                                            <td>Oud-Turnhout</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Minerva Hooper</td>
+                                            <td>$23,789</td>
+                                            <td>Curaçao</td>
+                                            <td>Sinaai-Waas</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Sage Rodriguez</td>
+                                            <td>$56,142</td>
+                                            <td>Netherlands</td>
+                                            <td>Baileux</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Philip Chaney</td>
+                                            <td>$38,735</td>
+                                            <td>Korea, South</td>
+                                            <td>Overland Park</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Doris Greene</td>
+                                            <td>$63,542</td>
+                                            <td>Malawi</td>
+                                            <td>Feldkirchen in Kärnten</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>Mason Porter</td>
+                                            <td>$78,615</td>
+                                            <td>Chile</td>
+                                            <td>Gloucester</td>
+                                        </tr> *@ -->
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- @*Kết thúc phần sửa*@ -->
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Company
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Portfolio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <p class="copyright pull-right">
+                    &copy;
+                    <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                </p>
+            </div>
+        </footer>
+
+
+    </div>
+</div>
+<!-- @*Phần sửa*@ -->
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4><span id="title-modal">Login</span></h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form role="form">
+                        <div asp-validation-summary="ModelOnly">
+                            <!-- @* <span>Danh sách lỗi</span> *@ -->
+                        </div>
+                        <div class="form-group">
+                            <label>Mã loại sản phẩm</label>
+                            <input type="text" class="form-control" id="bill_id" placeholder="Mã loại" asp-for="@Model.HD.bill_id">
+                            <span asp-validation-for="@Model.HD.bill_id"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Trạng thái</label>
+                            <select id="status" style="width: 100%; height: 40px;">
+                                <option value="1">Đang xử lý</option>
+                                <option value="2">Đang giao hàng</option>
+                                <option value="3">Đã giao hàng</option>
+                                <option value="4">Đã hủy đơn hàng</option>
+                            </select>
+                            <span asp-validation-for="@Model.HD.status"></span>
+                        </div>
+                        <div class="checkbox">
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block" onclick="SubmitEditHD()">Sửa</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

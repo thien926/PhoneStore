@@ -22,6 +22,7 @@ export class DefaultComponent implements OnInit {
     private httpCart : CartService) { }
 
   ngOnInit(): void {
+    this.loadCssHead();
     // Load CurrentUser
     this.CurrentUser = sessionStorage.getItem("CurrentUser");
     this.CurrentUser = JSON.parse(this.CurrentUser);
@@ -91,6 +92,25 @@ export class DefaultComponent implements OnInit {
 
   public qSearch_Submit() {
     location.href = "/shop?qSearch=" + this.qSearch;
+  }
+
+  public loadCssHead() {
+    const head = document.head;
+    const temp = document.createElement('link');
+
+    temp.innerHTML = `<link href="assets/css/css.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" >
+    <link rel="stylesheet" href="assets/css/themify-icons.css" >
+    <link rel="stylesheet" href="assets/css/elegant-icons.css" >
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css" >
+    <link rel="stylesheet" href="assets/css/nice-select.css" >
+    <link rel="stylesheet" href="assets/css/jquery-ui.min.css" >
+    <link rel="stylesheet" href="assets/css/slicknav.min.css" >
+    <link rel="stylesheet" href="assets/css/style.css" >  `;
+    while (temp.firstChild) {
+        head.appendChild(temp.firstChild);
+    }
   }
 
 }

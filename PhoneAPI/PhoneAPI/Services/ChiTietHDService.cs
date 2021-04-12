@@ -15,28 +15,15 @@ namespace PhoneAPI.Services
             return hd.MappingChiTietHDDtos();
         }
 
-        public ChiTietHDDto ChiTietHD_GetById(int id){
-            var hd = CTHDcontext.ChiTietHD_GetById(id);
+        public IEnumerable<ChiTietHDDto> ChiTietHD_GetByBill_Id(int bill_id){
+            var hd = CTHDcontext.ChiTietHD_GetByBill_Id(bill_id);
             if(hd == null) return null;
-            return hd.MappingChiTietHDDto();
+            return hd.MappingChiTietHDDtos();
         }
 
         public void ChiTietHD_Add(ChiTietHDDto hddto){
             var cthd = hddto.MappingChiTietHD();
             CTHDcontext.ChiTietHD_Add(cthd);
-        }
-
-        public void ChiTietHD_Update(ChiTietHDDto hddto){
-            var cthd = CTHDcontext.ChiTietHD_GetById(hddto.bill_id);
-            if(cthd == null) return;
-            hddto.MappingChiTietHD(cthd);
-            CTHDcontext.ChiTietHD_Update(cthd);
-        }
-
-        public void ChiTietHD_Remove(int bill_id){
-            var hd = CTHDcontext.ChiTietHD_GetById(bill_id);
-            if(hd == null) return;
-            CTHDcontext.ChiTietHD_Remove(hd);
         }
     }
 }

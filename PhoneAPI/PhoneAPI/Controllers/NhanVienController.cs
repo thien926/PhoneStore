@@ -6,44 +6,73 @@ using PhoneAPI.Services;
 
 namespace PhoneAPI.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class NhanVienController : ControllerBase
     {
-        private readonly NhanVienService Qservice;
-        public NhanVienController(NhanVienService Qservice)
+        private readonly NhanVienService NVservice;
+        public NhanVienController(NhanVienService NVservice)
         {
-            this.Qservice = Qservice;
+            this.NVservice = NVservice;
         }
 
         [HttpGet]
-        public IEnumerable<NhanVienDto> GetQDtos()
+        public IEnumerable<NhanVienDto> GetNVDtos()
         {
-            return Qservice.NhanVien_GetAll();
+            return NVservice.NhanVien_GetAll();
         }
 
-        [HttpGet("{id}")]
-        public NhanVienDto GetQDto(int id)
+        [HttpGet("{user}")]
+        public NhanVienDto GetNVDto(string user)
         {
-            return Qservice.NhanVien_GetById(id);
+            return NVservice.NhanVien_GetByUser(user);
         }
 
         [HttpPost]
-        public ActionResult<NhanVienDto> AddQDto(NhanVienDto q)
+        public ActionResult<NhanVienDto> AddNVDto(NhanVienDto q)
         {
-            Qservice.NhanVien_Add(q);
+            NVservice.NhanVien_Add(q);
 
-            return CreatedAtAction(nameof(GetQDto), new { id = q.permission_id }, q);
+            return CreatedAtAction(nameof(GetNVDto), new { user = q.user }, q);
         }
 
         [HttpPut]
-        public void UpdateQDto([FromBody] NhanVienDto q)
+        public void UpdateNVDto([FromBody] NhanVienDto q)
         {
-            Qservice.NhanVien_Update(q);
+            NVservice.NhanVien_Update(q);
         }
 
-        [HttpDelete("{id}")]
-        public void DeleteQDto(int id)
+        [HttpDelete("{user}")]
+        public void DeleteNVDto(string user)
         {
-            Qservice.NhanVien_Remove(id);
+            NVservice.NhanVien_Remove(user);
+        }
+
+        // Đăng nhập admim
+        [HttpPost("login-admin")]
+        public ActionResult<NhanVienDto> Login(TaiKhoanDto p)
+        {
+            NhanVienDto nv = NVservice.NhanVien_GetByUser(p.user);
+            if(nv == null) {
+                return null;
+            }
+
+            if(nv.pass != p.password) {
+                return null;
+            }
+
+            if(nv.status != 1) {
+                return null;
+            }
+            // Ẩn thông tin nhân viên
+            nv.pass = "";
+            nv.phone = "";
+            nv.address = "";
+            nv.mail = "";
+            nv.address = "";
+            nv.dateborn = new DateTime();
+            nv.status = -1;
+            return nv;
         }
     }
 }

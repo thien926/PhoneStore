@@ -22,9 +22,9 @@ namespace PhoneAPI.Persistence
             return context.NhanViens.ToList();
         }
 
-        public NhanVien NhanVien_GetById(int id)
+        public NhanVien NhanVien_GetByUser(string user)
         {
-            return context.NhanViens.Find(id);
+            return context.NhanViens.Find(user);
         }
 
         public void NhanVien_Remove(NhanVien NV)

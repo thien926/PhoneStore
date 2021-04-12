@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SanPhamService {
-  url = `${environment.apiUrl}sanpham`;
+  url = `${environment.apiUrl}sanpham/`;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -20,7 +20,7 @@ export class SanPhamService {
   }
 
   public getSP(id: number) {
-    return this.httpClient.get<any>(this.url + "/" + id, this.httpOptions);
+    return this.httpClient.get<any>(this.url + id, this.httpOptions);
   }
 
   public AddSP(data) {
@@ -32,21 +32,21 @@ export class SanPhamService {
   }
 
   public DeleteSP(id : number) {
-    return this.httpClient.delete<any>(this.url + "/" + id, this.httpOptions);
+    return this.httpClient.delete<any>(this.url + id, this.httpOptions);
   } 
 
   // Bên shop
   public SanPham_Filter(data) {
-    return this.httpClient.post<any>(this.url + "/shop", data, this.httpOptions);
+    return this.httpClient.post<any>(this.url + "shop", data, this.httpOptions);
   }
 
   // Sản phẩm bán chạy bên home
   public Home_SPBanChay() {
-    return this.httpClient.get<any>(this.url + '/home-spbanchay', this.httpOptions);
+    return this.httpClient.get<any>(this.url + 'home-spbanchay', this.httpOptions);
   }
 
   // Sản phẩm bán chạy bên home
   public Home_SPHot() {
-    return this.httpClient.get<any>(this.url + '/home-sphot', this.httpOptions);
+    return this.httpClient.get<any>(this.url + 'home-sphot', this.httpOptions);
   }
 }

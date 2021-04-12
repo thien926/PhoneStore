@@ -15,8 +15,8 @@ namespace PhoneAPI.Services
             return q.MappingNhanVienDtos();
         }
 
-        public NhanVienDto NhanVien_GetById(int id){
-            var q = NVcontext.NhanVien_GetById(id);
+        public NhanVienDto NhanVien_GetByUser(string user){
+            var q = NVcontext.NhanVien_GetByUser(user);
             if(q == null) return null;
             return q.MappingNhanVienDto();
         }
@@ -27,14 +27,14 @@ namespace PhoneAPI.Services
         }
 
         public void NhanVien_Update(NhanVienDto NVdto){
-            var q = NVcontext.NhanVien_GetById(NVdto.permission_id);
+            var q = NVcontext.NhanVien_GetByUser(NVdto.user);
             if(q == null) return;
             NVdto.MappingNhanVien(q);
             NVcontext.NhanVien_Update(q);
         }
 
-        public void NhanVien_Remove(int user){
-            var q = NVcontext.NhanVien_GetById(user);
+        public void NhanVien_Remove(string user){
+            var q = NVcontext.NhanVien_GetByUser(user);
             if(q == null) return;
             NVcontext.NhanVien_Remove(q);
         }

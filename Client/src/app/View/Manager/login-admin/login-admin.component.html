@@ -1,12 +1,12 @@
 <section class="container">
     <div class="login">
         <h1>Đăng nhập Admin</h1>
-        <form method="post" action="/Admin/Login/Index">
-            <p><input type="text"  placeholder="Tài khoản"></p>
-            <span ></span>
-            <p><input type="password"  placeholder="Mật khẩu"></p>
-            <span ></span>
-            <p class="submit"><input type="submit" name="commit" value="Login"></p>
+        <form [formGroup]="profileFormNV" (ngSubmit)="eventLoginAdmin()">
+            <p><input type="text"  placeholder="Tài khoản" formControlName="user"></p>
+            <span class="field-validation-error"></span>
+            <p><input type="password"  placeholder="Mật khẩu" formControlName="password"></p>
+            <span class="field-validation-error"></span>
+            <p class="submit"><input type="submit" name="commit" value="Login" [disabled]="!profileFormNV.valid"></p>
         </form>
     </div>
 </section>

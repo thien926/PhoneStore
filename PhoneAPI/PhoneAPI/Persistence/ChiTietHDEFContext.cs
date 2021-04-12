@@ -22,9 +22,11 @@ namespace PhoneAPI.Persistence
             return context.ChiTietHDs.ToList();
         }
 
-        public ChiTietHD ChiTietHD_GetById(int id)
+        public IEnumerable<ChiTietHD> ChiTietHD_GetByBill_Id(int bill_id)
         {
-            return context.ChiTietHDs.Find(id);
+            var query = context.ChiTietHDs.AsQueryable();
+            query = query.Where(m => m.bill_id == bill_id);
+            return query.ToList();
         }
 
         public void ChiTietHD_Remove(ChiTietHD CTHD)

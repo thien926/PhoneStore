@@ -13,10 +13,7 @@ namespace PhoneAPI.Mappings
                 name = cthd.name,
                 amount = cthd.amount,
                 price = cthd.price,
-                img = cthd.img,
-                product_type_id =cthd.product_type_id,
-                description =cthd.description,
-                status =cthd.status,
+                img = Constants.apiUrlImg + cthd.img
             };
         }
         public static ChiTietHD MappingChiTietHD(this ChiTietHDDto cthddto){
@@ -26,10 +23,7 @@ namespace PhoneAPI.Mappings
                 name = cthddto.name,
                 amount = cthddto.amount,
                 price = cthddto.price,
-                img = cthddto.img,
-                product_type_id =cthddto.product_type_id,
-                description =cthddto.description,
-                status =cthddto.status,
+                img = cthddto.img
             };
         }
         public static void MappingChiTietHD(this ChiTietHDDto cthddto, ChiTietHD cthd){
@@ -38,9 +32,6 @@ namespace PhoneAPI.Mappings
             cthd.amount = cthddto.amount;
             cthd.price = cthddto.price;
             cthd.img = cthddto.img;
-            cthd.product_type_id =cthddto.product_type_id;
-            cthd.description =cthddto.description;
-            cthd.status =cthddto.status;
         }
 
         public static IEnumerable<ChiTietHDDto> MappingChiTietHDDtos(this IEnumerable<ChiTietHD> cthds){

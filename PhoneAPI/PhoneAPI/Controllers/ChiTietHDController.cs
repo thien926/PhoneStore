@@ -22,10 +22,10 @@ namespace PhoneAPI.Controllers
             return CTHDservice.ChiTietHD_GetAll();
         }
 
-        [HttpGet("{id}")]
-        public ChiTietHDDto GetCTHDDto(int id)
+        [HttpGet("{bill_id}")]
+        public IEnumerable<ChiTietHDDto> GetCTHDDto_ByBillID(int bill_id)
         {
-            return CTHDservice.ChiTietHD_GetById(id);
+            return CTHDservice.ChiTietHD_GetByBill_Id(bill_id);
         }
 
         [HttpPost]
@@ -33,19 +33,7 @@ namespace PhoneAPI.Controllers
         {
             CTHDservice.ChiTietHD_Add(q);
 
-            return CreatedAtAction(nameof(GetCTHDDto), new { id = q.bill_id }, q);
-        }
-
-        [HttpPut]
-        public void UpdateCTHDDto([FromBody] ChiTietHDDto q)
-        {
-            CTHDservice.ChiTietHD_Update(q);
-        }
-
-        [HttpDelete("{id}")]
-        public void DeleteCTHDDto(int id)
-        {
-            CTHDservice.ChiTietHD_Remove(id);
+            return q;
         }
     }
 }

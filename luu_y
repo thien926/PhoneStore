@@ -1,6 +1,6 @@
 Muốn chạy được formGroup thì phải import FormsModule, ReactiveFormsModule trong app.module.ts
 
-* Các thành phần chính trong 1 file *.module.ts :  
+I   Các thành phần chính trong 1 file *.module.ts :  
         RouterModule,
         BrowserModule,
         FormsModule,
@@ -9,7 +9,7 @@ Muốn chạy được formGroup thì phải import FormsModule, ReactiveFormsMo
 
 pattern in angular giống với java : https://openplanning.net/10175/java-regular-expression
 
-* Muốn tạo 1 Manager Admin và 1 shop thì
+II  Muốn tạo 1 Manager Admin và 1 shop thì
     1.  ng g c View/_shared/default             Để tạo 1 component chứa layout (giống như app)
     2.  ng g m View/_shared/default             Để tạo 1 module, module này chứa các Component con như CartComponent, ShopComponent
     3.  Sửa default.module.ts   
@@ -71,4 +71,86 @@ pattern in angular giống với java : https://openplanning.net/10175/java-regu
             })
             export class AppModule { }
 
+III.Cách tạo admin và shop
+    1.  Tạo 1 component default và module default để chạy bên shop
+        1.1 Bên module này chứa các component của shop, bên app ko chứa các component mà bên này chứa
+    2.  Tạo 1 component manager và module manager để chạy bên admin
+        2.1 Bên module này chứa các component của manager, bên app ko chứa các component mà bên này chứa
+    3.  Bên app-routing.module chứa các path của 2 thành phần shop và manager thì thêm code sau:
+        VD:
+            const routes: Routes = [
+                { path: '', component: DefaultComponent, 
+                    children: [
+                    { path : '', component : ShopComponent },
+                    { path: 'login', component: LoginComponent },
+                    { path: 'register', component: RegisterComponent },
+                    { path: 'shop', component: ShopComponent },
+                    { path: 'home', component: HomeComponent },
+                    { path: 'product', component: ProductComponent },
+                    { path: 'user', component: UserComponent },
+                    { path: 'cart', component: CartComponent },
+                    ]
+                },
+                { path: 'manager', component: ManagerComponent, 
+                    children: [
+                    { path : '', component : LoginAdminComponent },
+                    { path : 'bill', component : BillAdminComponent },
+                    ]
+                },
+            ];
+    4.  Bên app.module phải chứa 2 module default và manager
+        VD:
+            @NgModule({
+                declarations: [
+                    AppComponent
+                ],
+                imports: [
+                    AppRoutingModule,
+                    DefaultModule,
+                    ManagerModule
+                ],
+                providers: [],
+                bootstrap: [AppComponent]
+            })
+IV. Tại đây ta gặp vấn đề là template của shop và manager là khác nhau, nên css khác nhau, và đây là cách giải
+    quyết (mình sẽ thêm css cho index.html tại 2 component default, manager)
+    1.  Tại file default.component.ts
+        1.1 Tạo hàm
+            public loadCssHead() {
+                const head = document.head;
+                const temp = document.createElement('link');
 
+                temp.innerHTML = `<link href="assets/css/css.css" rel="stylesheet" />
+                <link rel="stylesheet" href="assets/css/bootstrap.min.css" >
+                <link rel="stylesheet" href="assets/css/font-awesome.min.css" >
+                <link rel="stylesheet" href="assets/css/themify-icons.css" >
+                <link rel="stylesheet" href="assets/css/elegant-icons.css" >
+                <link rel="stylesheet" href="assets/css/owl.carousel.min.css" >
+                <link rel="stylesheet" href="assets/css/nice-select.css" >
+                <link rel="stylesheet" href="assets/css/jquery-ui.min.css" >
+                <link rel="stylesheet" href="assets/css/slicknav.min.css" >
+                <link rel="stylesheet" href="assets/css/style.css" >  `;
+                while (temp.firstChild) {
+                    head.appendChild(temp.firstChild);
+                }
+            }
+        1.2 Thêm hàm loadCssHead() vào constructor()
+    2.  Tại file manager.component.ts
+        2.1 Tạo hàm
+            public loadCssHead() {
+                const head = document.head;
+                const temp = document.createElement('link');
+
+                temp.innerHTML = `<link href="assets/assets/css/bootstrap.min.css" rel="stylesheet" />
+                <link href="assets/assets/css/animate.min.css" rel="stylesheet" />
+                <link href="assets/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet" />
+                <link href="assets/assets/css/demo.css" rel="stylesheet" />
+                <link href="assets/assets/css/font-awesome.min.css" rel="stylesheet" />
+                <link href="assets/assets/css/css.css" rel="stylesheet" />
+                <link href="assets/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />`;
+                while (temp.firstChild) {
+                    head.appendChild(temp.firstChild);
+                }
+
+            }
+        2.2 Thêm hàm loadCssHead() vào constructor()

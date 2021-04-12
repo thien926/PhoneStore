@@ -3,7 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { CartComponent } from './View/cart/cart.component';
 import { HomeComponent } from './View/home/home.component';
 import { LoginComponent } from './View/login/login.component';
+import { BillAdminComponent } from './View/Manager/bill-admin/bill-admin.component';
+import { KhachHangAdminComponent } from './View/Manager/khach-hang-admin/khach-hang-admin.component';
+import { LoaiSanPhamAdminComponent } from './View/Manager/loai-san-pham-admin/loai-san-pham-admin.component';
 import { LoginAdminComponent } from './View/Manager/login-admin/login-admin.component';
+import { NhanVienAdminComponent } from './View/Manager/nhan-vien-admin/nhan-vien-admin.component';
+import { QuyenAdminComponent } from './View/Manager/quyen-admin/quyen-admin.component';
+import { SanPhamAdminComponent } from './View/Manager/san-pham-admin/san-pham-admin.component';
 import { ProductComponent } from './View/product/product.component';
 import { RegisterComponent } from './View/register/register.component';
 import { ShopComponent } from './View/shop/shop.component';
@@ -27,6 +33,12 @@ const routes: Routes = [
   { path: 'manager', component: ManagerComponent, 
     children: [
       { path : '', component : LoginAdminComponent },
+      { path : 'bill', component : BillAdminComponent },
+      { path : 'product', component : SanPhamAdminComponent },
+      { path : 'permission', component : QuyenAdminComponent },
+      { path : 'type', component : LoaiSanPhamAdminComponent },
+      { path : 'staff', component : NhanVienAdminComponent },
+      { path : 'customer', component : KhachHangAdminComponent },
     ]
   },
 ];

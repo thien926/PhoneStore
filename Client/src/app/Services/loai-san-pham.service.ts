@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class LoaiSanPhamService {
-  url = `${environment.apiUrl}loaisanpham`;
+  url = `${environment.apiUrl}loaisanpham/`;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -20,7 +20,7 @@ export class LoaiSanPhamService {
   }
 
   public getLSP(id: number) {
-    return this.httpClient.get<any>(this.url + "/" + id, this.httpOptions);
+    return this.httpClient.get<any>(this.url + id, this.httpOptions);
   }
 
   public AddLSP(data) {
@@ -32,6 +32,6 @@ export class LoaiSanPhamService {
   }
 
   public DeleteLSP(id : number) {
-    return this.httpClient.delete<any>(this.url + "/" + id, this.httpOptions);
+    return this.httpClient.delete<any>(this.url + id, this.httpOptions);
   }
 }

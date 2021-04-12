@@ -1,0 +1,25 @@
+
+#id1 {
+    width: 100%;
+    overflow: auto;
+    max-height: 800px;
+}
+
+.modal-header, h4, .close {
+    background-color: #5cb85c;
+    color: white !important;
+    text-align: center;
+    font-size: 30px;
+}
+
+.modal-footer {
+    background-color: #f9f9f9;
+}
+
+.field-validation-error {
+    color: red
+}
+
+.validation-summary-errors {
+    color: red
+}

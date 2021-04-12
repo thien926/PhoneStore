@@ -6,13 +6,28 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginAdminComponent } from '../../Manager/login-admin/login-admin.component';
+import { BillAdminComponent } from '../../Manager/bill-admin/bill-admin.component';
+import { MenuAdminComponent } from '../../Manager/menu-admin/menu-admin.component';
+import { SanPhamAdminComponent } from '../../Manager/san-pham-admin/san-pham-admin.component';
+import { QuyenAdminComponent } from '../../Manager/quyen-admin/quyen-admin.component';
+import { LoaiSanPhamAdminComponent } from '../../Manager/loai-san-pham-admin/loai-san-pham-admin.component';
+import { NhanVienAdminComponent } from '../../Manager/nhan-vien-admin/nhan-vien-admin.component';
+import { KhachHangAdminComponent } from '../../Manager/khach-hang-admin/khach-hang-admin.component';
 
 
 
 @NgModule({
   declarations: [
     ManagerComponent,
-    LoginAdminComponent
+    LoginAdminComponent,
+    BillAdminComponent,
+    MenuAdminComponent,
+    BillAdminComponent,
+    SanPhamAdminComponent,
+    QuyenAdminComponent,
+    LoaiSanPhamAdminComponent,
+    NhanVienAdminComponent,
+    KhachHangAdminComponent
   ],
   imports: [
     CommonModule,

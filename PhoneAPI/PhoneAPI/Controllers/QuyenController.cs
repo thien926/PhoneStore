@@ -8,7 +8,6 @@ namespace PhoneAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
     public class QuyenController : ControllerBase
     {
         private readonly QuyenService Qservice;

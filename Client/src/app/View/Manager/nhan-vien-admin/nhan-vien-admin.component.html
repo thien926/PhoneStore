@@ -1,0 +1,222 @@
+<div class="wrapper">
+    <app-menu-admin></app-menu-admin>
+
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">{{ title }}</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a>
+                                <p>{{ CurrentNhanVien?.full_name }} | <span (click)="eventLogout()">Đăng xuất</span></p>
+                            </a>
+                        </li>
+                        <li class="separator hidden-lg hidden-md"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- @*Phần sửa*@ -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <form class="title" onsubmit="return false;">
+                                    <p>
+                                        <select style="height: 30px;" id="select">
+                                            <option value="all">Tất cả</option>
+                                            <option value="user">Tìm theo tài khoản</option>
+                                            <option value="full_name">Tìm theo họ tên</option>
+                                            <option value="phone">Tìm theo số điện thoại</option>
+                                            <option value="mail">Tìm theo thư điện tử</option>
+                                            <option value="address">Tìm theo địa chỉ</option>
+                                        </select>
+                                        <input type="text" style="height: 30px;" id="input_search"/>
+                                        <input type="button" value="Tìm kiếm" style="height: 30px;" onclick="TimKiem()"/>
+                                        <input type="button" value="Thêm nhân viên" style="float: right;" onclick="ThemNV()"/>
+                                    </p>
+                                </form>
+                            </div>
+                            <div class="content table-responsive table-full-width" id="id1">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                    <th>Tài khoản</th>
+                                    <th>Họ tên</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Thư điện tử</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Giới tính</th>
+                                    <th>Ngày sinh</th>
+                                    <th>Mã quyền</th>
+                                    <th>Trạng thái</th>
+                                    <th *ngIf="tool">Hành động</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of ListNV">
+                                            <td>{{item.user}}</td>
+                                            <td>{{item.full_name}}</td>
+                                            <td>{{item.phone}}</td>
+                                            <td>{{item.mail}}</td>
+                                            <td>{{item.address}}</td>
+                                            <td>{{item.sex}}</td>
+                                            <td>{{item.dateborn}}</td>
+                                            <td>{{item.permission_id}}</td>
+                                            <td>{{checkStatus(item.status)}}</td>
+                                            <td *ngIf="tool">
+                                                <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditNV('@q.user')"><i class="pe-7s-config"></i></button>
+                                                <button *ngIf="item.status != 0" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" onclick="RemoveNV('@q.user')"><i class="pe-7s-lock"></i></button>
+                                                <button *ngIf="item.status == 0" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" onclick="BackNV('@q.user')"><i class="pe-7s-unlock"></i></button>
+                                                
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @*Kết thúc phần sửa*@ -->
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Company
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Portfolio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <p class="copyright pull-right">
+                    &copy;
+                    <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                </p>
+            </div>
+        </footer>
+
+
+    </div>
+</div>
+<!-- @*Phần sửa*@ -->
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4><span id="title-modal">Login</span></h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form role="form" onsubmit="return false;">
+                        <div asp-validation-summary="ModelOnly">
+                            <!-- @* <span>Danh sách lỗi</span> *@ -->
+                        </div>
+                        <div class="form-group">
+                            <label>Tài khoản</label>
+                            <input type="text" class="form-control" id="user" placeholder="Tài khoản" asp-for="@Model.NV.user">
+                            <span asp-validation-for="@Model.NV.user"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Mật khẩu</label>
+                            <input type="password" class="form-control" id="pass" placeholder="Mật khẩu" asp-for="@Model.NV.pass">
+                            <span asp-validation-for="@Model.NV.pass"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Nhập lại mật khẩu</label>
+                            <input type="password" class="form-control" id="repass" placeholder="Nhập lại mật khẩu" asp-for="@Model.NV.repass">
+                            <span asp-validation-for="@Model.NV.repass"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Họ tên</label>
+                            <input type="text" class="form-control" id="full_name" placeholder="Họ tên" asp-for="@Model.NV.full_name">
+                            <span asp-validation-for="@Model.NV.full_name"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Số điện thoại</label>
+                            <input type="text" class="form-control" id="phone" placeholder="Số điện thoại" asp-for="@Model.NV.phone">
+                            <span asp-validation-for="@Model.NV.phone"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Thư điện tử</label>
+                            <input type="text" class="form-control" id="mail" placeholder="Thư điện tử" asp-for="@Model.NV.mail">
+                            <span asp-validation-for="@Model.NV.mail"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input type="text" class="form-control" id="address" placeholder="Địa chỉ" asp-for="@Model.NV.address">
+                            <span asp-validation-for="@Model.NV.address"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Giới tính</label>
+                            <select id="sex" style="height: 30px; margin-left: 5%;">
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                            </select>
+                            <span asp-validation-for="@Model.NV.sex"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Ngày sinh</label>
+                            <input type="date" class="form-control" id="dateborn" placeholder="Ngày sinh" asp-for="@Model.NV.dateborn">
+                            <span asp-validation-for="@Model.NV.dateborn"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Mã quyền</label>
+                            <select id="permission_id" style="height: 30px; margin-left: 5%;">
+                                <!-- @{
+                                    foreach(var q in Model.ListQ){
+                                        <option value="@q.permission_id">@q.permission_id - @q.name</option>
+                                    }
+                                } -->
+                            </select>
+                            <!-- @* <input type="text" class="form-control" id="permission_id" placeholder="Mã quyền" asp-for="@Model.NV.permission_id"> *@ -->
+                            <span asp-validation-for="@Model.NV.permission_id"></span>
+                        </div>
+                        
+                        <div class="checkbox">
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block" onclick="SubmitEditNV()" id="button_submit">Sửa</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

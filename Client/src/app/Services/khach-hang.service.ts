@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class KhachHangService {
-  url = `${environment.apiUrl}khachhang`;
+  url = `${environment.apiUrl}khachhang/`;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -20,15 +20,11 @@ export class KhachHangService {
   }
 
   public getKH(user: string) {
-    return this.httpClient.get<any>(this.url + "/" + user, this.httpOptions);
+    return this.httpClient.get<any>(this.url + user, this.httpOptions);
   }
 
   public AddKH(data) {
     return this.httpClient.post<any>(this.url, data, this.httpOptions);
-  }
-
-  public AddKH_Register(data) {
-    return this.httpClient.post<any>(this.url + "/register", data, this.httpOptions);
   }
 
   public UpdateKH(data) {
@@ -36,6 +32,11 @@ export class KhachHangService {
   }
 
   public DeleteKH(user : string) {
-    return this.httpClient.delete<any>(this.url + "/" + user, this.httpOptions);
+    return this.httpClient.delete<any>(this.url + user, this.httpOptions);
+  }
+
+  // Add Khách hàng bên đăng kí
+  public AddKH_Register(data) {
+    return this.httpClient.post<any>(this.url + "register", data, this.httpOptions);
   }
 }

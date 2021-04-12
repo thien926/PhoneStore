@@ -115,7 +115,7 @@ export class LoginComponent implements OnInit {
     // Có lỗi chiều dài
     if(pass.errors.minlength || pass.errors.maxlength) {
       
-      return "Tài khoản từ 3 đến 20 kí tự";
+      return "Mật khẩu từ 4 đến 20 kí tự";
     }
 
     // if(pass.errors.pattern) {
