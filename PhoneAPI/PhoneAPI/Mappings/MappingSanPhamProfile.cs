@@ -27,7 +27,7 @@ namespace PhoneAPI.Mappings
                 amount = spdto.amount,
                 price = spdto.price,
                 description = spdto.description,
-                img = spdto.img,
+                img = spdto.img.Replace(Constants.apiUrlImg, ""),
                 status = spdto.status
             };
         }
@@ -39,7 +39,7 @@ namespace PhoneAPI.Mappings
             sp.amount = spdto.amount;
             sp.price = spdto.price;
             sp.description = spdto.description;
-            sp.img = spdto.img;
+            sp.img = spdto.img.Replace(Constants.apiUrlImg, "");
             sp.status = spdto.status;
         }
 

@@ -38,5 +38,10 @@ namespace PhoneAPI.Services
             if(hd == null) return;
             HDcontext.HoaDon_Remove(hd);
         }
+
+        public IEnumerable<HoaDonDto> HoaDon_Manager_TimKiem(string type, string input, int status){
+            var hds = HDcontext.HoaDon_Manager_TimKiem(type, input, status);
+            return hds.MappingHoaDonDtos();
+        }
     }
 }

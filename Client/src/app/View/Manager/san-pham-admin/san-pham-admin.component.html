@@ -35,16 +35,15 @@
                             <div class="header">
                                 <form class="title" onsubmit="return false;">
                                     <p>
-                                        <select style="height: 30px;" id="select">
+                                        <select style="height: 30px;" name="type" [(ngModel)]="type">
                                             <option value="all">Tất cả</option>
                                             <option value="product_id">Tìm theo mã sản phẩm</option>
                                             <option value="name">Tìm theo tên sản phẩm</option>
                                             <option value="product_type_id">Tìm theo mã loại sản phẩm</option>
-                                            <option value="brand_id">Tìm theo mã thương hiệu sản phẩm</option>
                                             <option value="price">Tìm theo giá</option>
                                         </select>
-                                        <input type="text" style="height: 30px;" id="input_search"/>
-                                        <input type="button" value="Tìm kiếm" style="height: 30px;" onclick="TimKiem()"/>
+                                        <input type="text" style="height: 30px;" name="input" [(ngModel)]="input"/>
+                                        <input type="button" value="Tìm kiếm" style="height: 30px;" (click)="eventTimKiem()"/>
                                         <input type="button" value="Thêm sản phẩm" style="float: right;"/>
                                     </p>
                                 </form>
@@ -78,10 +77,10 @@
                                                 <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditSP(item.product_id)"><i class="pe-7s-config"></i></button>
                                                 <span *ngIf="item.status == 1; then status1; else status2"></span> 
                                                 <ng-template #status1>
-                                                    <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" onclick="RemoveSP(item.product_id)"><i class="pe-7s-lock"></i></button>
+                                                    <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" (click)="RemoveSP(item.product_id)"><i class="pe-7s-lock"></i></button>
                                                 </ng-template>
                                                 <ng-template #status2>
-                                                    <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" onclick="BackSP(item.product_id)"><i class="pe-7s-unlock"></i></button>
+                                                    <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" (click)="BackSP(item.product_id)"><i class="pe-7s-unlock"></i></button>
                                                 </ng-template>
                                             </td>
                                         </tr>

@@ -13,6 +13,7 @@ import { QuyenAdminComponent } from '../../Manager/quyen-admin/quyen-admin.compo
 import { LoaiSanPhamAdminComponent } from '../../Manager/loai-san-pham-admin/loai-san-pham-admin.component';
 import { NhanVienAdminComponent } from '../../Manager/nhan-vien-admin/nhan-vien-admin.component';
 import { KhachHangAdminComponent } from '../../Manager/khach-hang-admin/khach-hang-admin.component';
+import { UserAdminComponent } from '../../Manager/user-admin/user-admin.component';
 
 
 
@@ -27,7 +28,8 @@ import { KhachHangAdminComponent } from '../../Manager/khach-hang-admin/khach-ha
     QuyenAdminComponent,
     LoaiSanPhamAdminComponent,
     NhanVienAdminComponent,
-    KhachHangAdminComponent
+    KhachHangAdminComponent,
+    UserAdminComponent
   ],
   imports: [
     CommonModule,

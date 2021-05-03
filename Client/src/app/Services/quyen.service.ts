@@ -33,4 +33,8 @@ export class QuyenService {
   public deleteQ(id : number) {
     return this.httpClient.delete<any>(this.url + id, this.httpOptions);
   }
+  // TÌm kiếm bên admin quyền
+  public manager_qTimKiem(data) {
+    return this.httpClient.post<any>(this.url + "manager_qsearch", data, this.httpOptions);
+  }
 }

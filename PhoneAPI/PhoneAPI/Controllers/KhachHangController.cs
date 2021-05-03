@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using PhoneAPI.DTOs;
+using PhoneAPI.DTOs.Admin.KhachHang;
 using PhoneAPI.Services;
 
 namespace PhoneAPI.Controllers
@@ -84,6 +85,15 @@ namespace PhoneAPI.Controllers
             kh.dateborn = new DateTime();
             kh.status = -1;
             return CreatedAtAction(nameof(GetKHDto), new { user = kh.user }, kh);
+        }
+
+        // Tìm kiếm bên admin khách hàng
+        [HttpPost("manager_khsearch")]
+        public IEnumerable<KhachHangDto> TimKiem(KhachHang_SearchDto q){
+            if(String.IsNullOrEmpty(q.input)){
+                q.input = "";
+            }
+            return KHservice.KhachHang_AdminTimKiem(q.type, q.input);
         }
     }
 }

@@ -9,12 +9,23 @@
 
         <ul class="nav">
             
-            <li>
-                <a href="/Admin/User/Index">
-                    <i class="pe-7s-user"></i>
-                    <p>Thông tin tài khoản</p>
-                </a>
-            </li>
+            <span *ngIf="page == 'user'; then user1; else user2"></span>
+            <ng-template #user1>
+                <li class="active">
+                    <a [routerLink]="['/manager/user']" [routerLinkActive]="'active-link'">
+                        <i class="pe-7s-user"></i>
+                        <p>Thông tin tài khoản</p>
+                    </a>
+                </li>
+            </ng-template>
+            <ng-template #user2>
+                <li>
+                    <a [routerLink]="['/manager/user']" [routerLinkActive]="'active-link'">
+                        <i class="pe-7s-user"></i>
+                        <p>Thông tin tài khoản</p>
+                    </a>
+                </li>
+            </ng-template>
 
             <!-- Sản phẩm -->
             <span *ngIf="page == 'product'; then product1; else product2"></span>

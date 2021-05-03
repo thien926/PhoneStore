@@ -16,6 +16,10 @@ export class SanPhamAdminComponent implements OnInit {
   public CurrentQuyen;
 
   public ListSP;
+  
+  public type = "all";
+  public input = "";
+
   constructor(private QService : QuyenService, private SPService : SanPhamService) { }
 
   ngOnInit(): void {
@@ -53,6 +57,10 @@ export class SanPhamAdminComponent implements OnInit {
       });
     });
 
+    this.loadSP();
+  }
+
+  public loadSP() {
     // Load Sản Phẩm
     this.SPService.getSPs().subscribe(data => {
       if(data) {
@@ -85,5 +93,88 @@ export class SanPhamAdminComponent implements OnInit {
     }
 
     return "Hết bán";
+  }
+
+  public eventTimKiem() {
+    const newProfile = {
+      type : this.type,
+      input : this.input
+    };
+
+    this.SPService.manager_spTimKiem(newProfile).subscribe(data => {
+      this.ListSP = data;
+      // console.log("Khách hàng: ", data);
+    },
+    error => {
+      Swal.fire({
+        type : "error",
+        title : "Lỗi tìm kiếm",
+        html : error.responseText
+      })
+    });
+  }
+
+  public RemoveSP(product_id) {
+    Swal.fire({
+      type: "question",
+      title: "Xác nhận",
+      text: "Bạn có muốn khóa sản phẩm "+ product_id +" này?",
+      showCancelButton: true,
+      confirmButtonText: 'Đồng ý',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.value) {
+          this.SPService.getSP(product_id).subscribe(data => {
+            data.status = 0;
+
+            this.SPService.UpdateSP(data).subscribe(data => {
+              Swal.fire({
+                type: 'success',
+                title: 'Đã khóa thành công'
+              }).then(result => {
+                this.loadSP();
+              });
+            }, error => {
+              Swal.fire({
+                type: 'error',
+                title: 'Lỗi khóa sản phẩm này',
+                html: error.responseText
+              });
+            });
+          });
+        }
+    });
+  }
+
+  public BackSP(product_id) {
+    Swal.fire({
+      type: "question",
+      title: "Xác nhận",
+      text: "Bạn có muốn mở khóa sản phẩm "+ product_id +" này?",
+      showCancelButton: true,
+      confirmButtonText: 'Đồng ý',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.value) {
+          this.SPService.getSP(product_id).subscribe(data => {
+            data.status = 1;
+
+            this.SPService.UpdateSP(data).subscribe(data => {
+              Swal.fire({
+                type: 'success',
+                title: 'Đã mở khóa thành công'
+              }).then(result => {
+                this.loadSP();
+              });
+            }, error => {
+              Swal.fire({
+                type: 'error',
+                title: 'Lỗi mở khóa sản phẩm này',
+                html: error.responseText
+              });
+            });
+          });
+        }
+    });
   }
 }

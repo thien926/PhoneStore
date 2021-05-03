@@ -35,15 +35,15 @@
                             <div class="header">
                                 <form class="title" onsubmit="return false;">
                                     <p>
-                                        <select style="height: 30px;" id="select">
+                                        <select style="height: 30px;" id="select" [(ngModel)]="type" name="type">
                                             <option value="all">Tất cả</option>
                                             <option value="bill_id">Tìm theo mã hóa đơn</option>
                                             <option value="user_kh">Tìm theo mã khách hàng</option>
                                             <option value="user_nv">Tìm theo mã nhân viên</option>
                                         </select>
-                                        <input type="text" style="height: 30px;" id="input_search"/>
-                                        <input type="button" value="Tìm kiếm" style="height: 30px;" onclick="TimKiem()"/>
-                                        <select style="height: 30px; float: right" id="select_trangthai" onchange="TimKiem()">
+                                        <input type="text" style="height: 30px;" name="input" [(ngModel)]="input"/>
+                                        <input type="button" value="Tìm kiếm" style="height: 30px;" (click)="eventTimKiem()"/>
+                                        <select style="height: 30px; float: right" name="status" (change)="eventTimKiem()" [(ngModel)]="status">
                                             <option value="0">Tất cả</option>
                                             <option value="1">Đang xử lý</option>
                                             <option value="2">Đang giao hàng</option>
@@ -69,20 +69,20 @@
                                     <th *ngIf="tool">Hành động</th>
                                     </thead>
                                     <tbody id="suahd1"> 
-                                        <tr *ngFor="let item of ListHD" (click)="eventSeeMore(item.bill_id)">
-                                            <td>{{ item.bill_id }}</td>
-                                            <td>{{item.user_kh}}</td>
-                                            <td>{{item.user_nv}}</td>
-                                            <td>{{item.phone}}</td>
-                                            <td>{{item.address}}</td>
-                                            <td>{{item.date_receice}}</td>
+                                        <tr *ngFor="let item of ListHD" >
+                                            <td (click)="eventSeeMore(item.bill_id)" >{{ item.bill_id }}</td>
+                                            <td (click)="eventSeeMore(item.bill_id)" >{{item.user_kh}}</td>
+                                            <td (click)="eventSeeMore(item.bill_id)" >{{item.user_nv}}</td>
+                                            <td (click)="eventSeeMore(item.bill_id)" >{{item.phone}}</td>
+                                            <td (click)="eventSeeMore(item.bill_id)" >{{item.address}}</td>
+                                            <td (click)="eventSeeMore(item.bill_id)" >{{item.date_receice}}</td>
                                             
-                                            <td>{{item.date_order}}</td>
-                                            <td>{{item.total}}</td>
-                                            <td>{{ getStatus(item.status) }}</td>
+                                            <td (click)="eventSeeMore(item.bill_id)" >{{item.date_order}}</td>
+                                            <td (click)="eventSeeMore(item.bill_id)" >{{item.total}}</td>
+                                            <td (click)="eventSeeMore(item.bill_id)" >{{ getStatus(item.status) }}</td>
                                             
                                             <td *ngIf="tool">
-                                                <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditHD()"><i class="pe-7s-config"></i></button>
+                                                <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" (click)="EditHD(item.bill_id)"><i class="pe-7s-config"></i></button>
                                                 
                                             </td>
                                         </tr>
@@ -94,7 +94,7 @@
                     </div>
 
 
-                    <div class="col-md-12">
+                    <div class="col-md-12" *ngIf="ListCTHD">
                         <div class="card card-plain">
                             <div class="header">
                                 <h4 class="title" id="id_cthd">Chi tiết hóa đơn {{cthd_code}}</h4>
@@ -119,48 +119,6 @@
                                             <td> {{item.amount}}</td>
                                             <td> {{item.amount*item.price}} đ</td>
                                         </tr>
-                                        <!-- @* <tr>
-                                            <td>1</td>
-                                            <td>Dakota Rice</td>
-                                            <td>$36,738</td>
-                                            <td>Niger</td>
-                                            <td>Oud-Turnhout</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Minerva Hooper</td>
-                                            <td>$23,789</td>
-                                            <td>Curaçao</td>
-                                            <td>Sinaai-Waas</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Sage Rodriguez</td>
-                                            <td>$56,142</td>
-                                            <td>Netherlands</td>
-                                            <td>Baileux</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Philip Chaney</td>
-                                            <td>$38,735</td>
-                                            <td>Korea, South</td>
-                                            <td>Overland Park</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Doris Greene</td>
-                                            <td>$63,542</td>
-                                            <td>Malawi</td>
-                                            <td>Feldkirchen in Kärnten</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Mason Porter</td>
-                                            <td>$78,615</td>
-                                            <td>Chile</td>
-                                            <td>Gloucester</td>
-                                        </tr> *@ -->
                                     </tbody>
                                 </table>
 
@@ -168,6 +126,138 @@
                         </div>
                     </div>
 
+                    <div class="col-md-12" *ngIf="edit_bill_id > 0">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title">Sửa trạng thái hóa đơn {{edit_bill_id}}</h4>
+                                <p class="title">Thành tiền {{edit_thanhtien}}</p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover" [ngSwitch]="edit_status">
+                                    <tbody *ngSwitchCase="1">
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(1)" value="1" name="edit_status" checked>
+                                            </td>
+                                            <td>Đang xử lý</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(2)" value="2" name="edit_status">
+                                            </td>
+                                            <td>Đang giao hàng</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(3)" value="3" name="edit_status">
+                                            </td>
+                                            <td>Đã giao hàng</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(4)" value="4" name="edit_status">
+                                            </td>
+                                            <td>Đã hủy đơn hàng</td>
+                                        </tr>
+                                        <tr>
+                                        	<td><input type="button" value="Sửa" (click)="eventRepaire()"></td>
+                                        </tr>
+                                    </tbody>
+
+                                    <tbody *ngSwitchCase="2">
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(1)" value="1" name="edit_status" disabled>
+                                            </td>
+                                            <td>Đang xử lý</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(2)" value="2" name="edit_status" checked>
+                                            </td>
+                                            <td>Đang giao hàng</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(3)" value="3" name="edit_status">
+                                            </td>
+                                            <td>Đã giao hàng</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(4)" value="4" name="edit_status">
+                                            </td>
+                                            <td>Đã hủy đơn hàng</td>
+                                        </tr>
+                                        <tr>
+                                        	<td><input type="button" value="Sửa" (click)="eventRepaire()"></td>
+                                        </tr>
+                                    </tbody>
+
+                                    <tbody *ngSwitchCase="3">
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(1)" value="1" name="edit_status" disabled>
+                                            </td>
+                                            <td>Đang xử lý</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(2)" value="2" name="edit_status" disabled>
+                                            </td>
+                                            <td>Đang giao hàng</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(3)" value="3" name="edit_status" checked>
+                                            </td>
+                                            <td>Đã giao hàng</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(4)" value="4" name="edit_status">
+                                            </td>
+                                            <td>Đã hủy đơn hàng</td>
+                                        </tr>
+                                        <tr>
+                                        	<td><input type="button" value="Sửa" (click)="eventRepaire()"></td>
+                                        </tr>
+                                    </tbody>
+
+                                    <tbody *ngSwitchCase="4">
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(1)" value="1" name="edit_status" disabled>
+                                            </td>
+                                            <td>Đang xử lý</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(2)" value="2" name="edit_status" disabled>
+                                            </td>
+                                            <td>Đang giao hàng</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(3)" value="3" name="edit_status" disabled> 
+                                            </td>
+                                            <td>Đã giao hàng</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                                <input type="radio" (click)="change_Edit_Status(4)" value="4" name="edit_status" checked>
+                                            </td>
+                                            <td>Đã hủy đơn hàng</td>
+                                        </tr>
+                                        <tr>
+                                        	<td><input type="button" value="Sửa" (click)="eventRepaire()"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>

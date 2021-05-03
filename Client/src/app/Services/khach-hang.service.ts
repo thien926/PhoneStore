@@ -39,4 +39,9 @@ export class KhachHangService {
   public AddKH_Register(data) {
     return this.httpClient.post<any>(this.url + "register", data, this.httpOptions);
   }
+
+  // TÌm kiếm bên admin khách hàng
+  public manager_khTimKiem(data) {
+    return this.httpClient.post<any>(this.url + "manager_khsearch", data, this.httpOptions);
+  }
 }

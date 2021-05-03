@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using PhoneAPI.DTOs;
+using PhoneAPI.DTOs.NhanVien;
 using PhoneAPI.Services;
 
 namespace PhoneAPI.Controllers
@@ -73,6 +74,14 @@ namespace PhoneAPI.Controllers
             nv.dateborn = new DateTime();
             nv.status = -1;
             return nv;
+        }
+        // Tìm kiếm bên admin nhân viên
+        [HttpPost("manager_nvsearch")]
+        public IEnumerable<NhanVienDto> TimKiem(NhanVien_SearchDto q){
+            if(String.IsNullOrEmpty(q.input)){
+                q.input = "";
+            }
+            return NVservice.NhanVien_AdminTimKiem(q.type, q.input);
         }
     }
 }

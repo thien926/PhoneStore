@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using PhoneAPI.DTOs;
+using PhoneAPI.DTOs.Admin.SanPham;
 using PhoneAPI.Models;
 using PhoneAPI.Services;
 
@@ -89,6 +90,15 @@ namespace PhoneAPI.Controllers
         [HttpGet("home-sphot")]
         public IEnumerable<SanPhamDto> SPHot() {
             return this.sanPhamService.TenSPNoi();
+        }
+
+        // Tìm kiếm bên admin sản phẩm
+        [HttpPost("manager_spsearch")]
+        public IEnumerable<SanPhamDto> TimKiem(SP_SearchDto q){
+            if(String.IsNullOrEmpty(q.input)){
+                q.input = "";
+            }
+            return sanPhamService.SanPhams_AdminTimKiem(q.type, q.input);
         }
     }
 }

@@ -16,6 +16,9 @@ export class KhachHangAdminComponent implements OnInit {
   public CurrentQuyen;
   public ListKH;
 
+  public type = "all";
+  public input = "";
+
   constructor(private QService : QuyenService, private KHService : KhachHangService) { }
 
   ngOnInit(): void {
@@ -53,6 +56,10 @@ export class KhachHangAdminComponent implements OnInit {
       });
     });
 
+    this.loadKH();
+  }
+
+  public loadKH() {
     // Load khách hàng
     this.KHService.getKHs().subscribe(data => {
       if(data) {
@@ -85,5 +92,88 @@ export class KhachHangAdminComponent implements OnInit {
   public eventLogout() {
     sessionStorage.removeItem("CurrentNhanVien");
     location.reload();
+  }
+
+  public eventTimKiem() {
+    const newProfile = {
+      type : this.type,
+      input : this.input
+    };
+
+    this.KHService.manager_khTimKiem(newProfile).subscribe(data => {
+      this.ListKH = data;
+      // console.log("Khách hàng: ", data);
+    },
+    error => {
+      Swal.fire({
+        type : "error",
+        title : "Lỗi tìm kiếm",
+        html : error.responseText
+      })
+    });
+  }
+
+  public RemoveKH(user) {
+    Swal.fire({
+      type: "question",
+      title: "Xác nhận",
+      text: "Bạn có muốn khóa tài khoản "+ user +"?",
+      showCancelButton: true,
+      confirmButtonText: 'Đồng ý',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.value) {
+          this.KHService.getKH(user).subscribe(data => {
+            data.status = 0;
+
+            this.KHService.UpdateKH(data).subscribe(data => {
+              Swal.fire({
+                type: 'success',
+                title: 'Đã khóa thành công'
+              }).then(result => {
+                this.loadKH();
+              });
+            }, error => {
+              Swal.fire({
+                type: 'error',
+                title: 'Lỗi khóa tài khoản này',
+                html: error.responseText
+              });
+            });
+          });
+        }
+    });
+  }
+
+  public BackKH(user) {
+    Swal.fire({
+      type: "question",
+      title: "Xác nhận",
+      text: "Bạn có muốn mở khóa tài khoản "+ user +"?",
+      showCancelButton: true,
+      confirmButtonText: 'Đồng ý',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.value) {
+          this.KHService.getKH(user).subscribe(data => {
+            data.status = 1;
+
+            this.KHService.UpdateKH(data).subscribe(data => {
+              Swal.fire({
+                type: 'success',
+                title: 'Đã mở khóa thành công'
+              }).then(result => {
+                this.loadKH();
+              });
+            }, error => {
+              Swal.fire({
+                type: 'error',
+                title: 'Lỗi mở khóa tài khoản này',
+                html: error.responseText
+              });
+            });
+          });
+        }
+    });
   }
 }

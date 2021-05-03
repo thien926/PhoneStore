@@ -35,14 +35,14 @@
                             <div class="header">
                                 <form class="title" onsubmit="return false;">
                                     <p>
-                                        <select style="height: 30px;" id="select">
+                                        <select style="height: 30px;" name="type" [(ngModel)]="type">
                                             <option value="all">Tất cả</option>
                                             <option value="permission_id">Tìm theo mã quyền</option>
                                             <option value="name">Tìm theo tên quyền</option>
                                             <option value="details">Tìm theo chi tiết quyền</option>
                                         </select>
-                                        <input type="text" style="height: 30px;" id="input_search"/>
-                                        <input type="button" value="Tìm kiếm" style="height: 30px;" onclick="TimKiem()"/>
+                                        <input type="text" style="height: 30px;" name="input" [(ngModel)]="input"/>
+                                        <input type="button" value="Tìm kiếm" style="height: 30px;" (click)="eventTimKiem()"/>
                                         <input type="button" value="Thêm quyền" style="float: right;" onclick="ThemQuyen()"/>
                                     </p>
                                 </form>

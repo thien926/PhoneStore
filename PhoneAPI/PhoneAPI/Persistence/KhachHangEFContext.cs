@@ -33,5 +33,47 @@ namespace PhoneAPI.Persistence
             context.KhachHangs.Remove(U);
             context.SaveChanges();
         }
+
+        public IEnumerable<KhachHang> KhachHang_AdminTimKiem(string type, string input){
+            var query = context.KhachHangs.AsQueryable();
+            switch(type){
+                case "all": {
+                    input = input.Trim().ToLower();
+                    if(input == ""){
+                        return KhachHang_GetAll();
+                    }
+                    query = query.Where(m => m.user.ToLower().Contains(input) || m.full_name.ToLower().Contains(input) ||
+                    m.phone.ToLower().Contains(input) || m.mail.ToLower().Contains(input) || m.address.ToLower().Contains(input));
+                    break;
+                }
+                case "user": {
+                    input = input.Trim().ToLower();
+                    query = query.Where(m => m.user.ToLower().Contains(input));
+                    break;
+                }
+                case "full_name": {
+                    input = input.Trim().ToLower();
+                    query = query.Where(m => m.full_name.ToLower().Contains(input));
+                    break;
+                }
+                case "phone":{
+                    input = input.Trim().ToLower();
+                    query = query.Where(m => m.phone.ToLower().Contains(input));
+                    break;
+                }
+                case "mail":{
+                    input = input.Trim().ToLower();
+                    query = query.Where(m => m.mail.ToLower().Contains(input));
+                    break;
+                }
+                case "address":{
+                    input = input.Trim().ToLower();
+                    query = query.Where(m => m.address.ToLower().Contains(input));
+                    break;
+                }
+                default: break;
+            }
+            return query.ToList();
+        }
     }
 }

@@ -67,5 +67,8 @@ namespace PhoneAPI.Services
             var sps = SPcontext.TenSPNoi();
             return sps.MappingSanPhamDtos();
         }
+        public IEnumerable<SanPhamDto> SanPhams_AdminTimKiem(string type, string input){
+            return SPcontext.SanPhams_AdminTimKiem(type, input).MappingSanPhamDtos();
+        }
     }
 }

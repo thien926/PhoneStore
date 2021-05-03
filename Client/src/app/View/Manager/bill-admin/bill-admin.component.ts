@@ -22,6 +22,17 @@ export class BillAdminComponent implements OnInit {
   public cthd_thanhtien = 0;
   public cthd_code = null;
 
+  // Các trường tìm kiếm
+  public type = "all";
+  public input = "";
+  public status = 0;
+
+  // Các trường Sửa
+  public edit_bill_id = -1;
+  public edit_status = -1;
+  public edit_status_temp = -1;
+  public edit_thanhtien = 0;
+
   constructor(private QService : QuyenService, private HDService : HoaDonService,
     private CTHDService : ChiTietHoaDonService) { }
 
@@ -85,6 +96,7 @@ export class BillAdminComponent implements OnInit {
     this.CTHDService.getCTHDBy_BillID(bill_id).subscribe(data => {
       if(data) {
         this.ListCTHD = data;
+        this.edit_bill_id = -1;
         // console.log("Chi tiết hóa đơn: ", data);
       }
       else {
@@ -132,5 +144,85 @@ export class BillAdminComponent implements OnInit {
       }
       default : return "";
     }
+  }
+
+  public eventTimKiem() {
+    const newProfile = {
+      type : this.type,
+      input : this.input,
+      status : this.status
+    };
+
+    this.HDService.manager_billTimKiem(newProfile).subscribe(data => {
+      this.ListHD = data;
+    },
+    error => {
+      Swal.fire({
+        type : "error",
+        title : "Lỗi tìm kiếm",
+        html : error.responseText
+      })
+    });
+  }
+
+  public EditHD(bill_id) {
+    this.HDService.getHD(bill_id).subscribe(data => {
+      if(data != null) {
+        this.edit_bill_id = data.bill_id;
+        this.edit_status = data.status;
+        this.edit_status_temp = data.status;
+        this.edit_thanhtien = data.total;
+        // this.action = 'sua';
+        this.ListCTHD = null;
+        console.log("Bill: ", this.edit_status);
+        console.log("Edit status: ", this.edit_status_temp);
+      }
+      else {
+        Swal.fire({
+          type : "error",
+          title : "Lỗi load hóa đơn => BillAdminComponent - EditHD"
+        })
+      }
+    },
+    error => {
+      Swal.fire({
+        type : "error",
+        title : "Lỗi load hóa đơn => BillAdminComponent - EditHD",
+        html : error.responseText
+      })
+    });
+  }
+
+  public change_Edit_Status(aa) {
+    this.edit_status_temp = aa;
+  }
+
+  public eventRepaire() {
+    this.edit_status = this.edit_status_temp;
+
+    const newProfile = {};
+    newProfile['bill_id'] = this.edit_bill_id;
+    newProfile['status'] = this.edit_status;
+    
+    this.HDService.manager_billSua(newProfile).subscribe(data => {
+      if(data != null) {
+        Swal.fire({
+          type : "success",
+          title : "Sửa thành công"
+        });
+      }
+      else {
+        Swal.fire({
+          type : "error",
+          title : "Sửa thất bại => BillAdminComponent - eventRepaire 1"
+        });
+      }
+    }, error => {
+      Swal.fire({
+        type : "error",
+        title : "Lỗi sửa hóa đơn => BillAdminComponent - eventRepaire 2",
+        html : error.responseText
+      })
+    });
   }
 }

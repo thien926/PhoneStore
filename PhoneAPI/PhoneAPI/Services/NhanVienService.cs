@@ -38,5 +38,8 @@ namespace PhoneAPI.Services
             if(q == null) return;
             NVcontext.NhanVien_Remove(q);
         }
+        public IEnumerable<NhanVienDto> NhanVien_AdminTimKiem(string type, string input) {
+            return NVcontext.NhanVien_AdminTimKiem(type, input).MappingNhanVienDtos();
+        }
     }
 }

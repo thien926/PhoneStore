@@ -46,6 +46,9 @@ export class MenuAdminComponent implements OnInit {
     if(pathName.indexOf("/manager/staff") >= 0) {
       this.page = "staff";
     }
+    if(pathName.indexOf("/manager/user") >= 0) {
+      this.page = "user";
+    }
 
     this.CurrentNhanVien = JSON.parse(sessionStorage.getItem("CurrentNhanVien"));
     this.QService.getQ(this.CurrentNhanVien.permission_id).subscribe(data => {

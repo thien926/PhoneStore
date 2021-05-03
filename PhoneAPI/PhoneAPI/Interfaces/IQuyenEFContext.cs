@@ -10,5 +10,6 @@ namespace PhoneAPI.Interfaces
         void Quyen_Add(Quyen q);
         void Quyen_Update(Quyen q);
         void Quyen_Remove(Quyen q);
+        IEnumerable<Quyen> Quyen_AdminTimKiem(string type, string input);
     }
 }

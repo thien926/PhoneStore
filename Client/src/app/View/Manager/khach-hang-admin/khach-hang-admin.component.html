@@ -35,7 +35,7 @@
                             <div class="header">
                                 <form class="title" onsubmit="return false;">
                                     <p>
-                                        <select style="height: 30px;" id="select">
+                                        <select style="height: 30px;" name="type" [(ngModel)]="type">
                                             <option value="all">Tất cả</option>
                                             <option value="user">Tìm theo tài khoản</option>
                                             <option value="full_name">Tìm theo họ tên</option>
@@ -43,8 +43,8 @@
                                             <option value="mail">Tìm theo thư điện tử</option>
                                             <option value="address">Tìm theo địa chỉ</option>
                                         </select>
-                                        <input type="text" style="height: 30px;" id="input_search"/>
-                                        <input type="button" value="Tìm kiếm" style="height: 30px;" onclick="TimKiem()"/>
+                                        <input type="text" style="height: 30px;" [(ngModel)]="input" name="input"/>
+                                        <input type="button" value="Tìm kiếm" style="height: 30px;" (click)="eventTimKiem()"/>
                                         <!-- @* <input type="button" value="Thêm khách hàng" style="float: right;" onclick="ThemKH()"/> *@ -->
                                     </p>
                                 </form>
@@ -74,8 +74,8 @@
                                             <td>{{checkStatus(item.status)}}</td>
                                             <td *ngIf="tool">
                                                 <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditKH('@q.user')"><i class="pe-7s-config"></i></button>
-                                                <button *ngIf="item.status != 0" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" onclick="RemoveKH('@q.user')"><i class="pe-7s-lock"></i></button>
-                                                <button *ngIf="item.status == 0" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" onclick="BackKH('@q.user')"><i class="pe-7s-unlock"></i></button>
+                                                <button *ngIf="item.status != 0" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" (click)="RemoveKH(item.user)"><i class="pe-7s-lock"></i></button>
+                                                <button *ngIf="item.status == 0" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" (click)="BackKH(item.user)"><i class="pe-7s-unlock"></i></button>
                                             </td>
                                         </tr>
                                     </tbody>

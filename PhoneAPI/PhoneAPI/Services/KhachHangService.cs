@@ -37,5 +37,8 @@ namespace PhoneAPI.Services
             if(kh == null) return;
             KHcontext.KhachHang_Remove(kh);
         }
+        public IEnumerable<KhachHangDto> KhachHang_AdminTimKiem(string type, string input){
+            return KHcontext.KhachHang_AdminTimKiem(type, input).MappingKhachHangDtos();
+        }
     }
 }

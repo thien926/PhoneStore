@@ -15,6 +15,10 @@ export class QuyenAdminComponent implements OnInit {
   public CurrentQuyen;
 
   public ListQ;
+
+  public type = "all";
+  public input = "";
+
   constructor(private QService : QuyenService) { }
 
   ngOnInit(): void {
@@ -77,4 +81,22 @@ export class QuyenAdminComponent implements OnInit {
     location.reload();
   }
 
+  public eventTimKiem() {
+    const newProfile = {
+      type : this.type,
+      input : this.input
+    };
+
+    this.QService.manager_qTimKiem(newProfile).subscribe(data => {
+      this.ListQ = data;
+      // console.log("Khách hàng: ", data);
+    },
+    error => {
+      Swal.fire({
+        type : "error",
+        title : "Lỗi tìm kiếm",
+        html : error.responseText
+      })
+    });
+  }
 }

@@ -38,4 +38,9 @@ export class NhanVienService {
   public login_admin(data) {
     return this.httpClient.post<any>(this.url + "login-admin", data, this.httpOptions);
   }
+
+  // TÌm kiếm bên admin nhân viên
+  public manager_nvTimKiem(data) {
+    return this.httpClient.post<any>(this.url + "manager_nvsearch", data, this.httpOptions);
+  }
 }

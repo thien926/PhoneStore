@@ -32,4 +32,14 @@ export class HoaDonService {
   public DeleteHD(id : number) {
     return this.httpClient.delete<any>(this.url + id, this.httpOptions);
   }
+
+  // Tìm kiếm hóa đơn trong admin
+  public manager_billTimKiem(data) {
+    return this.httpClient.post<any>(this.url + "manager_billsearch", data, this.httpOptions);
+  }
+
+  // Sửa trạng thái hóa đơn trong admin
+  public manager_billSua(data) {
+    return this.httpClient.post<any>(this.url + "manager_billrepaire", data, this.httpOptions);
+  }
 }

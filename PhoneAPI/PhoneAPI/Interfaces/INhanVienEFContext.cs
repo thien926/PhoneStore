@@ -9,5 +9,6 @@ namespace PhoneAPI.Interfaces
         void NhanVien_Add(NhanVien q);
         void NhanVien_Update(NhanVien q);
         void NhanVien_Remove(NhanVien q);
+        IEnumerable<NhanVien> NhanVien_AdminTimKiem(string type, string input);
     }
 }

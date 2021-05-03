@@ -49,4 +49,8 @@ export class SanPhamService {
   public Home_SPHot() {
     return this.httpClient.get<any>(this.url + 'home-sphot', this.httpOptions);
   }
+  // TÌm kiếm bên admin sản phẩm
+  public manager_spTimKiem(data) {
+    return this.httpClient.post<any>(this.url + "manager_spsearch", data, this.httpOptions);
+  }
 }

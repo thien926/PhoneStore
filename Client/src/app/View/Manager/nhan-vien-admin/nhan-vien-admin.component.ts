@@ -16,6 +16,9 @@ export class NhanVienAdminComponent implements OnInit {
   public CurrentQuyen;
   public ListNV;
 
+  public type = "all";
+  public input = "";
+
   constructor(private QService : QuyenService, private NVService : NhanVienService) { }
 
   ngOnInit(): void {
@@ -53,6 +56,10 @@ export class NhanVienAdminComponent implements OnInit {
       });
     });
 
+    this.loadNV();
+  }
+
+  public loadNV() {
     // Load nhân viên
     this.NVService.getNVs().subscribe(data => {
       if(data) {
@@ -85,5 +92,88 @@ export class NhanVienAdminComponent implements OnInit {
   public eventLogout() {
     sessionStorage.removeItem("CurrentNhanVien");
     location.reload();
+  }
+
+  public eventTimKiem() {
+    const newProfile = {
+      type : this.type,
+      input : this.input
+    };
+
+    this.NVService.manager_nvTimKiem(newProfile).subscribe(data => {
+      this.ListNV = data;
+      // console.log("Khách hàng: ", data);
+    },
+    error => {
+      Swal.fire({
+        type : "error",
+        title : "Lỗi tìm kiếm",
+        html : error.responseText
+      })
+    });
+  }
+
+  public RemoveNV(user) {
+    Swal.fire({
+      type: "question",
+      title: "Xác nhận",
+      text: "Bạn có muốn khóa tài khoản "+ user +" này?",
+      showCancelButton: true,
+      confirmButtonText: 'Đồng ý',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.value) {
+          this.NVService.getNV(user).subscribe(data => {
+            data.status = 0;
+
+            this.NVService.updateNV(data).subscribe(data => {
+              Swal.fire({
+                type: 'success',
+                title: 'Đã khóa thành công'
+              }).then(result => {
+                this.loadNV();
+              });
+            }, error => {
+              Swal.fire({
+                type: 'error',
+                title: 'Lỗi khóa tài khoản này',
+                html: error.responseText
+              });
+            });
+          });
+        }
+    });
+  }
+
+  public BackNV(user) {
+    Swal.fire({
+      type: "question",
+      title: "Xác nhận",
+      text: "Bạn có muốn mở khóa tài khoản "+ user +"?",
+      showCancelButton: true,
+      confirmButtonText: 'Đồng ý',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.value) {
+          this.NVService.getNV(user).subscribe(data => {
+            data.status = 1;
+
+            this.NVService.updateNV(data).subscribe(data => {
+              Swal.fire({
+                type: 'success',
+                title: 'Đã mở khóa thành công'
+              }).then(result => {
+                this.loadNV();
+              });
+            }, error => {
+              Swal.fire({
+                type: 'error',
+                title: 'Lỗi mở khóa tài khoản này',
+                html: error.responseText
+              });
+            });
+          });
+        }
+    });
   }
 }

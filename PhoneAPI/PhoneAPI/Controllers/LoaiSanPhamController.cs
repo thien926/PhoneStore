@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using PhoneAPI.DTOs;
+using PhoneAPI.DTOs.Admin.LSPDto;
 using PhoneAPI.Services;
 
 namespace PhoneAPI.Controllers
@@ -47,6 +48,14 @@ namespace PhoneAPI.Controllers
         public void DeleteLSPDto(int id)
         {
             LSPservice.LoaiSanPham_Remove(id);
+        }
+        // Tìm kiếm bên admin loại sản phẩm
+        [HttpPost("manager_lspsearch")]
+        public IEnumerable<LoaiSanPhamDto> TimKiem(LSP_SearchDto q){
+            if(String.IsNullOrEmpty(q.input)){
+                q.input = "";
+            }
+            return LSPservice.LoaiSanPham_AdminTimKiem(q.type, q.input);
         }
     }
 }

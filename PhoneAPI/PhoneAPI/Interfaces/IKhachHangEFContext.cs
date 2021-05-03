@@ -10,5 +10,6 @@ namespace PhoneAPI.Interfaces
         void KhachHang_Add(KhachHang U);
         void KhachHang_Update(KhachHang U);
         void KhachHang_Remove(KhachHang U);
+        IEnumerable<KhachHang> KhachHang_AdminTimKiem(string type, string input);
     }
 }

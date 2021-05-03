@@ -34,14 +34,14 @@
                             <div class="header">
                                 <form class="title" onsubmit="return false;">
                                     <p>
-                                        <select style="height: 30px;" id="select">
+                                        <select style="height: 30px;" name="type" [(ngModel)]="type">
                                             <option value="all">Tất cả</option>
                                             <option value="product_type_id">Tìm theo mã loại sản phẩm</option>
                                             <option value="name">Tìm theo tên loại sản phẩm</option>
                                             <option value="description">Tìm theo mô tả loại sản phẩm</option>
                                         </select>
-                                        <input type="text" style="height: 30px;" id="input_search"/>
-                                        <input type="button" value="Tìm kiếm" style="height: 30px;" onclick="TimKiem()"/>
+                                        <input type="text" style="height: 30px;" name="input" [(ngModel)]="input"/>
+                                        <input type="button" value="Tìm kiếm" style="height: 30px;" (click)="eventTimKiem()"/>
                                         <input type="button" value="Thêm loại sản phẩm" style="float: right;" onclick="ThemLSP()"/>
                                     </p>
                                 </form>

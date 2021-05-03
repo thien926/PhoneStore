@@ -16,6 +16,10 @@ export class LoaiSanPhamAdminComponent implements OnInit {
   public CurrentQuyen;
 
   public ListLSP;
+
+  public type = "all";
+  public input = "";
+
   constructor(private QService : QuyenService, private LSPService : LoaiSanPhamService) { }
 
   ngOnInit(): void {
@@ -79,4 +83,22 @@ export class LoaiSanPhamAdminComponent implements OnInit {
     location.reload();
   }
 
+  public eventTimKiem() {
+    const newProfile = {
+      type : this.type,
+      input : this.input
+    };
+
+    this.LSPService.manager_lspTimKiem(newProfile).subscribe(data => {
+      this.ListLSP = data;
+      // console.log("Khách hàng: ", data);
+    },
+    error => {
+      Swal.fire({
+        type : "error",
+        title : "Lỗi tìm kiếm",
+        html : error.responseText
+      })
+    });
+  }
 }

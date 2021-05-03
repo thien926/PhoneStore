@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using PhoneAPI.DTOs;
+using PhoneAPI.DTOs.Admin.Quyen;
 using PhoneAPI.Services;
 
 namespace PhoneAPI.Controllers
@@ -46,6 +47,14 @@ namespace PhoneAPI.Controllers
         public void DeleteQDto(int id)
         {
             Qservice.Quyen_Remove(id);
+        }
+        // Tìm kiếm bên admin quyền
+        [HttpPost("manager_qsearch")]
+        public IEnumerable<QuyenDto> TimKiem(Quyen_SearchDto q){
+            if(String.IsNullOrEmpty(q.input)){
+                q.input = "";
+            }
+            return Qservice.Quyen_AdminTimKiem(q.type, q.input);
         }
     }
 }

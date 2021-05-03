@@ -16,5 +16,6 @@ namespace PhoneAPI.Interfaces
         IEnumerable<SanPham> TenSPChay();
         IEnumerable<SanPham> TenSPNoi();
         IEnumerable<SanPham> SanPham_ListCart(string list);
+        IEnumerable<SanPham> SanPhams_AdminTimKiem(string type, string input);
     }
 }

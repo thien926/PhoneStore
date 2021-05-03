@@ -34,4 +34,8 @@ export class LoaiSanPhamService {
   public DeleteLSP(id : number) {
     return this.httpClient.delete<any>(this.url + id, this.httpOptions);
   }
+  // TÌm kiếm bên admin loại sản phẩm
+  public manager_lspTimKiem(data) {
+    return this.httpClient.post<any>(this.url + "manager_lspsearch", data, this.httpOptions);
+  }
 }
