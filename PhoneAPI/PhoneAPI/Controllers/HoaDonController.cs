@@ -23,36 +23,39 @@ namespace PhoneAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<HoaDonDto> GetQDtos()
+        public IEnumerable<HoaDonDto> GetHDDtos()
         {
             return HDservice.HoaDon_GetAll();
         }
 
         [HttpGet("{id}")]
-        public HoaDonDto GetQDto(int id)
+        public HoaDonDto GetHDDto(int id)
         {
             return HDservice.HoaDon_GetById(id);
         }
 
         [HttpPost]
-        public ActionResult<HoaDonDto> AddQDto(HoaDonDto q)
+        public ActionResult<HoaDonDto> AddHDDto(HoaDonDto q)
         {
+            q.date_order = System.DateTime.Now;
             HDservice.HoaDon_Add(q);
 
-            return CreatedAtAction(nameof(GetQDto), new { id = q.bill_id }, q);
+            return q;
         }
 
         [HttpPut]
-        public void UpdateQDto([FromBody] HoaDonDto q)
+        public void UpdateHDDto([FromBody] HoaDonDto q)
         {
             HDservice.HoaDon_Update(q);
         }
 
         [HttpDelete("{id}")]
-        public void DeleteQDto(int id)
+        public void DeleteHDDto(int id)
         {
             HDservice.HoaDon_Remove(id);
         }
+
+        // ================================ Admin ================================
         // Tìm kiếm Hóa Đơn cho admin
         [HttpPost("manager_billsearch")]
         public IEnumerable<HoaDonDto> HoaDonDto_Manager_Search(HoaDon_SearchDto q)
@@ -83,6 +86,13 @@ namespace PhoneAPI.Controllers
             }
 
             return null;
+        }
+
+        // Get MaxID
+        [HttpGet("GetMaxId")]
+        public int GetMaxId()
+        {
+            return HDservice.HoaDon_GetMaxId();
         }
     }
 }

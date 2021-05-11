@@ -18,4 +18,8 @@ export class ChiTietHoaDonService {
   public getCTHDBy_BillID(bill_id : number) {
     return this.httpClient.get<any>(this.url + bill_id, this.httpOptions);
   }
+
+  public AddCTHDRange(data) {
+    return this.httpClient.post<any>(this.url + "addRange", data, this.httpOptions);
+  }
 }

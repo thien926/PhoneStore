@@ -38,6 +38,9 @@ namespace PhoneAPI.Persistence
             context.Quyens.Update(LSP);
             context.SaveChanges();
         }
+        public int Quyen_GetMaxId(){
+            return context.Quyens.Max(m => m.permission_id);
+        }
         public IEnumerable<Quyen> Quyen_AdminTimKiem(string type, string input){
             var query = context.Quyens.AsQueryable();
             switch(type){

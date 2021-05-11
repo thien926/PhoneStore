@@ -11,5 +11,6 @@ namespace PhoneAPI.Interfaces
         void LoaiSanPham_Update(LoaiSanPham LSP);
         void LoaiSanPham_Remove(LoaiSanPham LSP);
         IEnumerable<LoaiSanPham> LoaiSanPham_AdminTimKiem(string type, string input);
+        int LoaiSanPham_GetMaxId();
     }
 }

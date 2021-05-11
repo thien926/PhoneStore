@@ -42,7 +42,7 @@
                                         </select>
                                         <input type="text" style="height: 30px;" name="input" [(ngModel)]="input"/>
                                         <input type="button" value="Tìm kiếm" style="height: 30px;" (click)="eventTimKiem()"/>
-                                        <input type="button" value="Thêm loại sản phẩm" style="float: right;" onclick="ThemLSP()"/>
+                                        <input type="button" value="Thêm loại sản phẩm" style="float: right;" (click)="load_Add_LSP()"/>
                                     </p>
                                 </form>
                             </div>
@@ -52,6 +52,7 @@
                                     <th>Mã loại</th>
                                     <th>Tên loại</th>
                                     <th>Mô tả</th>
+                                    <th>Trạng thái</th>
                                     <th *ngIf="tool">Hành động</th>
                                     </thead>
                                     <tbody>
@@ -59,16 +60,104 @@
                                             <td>{{item.product_type_id}}</td>
                                             <td>{{item.name}}</td>
                                             <td>{{item.description}}</td>
+
+                                            <span *ngIf="item.status == 1; then hien; else an;"></span>
+                                            <ng-template #hien> 
+                                                <td>Hiện</td>
+                                            </ng-template>
+                                            <ng-template #an> 
+                                                <td>Ẩn</td>
+                                            </ng-template>
+                                            
                                             <td *ngIf="tool">
                                                 <!-- @*<i class="pe-7s-config"></i><i class="pe-7s-trash"></i>*@ -->
-                                                <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditLSP(item.product_type_id)"><i class="pe-7s-config"></i></button>
-                                                <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" onclick="RemoveLSP(item.product_type_id)"><i class="pe-7s-trash"></i></button>
+                                                <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" data-toggle="modal" data-target="#myModal" (click)="load_Edit_LSP(item.product_type_id)"><i class="pe-7s-config"></i></button>
+                                                <!-- <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" onclick="RemoveLSP(item.product_type_id)"><i class="pe-7s-trash"></i></button> -->
+                                                <button *ngIf="item.status != 0" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" (click)="Lock_LSP(item.product_type_id)"><i class="pe-7s-lock"></i></button>
+                                                <button *ngIf="item.status == 0" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" (click)="UnLock_LSP(item.product_type_id)"><i class="pe-7s-unlock"></i></button>
                                             </td>
                                         </tr>
                                         
                                     </tbody>
                                 </table>
 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="show_edit_lsp">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title" id="id_cthd">Sửa thông tin loại sản phẩm</h4>
+                                <br>
+                                <input class="validation-error" type="button" value="Hủy" (click)="event_Huy_Sua()">
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <form [formGroup]="profileEdit" (submit)="submitSua()">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td> Mã loại sản phẩm </td>
+                                                <td> <input type="text" name="product_type_id" formControlName="product_type_id" disabled> </td>
+                                                <td><span class="validation-error">{{getErrorProduct_type_id()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Tên loại sản phẩm </td>
+                                                <td> <input type="text" name="name" formControlName="name"> </td>
+                                                <td><span class="validation-error">{{getErrorName()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Mô tả </td>
+                                                <td> <textarea type="text" name="description" formControlName="description"> </textarea></td>
+                                                <td><span class="validation-error">{{getErrorDescription()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Trạng thái </td>
+                                                <td> <input type="text" name="status" formControlName="status" disabled></td>
+                                                <td><span class="validation-error">{{getErrorStatus()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"> <input class="modal-header" [disabled]="!profileEdit.valid" type="submit" value="Sửa" style="width: 100%;"/> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="show_add_lsp">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title" id="id_cthd">Thêm loại sản phẩm</h4>
+                                <br>
+                                <input class="validation-error" type="button" value="Hủy" (click)="event_Huy_Add()">
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <form [formGroup]="profileAdd" (submit)="submitAdd()">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td> Mã loại sản phẩm </td>
+                                                <td> <input type="text" name="product_type_id" formControlName="product_type_id" disabled> </td>
+                                                <td><span class="validation-error">{{getErrorProduct_type_id_Add()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Tên loại sản phẩm </td>
+                                                <td> <input type="text" name="name" formControlName="name"> </td>
+                                                <td><span class="validation-error">{{getErrorName_Add()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Mô tả </td>
+                                                <td> <textarea type="text" name="description" formControlName="description"> </textarea></td>
+                                                <td><span class="validation-error">{{getErrorDescription_Add()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"> <input class="modal-header" [disabled]="!profileAdd.valid" type="submit" value="Thêm" style="width: 100%;"/> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -111,51 +200,5 @@
         </footer>
 
 
-    </div>
-</div>
-<!-- @*Phần sửa*@ -->
-<div class="container">
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4><span id="title-modal">Login</span></h4>
-                </div>
-                <div class="modal-body" style="padding:40px 50px;">
-                    <form role="form" onsubmit="return false;">
-                        <div asp-validation-summary="ModelOnly">
-                            <!-- @* <span>Danh sách lỗi</span> *@ -->
-                        </div>
-                        <div class="form-group">
-                            <label>Mã loại sản phẩm</label>
-                            <input type="text" class="form-control" id="product_type_id" placeholder="Mã loại" asp-for="@Model.LSP.product_type_id">
-                            <span asp-validation-for="@Model.LSP.product_type_id"></span>
-                        </div>
-                        <div class="form-group">
-                            <label>Tên loại</label>
-                            <input type="text" class="form-control" id="name" placeholder="Tên loại" asp-for="@Model.LSP.name">
-                            <span asp-validation-for="@Model.LSP.name"></span>
-                        </div>
-                        <div class="form-group">
-                            <label>Mô tả</label>
-                            <input type="text" class="form-control" id="description" placeholder="Mô tả" asp-for="@Model.LSP.description">
-                            <span asp-validation-for="@Model.LSP.description"></span>
-
-                        </div>
-                        <div class="checkbox">
-                        </div>
-                        <button type="submit" class="btn btn-success btn-block" onclick="SubmitEditLSP()" id="button_submit">Sửa</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal">Hủy</button>
-                </div>
-            </div>
-
-        </div>
     </div>
 </div>

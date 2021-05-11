@@ -43,5 +43,9 @@ namespace PhoneAPI.Services
         public IEnumerable<QuyenDto> Quyen_AdminTimKiem(string type, string input){
             return Qcontext.Quyen_AdminTimKiem(type, input).MappingQuyenDtos();
         }
+
+        public int Quyen_GetMaxId(){
+            return Qcontext.Quyen_GetMaxId();
+        }
     }
 }

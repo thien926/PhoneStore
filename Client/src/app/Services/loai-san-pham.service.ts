@@ -38,4 +38,9 @@ export class LoaiSanPhamService {
   public manager_lspTimKiem(data) {
     return this.httpClient.post<any>(this.url + "manager_lspsearch", data, this.httpOptions);
   }
+
+  // GetMaxId Loai san pham
+  public GetMaxId() {
+    return this.httpClient.get<any>(this.url + "GetMaxId", this.httpOptions);
+  }
 }

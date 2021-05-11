@@ -36,7 +36,7 @@
                                 <h4 class="title">Sửa thông tin cá nhân</h4>
                             </div>
                             <div class="content">
-                                <form action="/Admin/User/Index" method="POST">
+                                <form [formGroup]="profileFormNV" *ngIf="tool_sua == false">
                                     <div asp-validation-summary="ModelOnly">
                                         <!-- @* <span>Danh sách lỗi</span> *@ -->
                                     </div>
@@ -44,22 +44,19 @@
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Tài khoản</label>
-                                                <input type="text" class="form-control" placeholder="Tài khoản" [(ngModel)]="CurrentNhanVien.user" name = "user">
-                                                <span></span>
+                                                <input type="text" class="form-control background_white" placeholder="Tài khoản" name="user" formControlName="user" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Mật khẩu</label>
-                                                <input type="password" class="form-control" placeholder="Mật khẩu" >
-                                                <span asp-validation-for="@Model.NV.pass"></span>
+                                                <input type="password" class="form-control background_white" placeholder="Mật khẩu" name="pass" formControlName="pass" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Nhập lại mật khẩu</label>
-                                                <input type="password" class="form-control" placeholder="Nhập lại mật khẩu" asp-for="@Model.NV.repass">
-                                                <span asp-validation-for="@Model.NV.repass"></span>
+                                                <input type="password" class="form-control background_white" placeholder="Nhập lại mật khẩu" name="repass" formControlName="repass" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -68,15 +65,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Họ và tên</label>
-                                                <input type="text" class="form-control" placeholder="Họ và tên" [(ngModel)]="CurrentNhanVien.full_name">
-                                                <span asp-validation-for="@Model.NV.full_name"></span>
+                                                <input type="text" class="form-control background_white" placeholder="Họ và tên" name="full_name" formControlName="full_name" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Số điện thoại</label>
-                                                <input type="text" class="form-control" placeholder="Số điện thoại" [(ngModel)]="CurrentNhanVien.phone">
-                                                <span asp-validation-for="@Model.NV.phone"></span>
+                                                <input type="text" class="form-control background_white" placeholder="Số điện thoại" name="phone" formControlName="phone" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -85,8 +80,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Địa chỉ</label>
-                                                <input type="text" class="form-control" placeholder="Địa chỉ" [(ngModel)]="CurrentNhanVien.address">
-                                                <span asp-validation-for="@Model.NV.address"></span>
+                                                <input type="text" class="form-control background_white" disabled placeholder="Địa chỉ" name="address" formControlName="address">
                                             </div>
                                         </div>
                                     </div>
@@ -95,53 +89,146 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Thư điện tử</label>
-                                                <input type="text" class="form-control" placeholder="Thư điện tử" [(ngModel)]="CurrentNhanVien.mail">
-                                                <span asp-validation-for="@Model.NV.mail"></span>
+                                                <input disabled type="text" class="form-control background_white" placeholder="Thư điện tử" name="mail" formControlName="mail">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Ngày sinh</label>
-                                                <input type="date" class="form-control" placeholder="Ngày sinh" [(ngModel)]="CurrentNhanVien.dateborn">
-                                                <span asp-validation-for="@Model.NV.dateborn"></span>
+                                                <input disabled type="date" class="form-control background_white" placeholder="Ngày sinh" name="dateborn" formControlName="dateborn">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Giới tính</label>
-                                                <div class="form-check-inline">
-                                                    <label class="form-check-label">
-                                                        <!-- @Html.RadioButtonFor(model => model.NV.sex, "Nam", new {style = "width:63%;"}) Nam -->
-                                                    </label>
-                                                </div>
-                                                
-                                                <div class="form-check-inline">
-                                                    <label class="form-check-label">
-                                                        <!-- @Html.RadioButtonFor(model => model.NV.sex, "Nữ") Nữ -->
-                                                    </label>
-                                                </div>
+                                                <br>
+                                                <select class="background_white" disabled name="sex" formControlName="sex">
+                                                    <option value="Nam">Nam</option>
+                                                    <option value="Nữ">Nữ</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row" style="display: none;">
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Mã quyền</label>
-                                                <input type="text" class="form-control" placeholder="Mã quyền" asp-for="@Model.NV.permission_id" readonly>
-                                                <span asp-validation-for="@Model.NV.permission_id"></span>
+                                                <input type="text" class="form-control background_white" placeholder="Mã quyền" name="permission_id" formControlName="permission_id" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Trạng thái</label>
-                                                <input type="text" class="form-control" placeholder="Trạng thái" asp-for="@Model.NV.status" readonly>
-                                                <span asp-validation-for="@Model.NV.status"></span>
+                                                <input type="text" class="form-control background_white" placeholder="Trạng thái" name="status" formControlName="status" disabled>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Sửa thông tin</button>
+                                    <button type="button" (click)="loadSua()" class="btn btn-info btn-fill pull-right">Sửa thông tin</button>
+                                    <div class="clearfix"></div>
+                                </form>
+
+                                <form [formGroup]="profileFormNV" *ngIf="tool_sua" (submit)="event_Luu_Sua()">
+                                    <div asp-validation-summary="ModelOnly">
+                                        <!-- @* <span>Danh sách lỗi</span> *@ -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>Tài khoản</label>
+                                                <input type="text" class="form-control" placeholder="Tài khoản" name="user" formControlName="user" disabled>
+                                                <span class="validation-error">{{getErrorUser()}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Mật khẩu</label>
+                                                <input type="password" class="form-control" placeholder="Mật khẩu" name="pass" formControlName="pass">
+                                                <span class="validation-error">{{getErrorNewPass()}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Nhập lại mật khẩu</label>
+                                                <input type="password" class="form-control" placeholder="Nhập lại mật khẩu" name="repass" formControlName="repass">
+                                                <span class="validation-error">{{getErrorRepass()}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Họ và tên</label>
+                                                <input type="text" class="form-control" placeholder="Họ và tên" name="full_name" formControlName="full_name">
+                                                <span class="validation-error">{{getErrorFull_name()}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Số điện thoại</label>
+                                                <input type="text" class="form-control" placeholder="Số điện thoại" name="phone" formControlName="phone">
+                                                <span class="validation-error">{{getErrorPhone()}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Địa chỉ</label>
+                                                <input type="text" class="form-control" placeholder="Địa chỉ" name="address" formControlName="address">
+                                                <span class="validation-error">{{getErrorAddress()}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Thư điện tử</label>
+                                                <input type="text" class="form-control" placeholder="Thư điện tử" name="mail" formControlName="mail">
+                                                <span class="validation-error">{{getErrorMail()}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Ngày sinh</label>
+                                                <input type="date" class="form-control" placeholder="Ngày sinh" name="dateborn" formControlName="dateborn">
+                                                <span class="validation-error">{{getErrorDateBorn()}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Giới tính</label>
+                                                <br>
+                                                <select name="sex" formControlName="sex">
+                                                    <option value="Nam">Nam</option>
+                                                    <option value="Nữ">Nữ</option>
+                                                </select>
+                                                <span class="validation-error">{{getErrorSex()}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Mã quyền</label>
+                                                <input type="text" class="form-control" placeholder="Mã quyền" name="permission_id" formControlName="permission_id" disabled>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Trạng thái</label>
+                                                <input type="text" class="form-control" placeholder="Trạng thái" name="status" formControlName="status" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" (click)="event_huySua()" class="btn btn-info btn-fill pull-left background_red">Hủy</button>
+                                    <button type="submit" class="btn btn-info btn-fill pull-right">Lưu sửa</button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>
@@ -154,16 +241,13 @@
                             </div>
                             <div class="content">
                                 <div class="author">
-                                     <a href="#">
+                                     <a >
                                     <img class="avatar border-gray" src="/assets/img/faces/face-3.jpg" alt="..."/>
 
-                                      <h4 class="title">@Model.NV.full_name<br />
-                                         <small>@Model.NV.user</small>
-                                      </h4>
+                                      <h4 class="title">{{CurrentNhanVien?.full_name}}<br /></h4>
                                     </a>
                                 </div>
-                                <p class="description text-center"> @Model.Q.name
-                                </p>
+                                <p class="description text-center"> {{CurrentQ.name}} </p>
                             </div>
                             <hr>
                             <div class="text-center">

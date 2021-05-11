@@ -43,5 +43,8 @@ namespace PhoneAPI.Services
             var hds = HDcontext.HoaDon_Manager_TimKiem(type, input, status);
             return hds.MappingHoaDonDtos();
         }
+        public int HoaDon_GetMaxId(){
+            return HDcontext.HoaDon_GetMaxId();
+        }
     }
 }

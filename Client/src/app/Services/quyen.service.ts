@@ -37,4 +37,9 @@ export class QuyenService {
   public manager_qTimKiem(data) {
     return this.httpClient.post<any>(this.url + "manager_qsearch", data, this.httpOptions);
   }
+
+  // GetMaxId Quyền
+  public GetMaxId() {
+    return this.httpClient.get<any>(this.url + "GetMaxId", this.httpOptions);
+  }
 }

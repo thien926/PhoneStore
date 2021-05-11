@@ -45,7 +45,7 @@
                                         </select>
                                         <input type="text" style="height: 30px;" name="input" [(ngModel)]="input"/>
                                         <input type="button" value="Tìm kiếm" style="height: 30px;" (click)="eventTimKiem()"/>
-                                        <input type="button" value="Thêm nhân viên" style="float: right;" onclick="ThemNV()"/>
+                                        <input type="button" value="Thêm nhân viên" style="float: right;" (click)="load_Add_NhanVien()"/>
                                     </p>
                                 </form>
                             </div>
@@ -75,7 +75,7 @@
                                             <td>{{item.permission_id}}</td>
                                             <td>{{checkStatus(item.status)}}</td>
                                             <td *ngIf="tool">
-                                                <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditNV('@q.user')"><i class="pe-7s-config"></i></button>
+                                                <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" data-toggle="modal" data-target="#myModal" (click)="load_Edit_NhanVien(item.user)"><i class="pe-7s-config"></i></button>
                                                 <button *ngIf="item.status != 0" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" (click)="RemoveNV(item.user)"><i class="pe-7s-lock"></i></button>
                                                 <button *ngIf="item.status == 0" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" (click)="BackNV(item.user)"><i class="pe-7s-unlock"></i></button>
                                                 
@@ -85,6 +85,167 @@
                                     </tbody>
                                 </table>
 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="show_edit_user">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title" id="id_cthd">Sửa thông tin nhân viên {{ edit_user }}</h4>
+                                <br>
+                                <input class="validation-error" type="button" value="Hủy" (click)="event_Huy_Sua()">
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <form [formGroup]="profileUserForm" (submit)="submitSua()">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td> Họ tên </td>
+                                                <td> <input type="text" name="full_name" formControlName="full_name"> </td>
+                                                <td><span class="validation-error">{{getErrorFull_name()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Mật khẩu </td>
+                                                <td> <input type="password" name="pass" formControlName="pass"> </td>
+                                                <td><span class="validation-error">{{getErrorNewPass()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Nhập lại mật khẩu </td>
+                                                <td> <input type="password" name="repass" formControlName="repass"> </td>
+                                                <td><span class="validation-error">{{getErrorRepass()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Số điện thoại </td>
+                                                <td> <input type="text" name="phone" formControlName="phone"> </td>
+                                                <td><span class="validation-error">{{getErrorPhone()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Thư điện tử </td>
+                                                <td> <input type="text" name="mail" formControlName="mail"> </td>
+                                                <td><span class="validation-error">{{getErrorMail()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Địa chỉ </td>
+                                                <td> <input type="text" name="address" formControlName="address"> </td>
+                                                <td><span class="validation-error">{{getErrorAddress()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Giới tính </td>
+                                                <td> 
+                                                    <select name="sex" formControlName="sex">
+                                                        <option value="Nữ">Nữ</option>
+                                                        <option value="Nam">Nam</option>
+                                                    </select> 
+                                                </td>
+                                                <td><span class="validation-error">{{getErrorSex()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Ngày sinh </td>
+                                                <td> <input type="date" name="dateborn" formControlName="dateborn"> </td>
+                                                <td><span class="validation-error">{{getErrorDateBorn()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Quyền </td>
+                                                <td> 
+                                                    <select name="permission_id" formControlName="permission_id">
+                                                        <option value="1">1 - Admin</option>
+                                                        <option value="2">2 - Quản lý</option>
+                                                        <option value="3">3 - Nhân viên bán hàng</option>
+                                                        <option value="4">4 - Nhân viên nhập hàng</option>
+                                                    </select> 
+                                                </td>
+                                                <td><span class="validation-error">{{getErrorSex()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"> <input [disabled]="!profileUserForm.valid" class="modal-header" type="submit" value="Sửa" style="width: 100%;"/> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="show_add_user">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title" id="id_cthd">Thêm nhân viên</h4>
+                                <br>
+                                <input class="validation-error" type="button" value="Hủy" (click)="event_Huy_Add()">
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <form [formGroup]="profileUserAddForm" (submit)="submitAdd()">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td> Tài khoản </td>
+                                                <td> <input type="text" name="user" formControlName="user"> </td>
+                                                <td><span class="validation-error">{{getErrorUserAdd()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Họ tên </td>
+                                                <td> <input type="text" name="full_name" formControlName="full_name"> </td>
+                                                <td><span class="validation-error">{{getErrorFull_nameAdd()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Mật khẩu </td>
+                                                <td> <input type="password" name="pass" formControlName="pass"> </td>
+                                                <td><span class="validation-error">{{getErrorNewPassAdd()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Nhập lại mật khẩu </td>
+                                                <td> <input type="password" name="repass" formControlName="repass"> </td>
+                                                <td><span class="validation-error">{{getErrorRepassAdd()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Số điện thoại </td>
+                                                <td> <input type="text" name="phone" formControlName="phone"> </td>
+                                                <td><span class="validation-error">{{getErrorPhoneAdd()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Thư điện tử </td>
+                                                <td> <input type="text" name="mail" formControlName="mail"> </td>
+                                                <td><span class="validation-error">{{getErrorMailAdd()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Địa chỉ </td>
+                                                <td> <input type="text" name="address" formControlName="address"> </td>
+                                                <td><span class="validation-error">{{getErrorAddressAdd()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Giới tính </td>
+                                                <td> 
+                                                    <select name="sex" formControlName="sex">
+                                                        <option value="Nữ">Nữ</option>
+                                                        <option value="Nam">Nam</option>
+                                                    </select> 
+                                                </td>
+                                                <td><span class="validation-error">{{getErrorSexAdd()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Ngày sinh </td>
+                                                <td> <input type="date" name="dateborn" formControlName="dateborn"> </td>
+                                                <td><span class="validation-error">{{getErrorDateBornAdd()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Quyền </td>
+                                                <td> 
+                                                    <select name="permission_id" formControlName="permission_id">
+                                                        <option value="1">1 - Admin</option>
+                                                        <option value="2">2 - Quản lý</option>
+                                                        <option value="3">3 - Nhân viên bán hàng</option>
+                                                        <option value="4">4 - Nhân viên nhập hàng</option>
+                                                    </select> 
+                                                </td>
+                                                <!-- <td><span class="validation-error">{{getErrorSexAdd()}}</span></td> -->
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"> <input [disabled]="!profileUserAddForm.valid" class="modal-header" type="submit" value="Thêm" style="width: 100%;"/> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
                             </div>
                         </div>
                     </div>

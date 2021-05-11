@@ -42,4 +42,9 @@ export class HoaDonService {
   public manager_billSua(data) {
     return this.httpClient.post<any>(this.url + "manager_billrepaire", data, this.httpOptions);
   }
+
+  // GetMaxId HoaDon
+  public GetMaxId() {
+    return this.httpClient.get<any>(this.url + "GetMaxId", this.httpOptions);
+  }
 }

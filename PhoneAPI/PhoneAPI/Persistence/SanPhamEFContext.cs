@@ -56,6 +56,18 @@ namespace PhoneAPI.Persistence
             context.SaveChanges();
         }
 
+        public void SanPham_Update_Status_By_Product_type_id(int product_type_id, int status)
+        {
+            var query = context.SanPhams.AsQueryable();
+            query = query.Where(m => m.product_type_id == product_type_id);
+            foreach (var item in query.ToList())
+            {
+                item.status = status;
+            }
+            context.SanPhams.UpdateRange(query.ToList());
+            context.SaveChanges();
+        }
+
         public IEnumerable<SanPham> SanPham_Filter(string Type, string qSearch, string price, string sort, int pageIndex, int pageSize, out int count, out decimal pricemax) {
             var query = context.SanPhams.AsQueryable();
 

@@ -25,5 +25,10 @@ namespace PhoneAPI.Services
             var cthd = hddto.MappingChiTietHD();
             CTHDcontext.ChiTietHD_Add(cthd);
         }
+
+        public void ChiTietHD_AddRange(IEnumerable<ChiTietHDDto> cthddtos){
+            var cthds = cthddtos.MappingChiTietHDs();
+            CTHDcontext.ChiTietHD_AddRange(cthds);
+        }
     }
 }

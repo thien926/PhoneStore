@@ -43,7 +43,7 @@
                                         </select>
                                         <input type="text" style="height: 30px;" name="input" [(ngModel)]="input"/>
                                         <input type="button" value="Tìm kiếm" style="height: 30px;" (click)="eventTimKiem()"/>
-                                        <input type="button" value="Thêm quyền" style="float: right;" onclick="ThemQuyen()"/>
+                                        <input type="button" value="Thêm quyền" style="float: right;" (click)="load_Add_Quyen()"/>
                                     </p>
                                 </form>
                             </div>
@@ -62,13 +62,295 @@
                                             <td>{{item.details}}</td>
                                             <td *ngIf="tool">
                                                 <!-- @*<i class="pe-7s-config"></i><i class="pe-7s-trash"></i>*@ -->
-                                                <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditQuyen(item.permission_id)"><i class="pe-7s-config"></i></button>
+                                                <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" data-toggle="modal" data-target="#myModal" (click)="load_Edit_Quyen(item.permission_id)"><i class="pe-7s-config"></i></button>
                                                 <!-- @* <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash"><i class="pe-7s-trash"></i></button> *@ -->
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="show_edit_quyen">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title" id="id_cthd">Sửa quyền</h4>
+                                <br>
+                                <input class="validation-error" type="button" value="Hủy" (click)="event_Huy_Sua()">
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <form [formGroup]="profileEdit" (submit)="event_submit_Sua()">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td> Mã quyền </td>
+                                                <td> <input type="text" name="permission_id" formControlName="permission_id" disabled> </td>
+                                                <td><span class="validation-error">{{getErrorPermission_id()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Tên quyền </td>
+                                                <td> <input type="text" name="name" formControlName="name"> </td>
+                                                <td><span class="validation-error"> {{getErrorName()}} </span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Chi tiết quyền </td>
+                                                <td>
+                                                    <table class="table table-hover">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Nhập hàng</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="NhapHang" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="qlNhapHang">Quản lý Nhập hàng</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Nhân viên</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="NhanVien" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="NhanVien">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemNhanVien">Xem Nhân viên</option>
+                                                                        <option value="qlNhanVien">Quản lý Nhân viên</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Sản phẩm</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="SanPham" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="SanPham">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemSanPham">Xem Sản phẩm</option>
+                                                                        <option value="qlSanPham">Quản lý Sản phẩm</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Hóa đơn</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="HoaDon" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="HoaDon">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemHoaDon">Xem Hóa đơn</option>
+                                                                        <option value="qlHoaDon">Quản lý Hóa đơn</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Khách hàng</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="KhachHang" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="KhachHang">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemKhachHang">Xem Khách hàng</option>
+                                                                        <option value="qlKhachHang">Quản lý Khách hàng</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Phiếu nhập</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="PhieuNhap" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="PhieuNhap">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemPhieuNhap">Xem Phiếu nhập</option>
+                                                                        <option value="qlPhieuNhap">Quản lý Phiếu nhập</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Nhà cung cấp</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="NCC" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="NCC">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemNCC">Xem Nhà cung cấp</option>
+                                                                        <option value="qlNCC">Quản lý Nhà cung cấp</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Quyền</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="Quyen" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="Quyen">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemQuyen">Xem Quyền</option>
+                                                                        <option value="qlQuyen">Quản lý Quyền</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Loại sản phẩm</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="LoaiSanPham" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="LoaiSanPham"> 
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemLoaiSanPham">Xem Loại sản phẩm</option>
+                                                                        <option value="qlLoaiSanPham">Quản lý Loại sản phẩm</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Thống kê</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="ThongKe" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="ThongKe">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemThongKe">Xem Thống kê</option>
+                                                                        <option value="qlThongKe">Quản lý Thống kê</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td><span class="validation-error"> {{getErrorDetails()}} </span></td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td colspan="3"> <input [disabled]="!profileEdit.valid" class="modal-header" type="submit" value="Sửa" style="width: 100%;"/> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="show_add_quyen">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title" id="id_cthd">Thêm quyền</h4>
+                                <br>
+                                <input class="validation-error" type="button" value="Hủy" (click)="event_Huy_Add()">
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <form [formGroup]="profileAdd" (submit)="event_submit_Add()">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td> Mã quyền </td>
+                                                <td> <input type="text" name="permission_id" formControlName="permission_id" disabled> </td>
+                                                <td><span class="validation-error">{{getErrorAddPermission_id()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Tên quyền </td>
+                                                <td> <input type="text" name="name" formControlName="name"> </td>
+                                                <td><span class="validation-error"> {{getErrorAddName()}} </span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Chi tiết quyền </td>
+                                                <td>
+                                                    <table class="table table-hover">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Nhập hàng</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="NhapHang" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="qlNhapHang">Quản lý Nhập hàng</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Nhân viên</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="NhanVien" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="NhanVien">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemNhanVien">Xem Nhân viên</option>
+                                                                        <option value="qlNhanVien">Quản lý Nhân viên</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Sản phẩm</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="SanPham" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="SanPham">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemSanPham">Xem Sản phẩm</option>
+                                                                        <option value="qlSanPham">Quản lý Sản phẩm</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Hóa đơn</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="HoaDon" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="HoaDon">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemHoaDon">Xem Hóa đơn</option>
+                                                                        <option value="qlHoaDon">Quản lý Hóa đơn</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Khách hàng</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="KhachHang" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="KhachHang">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemKhachHang">Xem Khách hàng</option>
+                                                                        <option value="qlKhachHang">Quản lý Khách hàng</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Phiếu nhập</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="PhieuNhap" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="PhieuNhap">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemPhieuNhap">Xem Phiếu nhập</option>
+                                                                        <option value="qlPhieuNhap">Quản lý Phiếu nhập</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Nhà cung cấp</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="NCC" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="NCC">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemNCC">Xem Nhà cung cấp</option>
+                                                                        <option value="qlNCC">Quản lý Nhà cung cấp</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Quyền</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="Quyen" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="Quyen">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemQuyen">Xem Quyền</option>
+                                                                        <option value="qlQuyen">Quản lý Quyền</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Loại sản phẩm</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="LoaiSanPham" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="LoaiSanPham"> 
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemLoaiSanPham">Xem Loại sản phẩm</option>
+                                                                        <option value="qlLoaiSanPham">Quản lý Loại sản phẩm</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Thống kê</td>
+                                                                <td>
+                                                                    <select [(ngModel)]="ThongKe" [ngModelOptions]="{standalone: true}" (change)="select_Quyen()" name="ThongKe">
+                                                                        <option value="">Null - Không có quyền</option>
+                                                                        <option value="xemThongKe">Xem Thống kê</option>
+                                                                        <option value="qlThongKe">Quản lý Thống kê</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td><span class="validation-error"> {{getErrorAddDetails()}} </span></td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td colspan="3"> <input [disabled]="!profileAdd.valid" class="modal-header" type="submit" value="Thêm" style="width: 100%;"/> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
                             </div>
                         </div>
                     </div>

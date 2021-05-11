@@ -225,37 +225,44 @@ namespace PhoneAPI.Persistence
                     new LoaiSanPham{
                         product_type_id =  1,
                         name =  "SAMSUNG",
-                        description =  "SAMSUNG"
+                        description =  "SAMSUNG",
+                        status=1
                     },
                     new LoaiSanPham{
                         product_type_id =  2,
                         name =  "IIPHONE",
-                        description =   "IIPHONE"
+                        description =   "IIPHONE",
+                        status=1
                     },
                     new LoaiSanPham{
                         product_type_id = 3,
                         name =  "OPPO",
-                        description =  "OPPO"
+                        description =  "OPPO",
+                        status=1
                     },
                     new LoaiSanPham{
                         product_type_id = 4,
                         name =  "VIVO" ,
-                        description =  "VIVO"
+                        description =  "VIVO",
+                        status=1
                     },
                     new LoaiSanPham {
                         product_type_id = 5,
                         name =  "XIAOMI",
-                        description =  "XIAOMI"
+                        description =  "XIAOMI",
+                        status=1
                     },
                     new LoaiSanPham {
                         product_type_id = 6,
                         name =  "REALMe",
-                        description =  "REALMe"
+                        description =  "REALMe",
+                        status=1
                     },
                     new LoaiSanPham {
                         product_type_id = 7,
                         name =  "VSMART" ,
-                        description =  "VSMART"
+                        description =  "VSMART",
+                        status=1
                     }
                 });  
             }

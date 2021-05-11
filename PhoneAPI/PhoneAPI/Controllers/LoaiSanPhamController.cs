@@ -57,5 +57,12 @@ namespace PhoneAPI.Controllers
             }
             return LSPservice.LoaiSanPham_AdminTimKiem(q.type, q.input);
         }
+        
+        // Get MaxID
+        [HttpGet("GetMaxId")]
+        public int GetMaxId()
+        {
+            return LSPservice.LoaiSanPham_GetMaxId();
+        }
     }
 }

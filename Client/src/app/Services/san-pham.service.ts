@@ -35,11 +35,13 @@ export class SanPhamService {
     return this.httpClient.delete<any>(this.url + id, this.httpOptions);
   } 
 
+  // ====================================== Shop ==========================
   // Bên shop
   public SanPham_Filter(data) {
     return this.httpClient.post<any>(this.url + "shop", data, this.httpOptions);
   }
 
+  // ===================================== Home =========================
   // Sản phẩm bán chạy bên home
   public Home_SPBanChay() {
     return this.httpClient.get<any>(this.url + 'home-spbanchay', this.httpOptions);
@@ -49,8 +51,15 @@ export class SanPhamService {
   public Home_SPHot() {
     return this.httpClient.get<any>(this.url + 'home-sphot', this.httpOptions);
   }
+
+  // ===================================== ADMIN - SanPham ==========================
   // TÌm kiếm bên admin sản phẩm
   public manager_spTimKiem(data) {
     return this.httpClient.post<any>(this.url + "manager_spsearch", data, this.httpOptions);
+  }
+
+  // TÌm kiếm bên admin sản phẩm
+  public manager_Lock_ListSP(data) {
+    return this.httpClient.post<any>(this.url + "lock_listsp", data, this.httpOptions);
   }
 }

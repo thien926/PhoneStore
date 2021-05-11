@@ -38,6 +38,9 @@ namespace PhoneAPI.Persistence
             context.LoaiSanPhams.Update(LSP);
             context.SaveChanges();
         }
+        public int LoaiSanPham_GetMaxId(){
+            return context.LoaiSanPhams.Max(m => m.product_type_id);
+        }
         public IEnumerable<LoaiSanPham> LoaiSanPham_AdminTimKiem(string type, string input){
             var query = context.LoaiSanPhams.AsQueryable();
             switch(type){

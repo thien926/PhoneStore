@@ -10,5 +10,6 @@ namespace PhoneAPI.Interfaces
         void ChiTietHD_Add(ChiTietHD q);
         void ChiTietHD_Update(ChiTietHD q);
         void ChiTietHD_Remove(ChiTietHD q);
+        void ChiTietHD_AddRange(IEnumerable<ChiTietHD> list);
     }
 }

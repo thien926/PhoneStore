@@ -69,7 +69,7 @@
                                 <option value="diachi">Chọn địa chỉ nhận hàng khác</option>
                             </select>
                             <form *ngIf="isAddress == 'diachi'">
-                                <input type="text" placeholder="Nhập địa chỉ nhận hàng" class="left_cart_select" >
+                                <input type="text" [(ngModel)]="address_thanhtoan" placeholder="Nhập địa chỉ nhận hàng" class="left_cart_select" >
                             </form>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                                 <li class="subtotal">Tổng sản phẩm <span id="tongsp">{{totalSP}}</span></li>
                                 <li class="cart-total">Thành tiền <span id="tongtien">{{totalCart}} đ</span></li>
                             </ul>
-                            <p onclick="CheckOutCart(this)" class="proceed-btn">Thanh toán</p>
+                            <p (click)="CheckOutCart()" class="proceed-btn">Thanh toán</p>
                         </div>
                     </div>
                 </div>

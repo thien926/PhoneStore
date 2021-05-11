@@ -5,5 +5,6 @@ namespace PhoneAPI.DTOs
         public int product_type_id {get; set;}
         public string name {get; set;}        
         public string description {get; set;}
+        public int status {get; set;}
     }
 }

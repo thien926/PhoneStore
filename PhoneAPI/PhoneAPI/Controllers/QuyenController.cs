@@ -56,5 +56,12 @@ namespace PhoneAPI.Controllers
             }
             return Qservice.Quyen_AdminTimKiem(q.type, q.input);
         }
+
+        // Get MaxID
+        [HttpGet("GetMaxId")]
+        public int GetMaxId()
+        {
+            return Qservice.Quyen_GetMaxId();
+        }
     }
 }

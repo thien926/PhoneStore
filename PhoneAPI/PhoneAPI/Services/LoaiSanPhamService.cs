@@ -42,5 +42,9 @@ namespace PhoneAPI.Services
         public IEnumerable<LoaiSanPhamDto> LoaiSanPham_AdminTimKiem(string type, string input) {
             return LSPcontext.LoaiSanPham_AdminTimKiem(type, input).MappingLoaiSanPhamDtos();
         }
+
+        public int LoaiSanPham_GetMaxId(){
+            return LSPcontext.LoaiSanPham_GetMaxId();
+        }
     }
 }

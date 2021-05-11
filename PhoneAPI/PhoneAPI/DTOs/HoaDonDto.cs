@@ -18,7 +18,7 @@ namespace PhoneAPI.DTOs
         public DateTime? date_receice{get; set;}
         
         [DataType(DataType.Date)]
-        public DateTime date_order{get; set;}
+        public DateTime? date_order{get; set;}
         public long total { get; set;}
         public int status { get; set;}
     }

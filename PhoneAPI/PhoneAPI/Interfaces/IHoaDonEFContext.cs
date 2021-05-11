@@ -11,5 +11,6 @@ namespace PhoneAPI.Interfaces
         void HoaDon_Update(HoaDon hd);
         void HoaDon_Remove(HoaDon hd);
         IEnumerable<HoaDon> HoaDon_Manager_TimKiem(string type, string input, int status);
+        int HoaDon_GetMaxId();
     }
 }

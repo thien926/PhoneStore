@@ -47,6 +47,7 @@ namespace PhoneAPI.Controllers
             sanPhamService.SanPham_Remove(id);
         }
 
+        // =============================== Shop ==============================
         // Load bên Shop
         [HttpPost("shop")]
         public ActionResult<IndexViewShopModel> SanPham_Filter(DataShopLoad data) {
@@ -82,6 +83,7 @@ namespace PhoneAPI.Controllers
             return indexVSM;
         }
 
+        // ============================== Index ========================
         [HttpGet("home-spbanchay")]
         public IEnumerable<SanPhamDto> SPBanChay() {
             return this.sanPhamService.TenSPChay();
@@ -92,6 +94,7 @@ namespace PhoneAPI.Controllers
             return this.sanPhamService.TenSPNoi();
         }
 
+        // ============================== Admin - SanPham ================================
         // Tìm kiếm bên admin sản phẩm
         [HttpPost("manager_spsearch")]
         public IEnumerable<SanPhamDto> TimKiem(SP_SearchDto q){
@@ -99,6 +102,12 @@ namespace PhoneAPI.Controllers
                 q.input = "";
             }
             return sanPhamService.SanPhams_AdminTimKiem(q.type, q.input);
+        }
+
+        // Khóa trạng thái danh sách sản phẩm theo product_type_id
+        [HttpPost("lock_listsp")]
+        public void Lock_ListSP(SP_LSP_Status p) {
+            this.sanPhamService.SanPham_Update_Status_By_Product_type_id(p.product_type_id, p.status);
         }
     }
 }

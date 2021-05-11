@@ -14,6 +14,8 @@ namespace PhoneAPI.Models
 
         public string description {get; set;}
 
+        public int status {get; set;}
+
         public ICollection<SanPham> SanPhams {get; set;}
 
         public LoaiSanPham(){

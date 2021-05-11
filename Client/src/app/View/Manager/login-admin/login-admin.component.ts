@@ -45,7 +45,7 @@ export class LoginAdminComponent implements OnInit {
           title : "Đăng nhập thành công!!!",
           html : "Chào " + data.full_name
         }).then(result => {
-          location.href = window.location.origin + "/manager/bill";
+          location.href = window.location.origin + "/manager/user";
         });
       }
       else {

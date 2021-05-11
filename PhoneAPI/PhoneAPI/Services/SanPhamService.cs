@@ -70,5 +70,9 @@ namespace PhoneAPI.Services
         public IEnumerable<SanPhamDto> SanPhams_AdminTimKiem(string type, string input){
             return SPcontext.SanPhams_AdminTimKiem(type, input).MappingSanPhamDtos();
         }
+
+        public void SanPham_Update_Status_By_Product_type_id(int product_type_id, int status){
+            SPcontext.SanPham_Update_Status_By_Product_type_id(product_type_id, status);
+        }
     }
 }

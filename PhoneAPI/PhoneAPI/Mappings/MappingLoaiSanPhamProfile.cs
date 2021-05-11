@@ -10,7 +10,8 @@ namespace PhoneAPI.Mappings
             return new LoaiSanPhamDto{
                 product_type_id = lsp.product_type_id,
                 name = lsp.name,
-                description = lsp.description
+                description = lsp.description,
+                status = lsp.status
             };
         }
 
@@ -18,7 +19,8 @@ namespace PhoneAPI.Mappings
             return new LoaiSanPham{
                 product_type_id = lspdto.product_type_id,
                 name = lspdto.name,
-                description = lspdto.description
+                description = lspdto.description,
+                status = lspdto.status
             };
         }
 
@@ -26,6 +28,7 @@ namespace PhoneAPI.Mappings
             // lsp.product_type_id = lspdto.product_type_id;
             lsp.name = lspdto.name;
             lsp.description = lspdto.description;
+            lsp.status = lspdto.status;
         }
 
         public static IEnumerable<LoaiSanPhamDto> MappingLoaiSanPhamDtos(this IEnumerable<LoaiSanPham> lsps){

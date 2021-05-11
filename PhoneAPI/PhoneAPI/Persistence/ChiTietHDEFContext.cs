@@ -17,6 +17,12 @@ namespace PhoneAPI.Persistence
             context.SaveChanges();
         }
 
+        public void ChiTietHD_AddRange(IEnumerable<ChiTietHD> list)
+        {
+            context.ChiTietHDs.AddRange(list);
+            context.SaveChanges();
+        }
+
         public IEnumerable<ChiTietHD> ChiTietHD_GetAll()
         {
             return context.ChiTietHDs.ToList();
