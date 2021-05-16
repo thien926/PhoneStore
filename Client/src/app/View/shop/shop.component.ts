@@ -256,6 +256,9 @@ export class ShopComponent implements OnInit {
 
   public load_Phan_trang() {
     var s = '';
+    if(this.page_min < 1) {
+      this.page_min = 1;
+    }
     for (let i = this.page_min; i <= this.page_max; ++i) {
       if (i != this.pageIndex) {
         s += '<a href="' + this.getUrlPhanTrang(i) + '">' + i + '</a>';
