@@ -74,5 +74,9 @@ namespace PhoneAPI.Services
         public void SanPham_Update_Status_By_Product_type_id(int product_type_id, int status){
             SPcontext.SanPham_Update_Status_By_Product_type_id(product_type_id, status);
         }
+
+        public int SanPham_MaxProduct_Id() {
+            return SPcontext.SanPham_MaxProduct_Id();
+        }
     }
 }

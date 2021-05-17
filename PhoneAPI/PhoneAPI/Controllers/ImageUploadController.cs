@@ -27,7 +27,7 @@ namespace PhoneAPI.Controllers
             try {
                 // Console.WriteLine("Count: " + HttpContext.Request);
                 var file = Request.Form.Files[0];
-                Console.WriteLine("File: " + file);
+                // Console.WriteLine("File: " + file);
                 if(file.Length > 0) {
                     if(!Directory.Exists(_env.WebRootPath + "\\img\\")) {
                         Directory.CreateDirectory(_env.WebRootPath + "\\img\\");

@@ -52,6 +52,11 @@ namespace PhoneAPI.Controllers
             sanPhamService.SanPham_Remove(id);
         }
 
+        [HttpGet("getMaxProductID")]
+        public int getMaxProductID() {
+            return this.sanPhamService.SanPham_MaxProduct_Id();
+        }
+
         // =============================== Shop ==============================
         // Load bên Shop
         [HttpPost("shop")]

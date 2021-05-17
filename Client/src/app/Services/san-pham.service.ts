@@ -60,6 +60,9 @@ export class SanPhamService {
   }
 
   // ===================================== ADMIN - SanPham ==========================
+  public getMaxProductID() {
+    return this.httpClient.get<any>(this.url + "getMaxProductID", this.httpOptions);
+  }
   // TÌm kiếm bên admin sản phẩm
   public manager_spTimKiem(data) {
     return this.httpClient.post<any>(this.url + "manager_spsearch", data, this.httpOptions);

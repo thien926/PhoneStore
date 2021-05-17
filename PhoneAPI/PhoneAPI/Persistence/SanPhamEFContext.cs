@@ -155,6 +155,17 @@ namespace PhoneAPI.Persistence
             return maxprice;
         }
 
+        public int SanPham_MaxProduct_Id(){
+            IEnumerable<SanPham> ListSP = SanPham_GetAll();
+            int maxproduct_id = 0;
+            foreach(var q in ListSP){
+                if(maxproduct_id <= q.product_id){
+                    maxproduct_id = q.product_id;
+                }
+            }
+            return maxproduct_id;
+        }
+
         public IEnumerable<SanPham> SanPham_ListCart(string list) {
             var query = context.SanPhams.AsQueryable();
             if(!string.IsNullOrEmpty(list)) {

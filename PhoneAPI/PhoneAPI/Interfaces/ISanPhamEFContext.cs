@@ -18,5 +18,6 @@ namespace PhoneAPI.Interfaces
         IEnumerable<SanPham> SanPham_ListCart(string list);
         IEnumerable<SanPham> SanPhams_AdminTimKiem(string type, string input);
         void SanPham_Update_Status_By_Product_type_id(int product_type_id, int status);
+        int SanPham_MaxProduct_Id();
     }
 }
