@@ -74,7 +74,7 @@
                                             <td>{{item.use}}</td>
                                             <td>{{checkStatus(item.status)}}</td>
                                             <td *ngIf="tool">
-                                                <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditSP(item.product_id)"><i class="pe-7s-config"></i></button>
+                                                <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit" data-toggle="modal" data-target="#myModal" (click)="load_Edit_SP(item.product_id)"><i class="pe-7s-config"></i></button>
                                                 <span *ngIf="item.status == 1; then status1; else status2"></span> 
                                                 <ng-template #status1>
                                                     <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash" (click)="RemoveSP(item.product_id)"><i class="pe-7s-lock"></i></button>
@@ -87,7 +87,68 @@
                                         
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="col-md-12" *ngIf="show_edit_SP">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title" id="id_cthd">Sửa sản phẩm</h4>
+                                <br>
+                                <input class="validation-error" type="button" value="Hủy" (click)="event_Huy_Sua()">
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <form [formGroup]="profileEdit" (submit)="event_submit_Sua()">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td> Mã sản phẩm </td>
+                                                <td> <input type="text" name="product_id" formControlName="product_id" disabled> </td>
+                                                <td><span class="validation-error"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Mã loại sản phẩm </td>
+                                                <td> 
+                                                    <!-- <input type="text" name="product_type_id" formControlName="product_type_id">  -->
+                                                    <select name="product_type_id" formControlName="product_type_id">
+                                                        <option *ngFor="let item of ListLSP" value={{item.product_type_id}}>{{item.product_type_id}} - {{item.name}}</option>
+                                                    </select> 
+                                                </td>
+                                                <td><span class="validation-error"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Tên sản phẩm </td>
+                                                <td> <input type="text" name="name" formControlName="name"> </td>
+                                                <td><span class="validation-error">{{getErrorNameEdit()}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Số lượng </td>
+                                                <td> <input type="number" name="amount" formControlName="amount"> </td>
+                                                <td><span class="validation-error"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Giá </td>
+                                                <td> <input type="number" name="price" formControlName="price"> </td>
+                                                <td><span class="validation-error"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Mô tả </td>
+                                                <td> <textarea type="text" name="description" formControlName="description"></textarea> </td>
+                                                <td><span class="validation-error"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Hình ảnh </td>
+                                                <td> <input type="file" /><textarea type="text" name="img" formControlName="img" disabled></textarea></td>
+                                                <td><span class="validation-error"></span></td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td colspan="3"> <input [disabled]="!profileEdit.valid" class="modal-header" type="submit" value="Sửa" style="width: 100%;"/> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
                             </div>
                         </div>
                     </div>

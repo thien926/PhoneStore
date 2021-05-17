@@ -7,9 +7,16 @@ import { environment } from 'src/environments/environment';
 })
 export class SanPhamService {
   url = `${environment.apiUrl}sanpham/`;
+  urlImage = `${environment.apiUrl}imageupload/`;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
+      // Authorization: 'my-auth-token'
+    })
+  };
+  private httpOptionsImage = {
+    headers: new HttpHeaders({
+      'Content-Type':  'mulipart/form-data',
       // Authorization: 'my-auth-token'
     })
   };
@@ -61,5 +68,10 @@ export class SanPhamService {
   // TÌm kiếm bên admin sản phẩm
   public manager_Lock_ListSP(data) {
     return this.httpClient.post<any>(this.url + "lock_listsp", data, this.httpOptions);
+  }
+
+  // thêm ảnh
+  public postImage(data) {
+    return this.httpClient.post<any>(this.urlImage, data);
   }
 }

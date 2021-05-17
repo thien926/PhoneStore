@@ -10,7 +10,7 @@ import { ManagerModule } from './View/_shared/manager/manager.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     AppRoutingModule,

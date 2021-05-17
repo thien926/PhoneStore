@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoaiSanPhamService } from 'src/app/Services/loai-san-pham.service';
 import { QuyenService } from 'src/app/Services/quyen.service';
 import { SanPhamService } from 'src/app/Services/san-pham.service';
 import Swal from 'sweetalert2';
@@ -16,11 +18,20 @@ export class SanPhamAdminComponent implements OnInit {
   public CurrentQuyen;
 
   public ListSP;
+  public ListLSP;
   
   public type = "all";
   public input = "";
 
-  constructor(private QService : QuyenService, private SPService : SanPhamService) { }
+  // Các trường sửa
+  public show_edit_SP = false;
+  public profileEdit;
+
+  // Các trường add
+  public show_add_SP = false;
+  public profileAdd;
+
+  constructor(private QService : QuyenService, private SPService : SanPhamService, private LSPService: LoaiSanPhamService) { }
 
   ngOnInit(): void {
     this.CurrentNhanVien = JSON.parse(sessionStorage.getItem("CurrentNhanVien"));
@@ -58,6 +69,29 @@ export class SanPhamAdminComponent implements OnInit {
     });
 
     this.loadSP();
+    this.loadLSP();
+  }
+
+  public loadLSP() {
+    // Load Loại Sản Phẩm
+    this.LSPService.getLSPs().subscribe(data => {
+      if(data) {
+        this.ListLSP = data;
+      }
+      else {
+        Swal.fire({
+          type: "error",
+          title : "lỗi load loại sản phẩm",
+          html : "SanPhamAdminComponent"
+        });
+      }
+    }, error => {
+      Swal.fire({
+        type: "error",
+        title : "Lỗi load loại sản phẩm => SanPhamAdminComponent",
+        html : error.responseText
+      });
+    });
   }
 
   public loadSP() {
@@ -176,5 +210,89 @@ export class SanPhamAdminComponent implements OnInit {
           });
         }
     });
+  }
+
+  public load_Edit_SP(product_id) {
+    this.SPService.getSP(product_id).subscribe(data => {
+      this.profileEdit = new FormGroup({
+        product_id : new FormControl(data.product_id, Validators.compose([
+          Validators.required
+        ])),
+        product_type_id : new FormControl(data.product_type_id, Validators.compose([
+          Validators.required
+        ])),
+        name : new FormControl(data.name, Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20)
+        ])),
+        amount : new FormControl(data.amount, Validators.compose([
+          Validators.required
+        ])),
+        price : new FormControl(data.price, Validators.compose([
+          Validators.required
+        ])),
+        description : new FormControl(data.description, Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20)
+        ])),
+        img : new FormControl(data.img, Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20)
+        ])),
+        status : new FormControl(data.status, Validators.compose([
+          Validators.required
+        ]))
+      });
+      this.show_edit_SP = true;
+      this.show_add_SP = false;
+    });
+  }
+
+  public event_Huy_Sua() {
+    this.show_edit_SP = false;
+  }
+
+  public event_Huy_Add() {
+    this.show_add_SP = false;
+  }
+
+  // Lỗi Name
+  public getErrorNameEdit() {
+    const pass = this.profileEdit.controls["name"];
+    if(pass.untouched) {
+      return "";
+    }
+
+    if(pass.errors == null) {
+      return "";
+    }
+    // Có lỗi required
+    if(pass.errors.required != null) {
+      return "Tên sản phẩm là bắt buộc";
+    }
+
+    // Có lỗi chiều dài
+    if(pass.errors.minlength != null || pass.errors.maxlength != null) {
+      return "Tên sản phẩm từ 3 đến 20 kí tự";
+    }
+  }
+
+  // Lỗi Price
+  public getErrorPriceEdit() {
+    const pass = this.profileEdit.controls["price"];
+    if(pass.untouched) {
+      return "";
+    }
+
+    if(pass.errors == null) {
+      return "";
+    }
+    // Có lỗi required
+    if(pass.errors.required != null) {
+      return "Giá là bắt buộc";
+    }
   }
 }

@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using Infrastructure;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using PhoneAPI.DTOs;
 using PhoneAPI.DTOs.Admin.SanPham;
@@ -13,9 +16,11 @@ namespace PhoneAPI.Controllers
     [ApiController]
     public class SanPhamController : ControllerBase
     {
+        private readonly IWebHostEnvironment _env;
         private readonly SanPhamService sanPhamService;
         private readonly LoaiSanPhamService LSPService;
-        public SanPhamController(SanPhamService sanPhamService, LoaiSanPhamService LSPService) {
+        public SanPhamController(IWebHostEnvironment _env, SanPhamService sanPhamService, LoaiSanPhamService LSPService) {
+            this._env = _env;
             this.sanPhamService = sanPhamService;
             this.LSPService = LSPService;
         }
@@ -109,5 +114,26 @@ namespace PhoneAPI.Controllers
         public void Lock_ListSP(SP_LSP_Status p) {
             this.sanPhamService.SanPham_Update_Status_By_Product_type_id(p.product_type_id, p.status);
         }
+
+        // Thêm ảnh sản phẩm
+        // [HttpPost("add_image")]
+        // public JsonResult add_Image(SanPhamDto SP) {
+        //     try {
+        //         var httpRequest = Request.Form;
+        //         var postedFile = httpRequest.Files[0];
+        //         string filename = postedFile.FileName;
+        //         var physicalPath = _env.ContentRootPath + "/Models/" + filename;
+
+        //         using(var stream = new FileStream(physicalPath, FileMode.Create)) {
+        //             postedFile.CopyTo(stream);
+        //         }
+
+        //         return new JsonResult(filename);
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return new JsonResult("none");
+        //     }
+        // }
     }
 }

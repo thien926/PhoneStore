@@ -158,3 +158,6 @@ D:\Git\PhoneStore\PhoneAPI\PhoneAPI\obj\Debug\net5.0\PhoneAPI.dll
 D:\Git\PhoneStore\PhoneAPI\PhoneAPI\obj\Debug\net5.0\ref\PhoneAPI.dll
 D:\Git\PhoneStore\PhoneAPI\PhoneAPI\obj\Debug\net5.0\PhoneAPI.pdb
 D:\Git\PhoneStore\PhoneAPI\PhoneAPI\obj\Debug\net5.0\PhoneAPI.genruntimeconfig.cache
+G:\Git\PhoneStore\PhoneAPI\PhoneAPI\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+G:\Git\PhoneStore\PhoneAPI\PhoneAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+G:\Git\PhoneStore\PhoneAPI\PhoneAPI\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll

@@ -1,13 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using PhoneAPI.Interfaces;
 using PhoneAPI.Persistence;
 using PhoneAPI.Services;
@@ -37,11 +40,14 @@ namespace PhoneAPI
                 });
             });
 
-            // Thêm dịch vụ Session
-            // services.AddSession();
+            // Thiện
+            // services.AddControllersWithViews()
+            //     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft
+            //     .Json.ReferenceLoopHandling.Ignore)
+            //     .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver 
+            //     = new DefaultContractResolver());
 
             services.AddControllers();
-
             // Thiện
             services.AddDbContext<PhoneStoreDBContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("Default")));
@@ -69,6 +75,10 @@ namespace PhoneAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            //THiện
+            else {
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
 
@@ -87,6 +97,15 @@ namespace PhoneAPI
             {
                 endpoints.MapControllers();
             });
+
+            //Thiện
+            // app.UseStaticFiles(new StaticFileOptions{
+            //     FileProvider = new PhysicalFileProvider(Path.Combine(Dictionary.GetCurrentDirectory(), "img"));
+            // });
+
+            // app.Run(async(context) => {
+            //     await context.Response.WriteAsync("Không tìm thấy bất kì thứ gì");
+            // });
         }
     }
 }
