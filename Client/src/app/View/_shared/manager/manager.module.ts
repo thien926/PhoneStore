@@ -14,7 +14,6 @@ import { LoaiSanPhamAdminComponent } from '../../Manager/loai-san-pham-admin/loa
 import { NhanVienAdminComponent } from '../../Manager/nhan-vien-admin/nhan-vien-admin.component';
 import { KhachHangAdminComponent } from '../../Manager/khach-hang-admin/khach-hang-admin.component';
 import { UserAdminComponent } from '../../Manager/user-admin/user-admin.component';
-import { TestloadfileComponent } from '../../Manager/testloadfile/testloadfile.component';
 
 
 
@@ -30,8 +29,7 @@ import { TestloadfileComponent } from '../../Manager/testloadfile/testloadfile.c
     LoaiSanPhamAdminComponent,
     NhanVienAdminComponent,
     KhachHangAdminComponent,
-    UserAdminComponent,
-    TestloadfileComponent
+    UserAdminComponent
   ],
   imports: [
     CommonModule,

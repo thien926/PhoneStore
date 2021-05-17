@@ -31,6 +31,7 @@ export class SanPhamAdminComponent implements OnInit {
   // Các trường add
   public show_add_SP = false;
   public profileAdd;
+  public fileAdd;
 
   constructor(private QService : QuyenService, private SPService : SanPhamService, private LSPService: LoaiSanPhamService) { }
 
@@ -217,7 +218,7 @@ export class SanPhamAdminComponent implements OnInit {
     this.SPService.getMaxProductID().subscribe(data => {
       if(data) {
         this.profileAdd = new FormGroup({
-          product_id : new FormControl(data, Validators.compose([
+          product_id : new FormControl(data + 1, Validators.compose([
             Validators.required
           ])),
           product_type_id : new FormControl(1, Validators.compose([
@@ -238,8 +239,6 @@ export class SanPhamAdminComponent implements OnInit {
             Validators.minLength(3)
           ])),
           img : new FormControl("", Validators.compose([
-            Validators.required,
-            Validators.minLength(3)
           ])),
           status : new FormControl(1, Validators.compose([
             Validators.required
@@ -315,18 +314,75 @@ export class SanPhamAdminComponent implements OnInit {
         });
         
       }
-      this.SPService.UpdateSP(sp).subscribe(data => {
+      
+    }
+    this.SPService.UpdateSP(sp).subscribe(data => {
+      Swal.fire({
+        type : "success",
+        title : "Sửa thông tin thành công!"
+      }).then((result) => {
+        this.loadSP();
+        // location.reload();
+      });
+      
+    });
+    
+  }
+
+  public changeFileAdd(files) {
+    this.fileAdd = files;
+    if(!(this.fileAdd.length === 0)){
+      for(let file of this.fileAdd) {
+        this.profileAdd.patchValue({img : file.name});
+        // this.profileAdd.controls["img"].value = file.name;
+      }
+    }
+  }
+
+  public event_submit_Add() {
+    const sp = {};
+    sp["product_id"] = this.profileAdd.controls["product_id"].value;
+    sp["product_type_id"] = this.profileAdd.controls["product_type_id"].value;
+    sp["name"] = this.profileAdd.controls["name"].value;
+    sp["amount"] = this.profileAdd.controls["amount"].value;
+    sp["price"] = this.profileAdd.controls["price"].value;
+    sp["description"] = this.profileAdd.controls["description"].value;
+    sp["img"] = this.profileAdd.controls["img"].value;
+    sp["status"] = this.profileAdd.controls["status"].value;
+
+    if(this.fileAdd) {
+      if(!(this.fileAdd.length === 0)){
+        const formData = new FormData();
+        for(let file of this.fileAdd) {
+          sp["img"] = file.name;
+          formData.append(file.name, file);
+        }
+
+        this.SPService.postImage(formData).subscribe(data => {
+        });
+        this.fileAdd = null;
+      }
+      this.SPService.AddSP(sp).subscribe(data => {
         Swal.fire({
           type : "success",
-          title : "Sửa thông tin thành công!"
+          title : "Thêm thông tin thành công!"
         }).then((result) => {
           this.loadSP();
           // location.reload();
         });
         
       });
+      
     }
-    
+    else {
+      Swal.fire({
+        type : "error",
+        title : "Thêm thông tin thất bại!"
+      }).then((result) => {
+        this.loadSP();
+        // location.reload();
+      });
+    }
   }
 
   public event_Huy_Sua() {
@@ -426,6 +482,86 @@ export class SanPhamAdminComponent implements OnInit {
     // Có lỗi chiều dài
     if(pass.errors.minlength != null) {
       return "Tên hình ảnh từ 3 kí tự trở lên";
+    }
+  }
+
+  ///////////
+  // Lỗi Name
+  public getErrorNameAdd() {
+    const pass = this.profileAdd.controls["name"];
+    if(pass.untouched) {
+      return "";
+    }
+
+    if(pass.errors == null) {
+      return "";
+    }
+    // Có lỗi required
+    if(pass.errors.required != null) {
+      return "Tên sản phẩm là bắt buộc";
+    }
+
+    // Có lỗi chiều dài
+    if(pass.errors.minlength != null) {
+      return "Tên sản phẩm từ 3 kí tự trở lên";
+    }
+  }
+
+  // Lỗi Price
+  public getErrorPriceAdd() {
+    const pass = this.profileAdd.controls["price"];
+    if(pass.untouched) {
+      return "";
+    }
+
+    if(pass.errors == null) {
+      return "";
+    }
+    // Có lỗi required
+    if(pass.errors.required != null) {
+      return "Giá là bắt buộc";
+    }
+  }
+
+  // Lỗi Soluong
+  public getErrorAmountAdd() {
+    const pass = this.profileAdd.controls["amount"];
+    if(pass.untouched) {
+      return "";
+    }
+
+    if(pass.errors == null) {
+      return "";
+    }
+    // Có lỗi required
+    if(pass.errors.required != null) {
+      return "Số lượng là bắt buộc";
+    }
+  }
+  // Lỗi Mô tả
+  public getErrorDescriptionAdd() {
+    const pass = this.profileAdd.controls["description"];
+    if(pass.untouched) {
+      return "";
+    }
+
+    if(pass.errors == null) {
+      return "";
+    }
+    // Có lỗi required
+    if(pass.errors.required != null) {
+      return "Mô tả là bắt buộc";
+    }
+    // Có lỗi chiều dài
+    if(pass.errors.minlength != null) {
+      return "Mô tả từ 3 kí tự trở lên";
+    }
+  }
+
+  // Lỗi Mô tả
+  public getErrorImgAdd() {
+    if(!this.fileAdd) {
+      return "Hình ảnh là bắt buộc!";
     }
   }
 }

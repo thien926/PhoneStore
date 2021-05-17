@@ -10,7 +10,6 @@ import { LoginAdminComponent } from './View/Manager/login-admin/login-admin.comp
 import { NhanVienAdminComponent } from './View/Manager/nhan-vien-admin/nhan-vien-admin.component';
 import { QuyenAdminComponent } from './View/Manager/quyen-admin/quyen-admin.component';
 import { SanPhamAdminComponent } from './View/Manager/san-pham-admin/san-pham-admin.component';
-import { TestloadfileComponent } from './View/Manager/testloadfile/testloadfile.component';
 import { UserAdminComponent } from './View/Manager/user-admin/user-admin.component';
 import { ProductComponent } from './View/product/product.component';
 import { RegisterComponent } from './View/register/register.component';
@@ -42,7 +41,6 @@ const routes: Routes = [
       { path : 'staff', component : NhanVienAdminComponent },
       { path : 'customer', component : KhachHangAdminComponent },
       { path : 'user', component : UserAdminComponent },
-      { path : 'test', component : TestloadfileComponent },
     ]
   },
 ];
