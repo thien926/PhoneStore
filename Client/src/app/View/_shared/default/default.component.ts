@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from 'src/app/Services/cart.service';
 import { LoaiSanPhamService } from 'src/app/Services/loai-san-pham.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-default',
@@ -30,7 +31,20 @@ export class DefaultComponent implements OnInit {
 
     // Load Danh muc
     this.LSPService.getLSPs().subscribe(data => {
-      this.Danhmuc = data;
+      if(data) {
+        this.Danhmuc = data;
+      }
+      else {
+        Swal.fire({
+          type : "error",
+          title : "Lỗi load danh mục 1"
+        })
+      }
+    }, error => {
+      Swal.fire({
+        type : "error",
+        title : "Lỗi load danh mục 2"
+      })
     });
 
     this.route.queryParams.subscribe(params => {

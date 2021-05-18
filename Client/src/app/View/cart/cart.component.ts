@@ -217,6 +217,7 @@ export class CartComponent implements OnInit {
                   title : "Thanh toán thành công!!!"
                 }).then(result => {
                   DonHang = "";
+                  this.SPforCart = null;
                   localStorage.removeItem("DonHang");
                   this.LoadSPforCart();
                 });

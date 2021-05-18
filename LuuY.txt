@@ -1,0 +1,49 @@
+Duoc Huynh17:34
+Blazor
+Blazor tương lai của WEb development
+2019 Microsoft
+Duoc Huynh17:36
+MVC
+Web Assembly
+Duoc Huynh17:37
+dùng 1 ngôn ngữ duy nhất cho Client & API
+C#
+java
+Bạn17:38
+thầy ns rõ hơn về blazor dy thầy
+Duoc Huynh17:39
+Blazor Server vs Blazor WebAssembly
+Clint Script
+noi hót
+noi host
+SianalR
+Duoc Huynh17:40
+Blazor = Angular (ideas)
+dua tren Comopnent
+C# cho Client API
+Bạn17:41
+Em cảm ơn thầy ạ
+Duoc Huynh17:41
+gay hoang hoan
+Anguar
+Duoc Huynh17:43
+Blazor & Microservice
+Bạn17:43
+Năm hc sau thầy dạy Blazor môn CNPM hay TMDT v thầy?
+Duoc Huynh17:43
+Blozor
+Blazor
+Clean Architecture, CQRS, Microservies
+Bạn17:45
+Dạ em cảm ơn thầy, có trang web nào hc tốt blazor ko thầy
+Duoc Huynh17:45
+Youtube
+Microsoft
+rat it tai lieu tot blazor
+Blazor server 2019
+Blazor Web Asembly 2020
+.NET 5
+Bạn17:47
+Dạ, em cảm ơn thầy
+Duc Pham17:47
+dạ chào thầy ạ
