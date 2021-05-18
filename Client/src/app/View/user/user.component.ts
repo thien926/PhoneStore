@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HoaDonService } from 'src/app/Services/hoa-don.service';
 import { KhachHangService } from 'src/app/Services/khach-hang.service';
 import Swal from 'sweetalert2';
 
@@ -17,7 +18,9 @@ export class UserComponent implements OnInit {
   public profileUserForm;
   public profilePassForm;
 
-  constructor(private httpKH : KhachHangService) { }
+  public ListDonHang;
+
+  constructor(private httpKH : KhachHangService, private HDService : HoaDonService) { }
 
   ngOnInit(): void {
     // Load CurrentUser
@@ -26,6 +29,7 @@ export class UserComponent implements OnInit {
     
     if(CurrentUser) {
       this.httpKH.getKH(CurrentUser['user']).subscribe(data => {
+        
         this.user = data;
         console.log("user: ", data);
         this.edit_date = data.dateborn.toString().split('T')[0];
@@ -92,7 +96,17 @@ export class UserComponent implements OnInit {
             Validators.required
           ]))
         });
+
+        // Load Don Hang
+        this.HDService.getHDsByKH(data).subscribe(data => {
+          if(data) {
+            this.ListDonHang = data;
+          }
+        });
       });
+    }
+    else {
+      location.href = window.location.origin + "/login";
     }
   }
 
@@ -152,6 +166,11 @@ export class UserComponent implements OnInit {
     this.user["sex"] = this.profileUserForm.controls["sex"].value;
     this.user["dateborn"] = this.profileUserForm.controls["dateborn"].value;
     this.user["status"] = this.profileUserForm.controls["status"].value;
+  }
+
+  public eventDangXuat() {
+    sessionStorage.removeItem("CurrentUser");
+    location.reload();
   }
 
   // Lỗi User

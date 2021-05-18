@@ -46,5 +46,10 @@ namespace PhoneAPI.Services
         public int HoaDon_GetMaxId(){
             return HDcontext.HoaDon_GetMaxId();
         }
+
+        public IEnumerable<HoaDonDto> HoaDon_GetByKH(KhachHangDto khdto) {
+            var kh = khdto.MappingKhachHang();
+            return HDcontext.HoaDon_GetByKH(kh).MappingHoaDonDtos();
+        }
     }
 }

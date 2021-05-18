@@ -54,7 +54,7 @@
                                     <li><a class="is_cursor" (click)="changeType('myorder')">Đơn hàng của tôi</a></li>
                                 </ng-template>  
 
-                            <li><a class="is_cursor">Đăng xuất</a></li>
+                            <li><a class="is_cursor" (click)="eventDangXuat()">Đăng xuất</a></li>
                         </ul>
                     </div>
                 </div>
@@ -105,6 +105,48 @@
                         </div>
                         
                         <ng-template *ngSwitchCase="'myorder'">Đơn hàng của tôi</ng-template>
+                        <!-- Sửa mật khẩu -->
+                        <div class="container" *ngSwitchCase="'myorder'">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Mã hóa đơn</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Ngày nhận</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Trạng thái</th>
+                                        <th>Xem chi tiết</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of ListDonHang">
+                                        <td>{{item.bill_id}}</td>
+                                        <td >{{item.phone}}</td>
+                                        <td >{{item.address}}</td>
+                                        <!-- @if(q.date_receice != null){
+                                            var date_receice = item.date_receice.GetValueOrDefault();
+                                            <td>@date_receice.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                                        }
+                                        else{
+                                            <td>item.date_receice</td>
+                                        } -->
+                                        <td>{{item.date_receice}}</td>
+                                        <!-- <td>item.date_order.ToString("dd/MM/yyyy HH:mm:ss")</td> -->
+                                        <td>{{item.date_order}}</td>
+                                        <td class="p-price first-row">{{item.total}} đ</td>
+
+                                        <td *ngIf="item.status == 1">Đang xử lý</td>
+                                        <td *ngIf="item.status == 2">Đang giao hàng</td>
+                                        <td *ngIf="item.status == 3">Đã giao hàng</td>
+                                        <td *ngIf="item.status == 4">Đã hủy đơn hàng</td>
+
+                                        <td><a href="/detailbill?bill_id={{item.bill_id}}" target="_blank"><i class="fa fa-eye"></i></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
                         <!-- Sửa thông tin cá nhân -->
                         <div class="container" *ngSwitchCase="'edit'">

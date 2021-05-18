@@ -47,4 +47,9 @@ export class HoaDonService {
   public GetMaxId() {
     return this.httpClient.get<any>(this.url + "GetMaxId", this.httpOptions);
   }
+
+  // GetMaxId HoaDon
+  public getHDsByKH(data) {
+    return this.httpClient.post<any>(this.url + "HoaDon_GetByKH", data, this.httpOptions);
+  }
 }

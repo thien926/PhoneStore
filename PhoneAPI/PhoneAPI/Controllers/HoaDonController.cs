@@ -55,6 +55,12 @@ namespace PhoneAPI.Controllers
             HDservice.HoaDon_Remove(id);
         }
 
+        [HttpPost("HoaDon_GetByKH")]
+        public IEnumerable<HoaDonDto> HoaDon_GetByKH(KhachHangDto khdto)
+        {
+            return HDservice.HoaDon_GetByKH(khdto);
+        }
+
         // ================================ Admin ================================
         // Tìm kiếm Hóa Đơn cho admin
         [HttpPost("manager_billsearch")]

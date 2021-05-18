@@ -41,6 +41,12 @@ namespace PhoneAPI.Persistence
         public int HoaDon_GetMaxId(){
             return context.HoaDons.Max(m => m.bill_id);
         }
+        public IEnumerable<HoaDon> HoaDon_GetByKH(KhachHang kh)
+        {
+            var query = context.HoaDons.AsQueryable();
+            query = query.Where(m => m.user_kh == kh.user);
+            return query.ToList();
+        }
         public IEnumerable<HoaDon> HoaDon_Manager_TimKiem(string type, string input, int status) {
             var query = context.HoaDons.AsQueryable();
             switch(type){

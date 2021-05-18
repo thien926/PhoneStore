@@ -42,7 +42,7 @@
                                         </select>
                                         <input type="text" style="height: 30px;" name="input" [(ngModel)]="input"/>
                                         <input type="button" value="Tìm kiếm" style="height: 30px;" (click)="eventTimKiem()"/>
-                                        <input type="button" value="Thêm loại sản phẩm" style="float: right;" (click)="load_Add_LSP()"/>
+                                        <input *ngIf="tool" type="button" value="Thêm loại sản phẩm" style="float: right;" (click)="load_Add_LSP()"/>
                                     </p>
                                 </form>
                             </div>

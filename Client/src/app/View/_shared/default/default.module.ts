@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { DetailbillComponent } from '../../detailbill/detailbill.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     ProductComponent,
     UserComponent,
     CartComponent,
+    DetailbillComponent
   ],
   imports: [
     CommonModule,
